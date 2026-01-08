@@ -11,12 +11,17 @@ const ClassifySchema = z.object({
   category: z.enum(["general", "template", "billing", "emergency", "career", "idea"]),
 });
 
-const classify = new Agent({
-  name: "Moydus Classifier",
-  model: "gpt-4.1",
-  outputType: ClassifySchema,
-  modelSettings: { temperature: 0 },
-  instructions: `You are a careful classification assistant.
+// Lazy initialization to avoid build-time errors
+let classify: Agent<typeof ClassifySchema> | null = null;
+
+function getClassifyAgent(): Agent<typeof ClassifySchema> {
+  if (!classify) {
+    classify = new Agent({
+      name: "Moydus Classifier",
+      model: "gpt-4.1",
+      outputType: ClassifySchema,
+      modelSettings: { temperature: 0 },
+      instructions: `You are a careful classification assistant.
 Choose exactly one category:
 general | template | billing | emergency | career | idea
 
@@ -33,7 +38,10 @@ Rules:
 - Prefer "emergency" ONLY if strict emergency definition matches.
 
 Output JSON only: {"category":"general|template|billing|emergency|career|idea"}`,
-});
+    });
+  }
+  return classify;
+}
 
 const CreateTicketInput = z.object({
   email: z.string().email(),
@@ -168,10 +176,15 @@ function looksBlocked(text: string): boolean {
   );
 }
 
-const MoydusConcierge = new Agent({
-  name: "Moydus Concierge",
-  model: "gpt-4.1",
-  tools: create_support_ticket ? [create_support_ticket] : [],
+// Lazy initialization to avoid build-time errors
+let MoydusConcierge: Agent | null = null;
+
+function getMoydusConciergeAgent(): Agent {
+  if (!MoydusConcierge) {
+    MoydusConcierge = new Agent({
+      name: "Moydus Concierge",
+      model: "gpt-4.1",
+      tools: create_support_ticket ? [create_support_ticket] : [],
   modelSettings: { temperature: 0.6, maxTokens: 1400 },
   instructions: `You are "Moydus Concierge" on moydus.com. Always respond in English.
 
@@ -218,7 +231,10 @@ COMPANY FACTS (only use these):
 
 Escalation:
 - If user asks for support/human/ticket or appears blocked, offer support options. Emergency requires siteUrl before showing support actions.`,
-});
+    });
+  }
+  return MoydusConcierge;
+}
 
 export async function runWorkflow(input_as_text: string): Promise<AgentResponse> {
   return await withTrace("Moydus Concierge Workflow", async () => {
@@ -226,7 +242,11 @@ export async function runWorkflow(input_as_text: string): Promise<AgentResponse>
 
     const userText = input_as_text.trim();
 
-    const classifyRun = await runner.run(classify, [
+    // Lazy initialize agents
+    const classifyAgent = getClassifyAgent();
+    const conciergeAgent = getMoydusConciergeAgent();
+
+    const classifyRun = await runner.run(classifyAgent, [
       { role: "user", content: [{ type: "input_text", text: userText }] },
     ]);
     const category = classifyRun.finalOutput?.category as Category | undefined;
@@ -237,7 +257,7 @@ export async function runWorkflow(input_as_text: string): Promise<AgentResponse>
       content: [{ type: "input_text", text: `CATEGORY=${category}` }],
     };
 
-    const conciergeRun = await runner.run(MoydusConcierge, [
+    const conciergeRun = await runner.run(conciergeAgent, [
       contextMsg,
       { role: "user", content: [{ type: "input_text", text: userText }] },
     ]);
