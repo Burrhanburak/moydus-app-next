@@ -107,7 +107,14 @@ try {
       error: data?.error,
     };
   },
-});
+    });
+  }
+} catch (e) {
+  // Silently fail during build
+  console.warn('[Workflow] Tool creation skipped during build');
+}
+
+export { create_support_ticket };
 
 function buildSupportActions(category: Category): AgentAction[] {
   const subject =
