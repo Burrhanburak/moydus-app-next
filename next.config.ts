@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   },
   
   // Static export for Cloudflare Pages (no server-side features)
-  // output: 'export', // Uncomment if deploying to Cloudflare Pages only
+  output: 'export',
   
   // Image optimization disabled - Cloudflare Images handles this
   images: {
@@ -61,35 +61,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["@radix-ui/react-icons", "lucide-react"],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/blog/:country/:state/:category/:slug",
-        destination:
-          "/blog/:country/:state/:state/:category/:slug",
-      },
-      {
-        source: "/blog/:country/:state/:category/:slug/ai-summary.json",
-        destination:
-          "/blog/:country/:state/:state/:category/:slug/ai-summary.json",
-      },
-      {
-        source: "/blog/:country/:state/:category/:slug/ai-qna.json",
-        destination:
-          "/blog/:country/:state/:state/:category/:slug/ai-qna.json",
-      },
-      {
-        source: "/blog/:country/:state/:category/:slug/ai-facts.json",
-        destination:
-          "/blog/:country/:state/:state/:category/:slug/ai-facts.json",
-      },
-      {
-        source: "/blog/:country/:state/:category/:slug/schema.json",
-        destination:
-          "/blog/:country/:state/:state/:category/:slug/schema.json",
-      },
-    ];
-  },
+  // Note: rewrites() is not supported in static export mode
 };
 
 export default nextConfig;
