@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { processHtmlImages } from "@/lib/r2-image";
 import { buildBreadcrumbSchema } from "@/seo/json-ld/builders";
@@ -88,7 +89,7 @@ export default function BestClient({ bestPage, params }: BestClientProps) {
     "Best Lists";
   const description = bestPage.meta_description as string;
   const contentHtmlRaw = bestPage.content_html;
-  const contentHtml: string | undefined = typeof contentHtmlRaw === 'string' ? contentHtmlRaw : undefined;
+  const contentHtml: string = typeof contentHtmlRaw === 'string' && contentHtmlRaw.length > 0 ? contentHtmlRaw : '';
   const faqs = bestPage.faqs as
     | Array<{ question: string; answer: string }>
     | undefined;
@@ -207,6 +208,62 @@ export default function BestClient({ bestPage, params }: BestClientProps) {
       name: item.label,
       url: `https://moydus.com${item.href}`,
     }))
+  );
+
+  // Content section - use explicit type to help TypeScript
+  const contentSection: React.ReactElement | null = contentHtml && contentHtml.length > 0 ? (
+    <article
+      className="prose prose-lg prose-slate max-w-none
+        prose-headings:text-white prose-headings:font-bold prose-headings:tracking-tight
+        prose-h1:text-4xl prose-h1:mt-10 prose-h1:mb-6 prose-h1:border-b prose-h1:border-[#1a1c1d] prose-h1:pb-4
+        prose-h2:text-3xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-white
+        prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-white
+        prose-h4:text-xl prose-h4:mt-5 prose-h4:mb-2 prose-h4:text-white
+          prose-p:text-white/60 prose-p:leading-relaxed prose-p:mb-5 prose-p:text-base
+          prose-a:text-white prose-a:no-underline prose-a:font-medium hover:prose-a:underline prose-a:transition-all
+        prose-strong:text-white prose-strong:font-bold
+        prose-em:text-white/60 prose-em:italic
+        prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-5 prose-ul:space-y-2
+        prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-5 prose-ol:space-y-2
+        prose-li:text-white/60 prose-li:mb-1 prose-li:leading-relaxed
+        prose-blockquote:border-l-4 prose-blockquote:border-white prose-blockquote:pl-6 prose-blockquote:pr-4 prose-blockquote:py-2 prose-blockquote:italic prose-blockquote:text-white/60 prose-blockquote:bg-[#000000] prose-blockquote:rounded-r-lg prose-blockquote:my-6
+        prose-code:text-white prose-code:bg-[#000000] prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-[''] prose-code:after:content-['']
+        prose-pre:bg-[#000000] prose-pre:text-white prose-pre:p-5 prose-pre:rounded-xl prose-pre:overflow-x-auto prose-pre:shadow-lg prose-pre:my-6 prose-pre:border prose-pre:border-[#1a1c1d]
+        prose-pre code:bg-transparent prose-pre code:text-white prose-pre code:px-0 prose-pre code:py-0
+        prose-img:rounded-xl prose-img:shadow-lg prose-img:my-8 prose-img:border prose-img:border-[#1a1c1d] prose-img:w-full prose-img:h-auto
+        prose-figure:my-8
+        prose-figcaption:text-sm prose-figcaption:text-white/60 prose-figcaption:text-center prose-figcaption:mt-2
+        prose-table:w-full prose-table:border-collapse prose-table:mb-6 prose-table:shadow-sm prose-table:rounded-lg prose-table:overflow-hidden
+        prose-th:bg-gray-100 prose-th:font-bold prose-th:text-left prose-th:p-4 prose-th:border prose-th:border-gray-300 prose-th:text-gray-900 prose-th:text-sm prose-th:uppercase prose-th:tracking-wide
+        prose-td:p-4 prose-td:border prose-td:border-[#1a1c1d] prose-td:text-white/60
+        prose-tr:hover:bg-[#000000] prose-tr:transition-colors
+        prose-hr:border-[#1a1c1d] prose-hr:my-8
+        [&>*:first-child]:mt-0 [&>*:last-child]:mb-0
+        [&_.ProseMirror]:outline-none
+        [&_p]:mb-4 [&_p]:leading-7
+        [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:mt-8 [&_h1]:mb-4
+        [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-3
+        [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-4 [&_h3]:mb-2
+        [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:space-y-2
+        [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-2
+        [&_li]:mb-1
+        [&_blockquote]:border-l-4 [&_blockquote]:border-white [&_blockquote]:pl-4 [&_blockquote]:py-2 [&_blockquote]:my-4 [&_blockquote]:bg-[#000000] [&_blockquote]:rounded-r
+        [&_code]:bg-[#000000] [&_code]:text-white [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono
+        [&_pre]:bg-[#000000] [&_pre]:text-white [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-4
+        [&_a]:text-white [&_a]:font-medium [&_a]:hover:underline
+        [&_strong]:font-bold [&_strong]:text-white
+        [&_img]:rounded-lg [&_img]:shadow-md [&_img]:my-4 [&_img]:max-w-full [&_img]:h-auto
+        [&_table]:w-full [&_table]:border-collapse [&_table]:my-4
+        [&_th]:bg-[#000000] [&_th]:font-bold [&_th]:p-2 [&_th]:border [&_th]:border-[#1a1c1d] [&_th]:text-left
+        [&_td]:p-2 [&_td]:border [&_td]:border-[#1a1c1d] [&_td]:text-white/60"
+      dangerouslySetInnerHTML={{ __html: processHtmlImages(contentHtml) }}
+    />
+  ) : (
+    <div className="bg-[#000000] rounded-2xl p-8 text-center">
+      <p className="text-white/60">
+        Content is being prepared. Please check back soon.
+      </p>
+    </div>
   );
 
   return (
@@ -391,60 +448,8 @@ export default function BestClient({ bestPage, params }: BestClientProps) {
         </header>
 
         {/* Content */}
-        {typeof contentHtml === 'string' && contentHtml ? (
-          <article
-            className="prose prose-lg prose-slate max-w-none
-              prose-headings:text-white prose-headings:font-bold prose-headings:tracking-tight
-              prose-h1:text-4xl prose-h1:mt-10 prose-h1:mb-6 prose-h1:border-b prose-h1:border-[#1a1c1d] prose-h1:pb-4
-              prose-h2:text-3xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-white
-              prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-white
-              prose-h4:text-xl prose-h4:mt-5 prose-h4:mb-2 prose-h4:text-white
-                prose-p:text-white/60 prose-p:leading-relaxed prose-p:mb-5 prose-p:text-base
-                prose-a:text-white prose-a:no-underline prose-a:font-medium hover:prose-a:underline prose-a:transition-all
-              prose-strong:text-white prose-strong:font-bold
-              prose-em:text-white/60 prose-em:italic
-              prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-5 prose-ul:space-y-2
-              prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-5 prose-ol:space-y-2
-              prose-li:text-white/60 prose-li:mb-1 prose-li:leading-relaxed
-              prose-blockquote:border-l-4 prose-blockquote:border-white prose-blockquote:pl-6 prose-blockquote:pr-4 prose-blockquote:py-2 prose-blockquote:italic prose-blockquote:text-white/60 prose-blockquote:bg-[#000000] prose-blockquote:rounded-r-lg prose-blockquote:my-6
-              prose-code:text-white prose-code:bg-[#000000] prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-[''] prose-code:after:content-['']
-              prose-pre:bg-[#000000] prose-pre:text-white prose-pre:p-5 prose-pre:rounded-xl prose-pre:overflow-x-auto prose-pre:shadow-lg prose-pre:my-6 prose-pre:border prose-pre:border-[#1a1c1d]
-              prose-pre code:bg-transparent prose-pre code:text-white prose-pre code:px-0 prose-pre code:py-0
-              prose-img:rounded-xl prose-img:shadow-lg prose-img:my-8 prose-img:border prose-img:border-[#1a1c1d] prose-img:w-full prose-img:h-auto
-              prose-figure:my-8
-              prose-figcaption:text-sm prose-figcaption:text-white/60 prose-figcaption:text-center prose-figcaption:mt-2
-              prose-table:w-full prose-table:border-collapse prose-table:mb-6 prose-table:shadow-sm prose-table:rounded-lg prose-table:overflow-hidden
-              prose-th:bg-gray-100 prose-th:font-bold prose-th:text-left prose-th:p-4 prose-th:border prose-th:border-gray-300 prose-th:text-gray-900 prose-th:text-sm prose-th:uppercase prose-th:tracking-wide
-              prose-td:p-4 prose-td:border prose-td:border-[#1a1c1d] prose-td:text-white/60
-              prose-tr:hover:bg-[#000000] prose-tr:transition-colors
-              prose-hr:border-[#1a1c1d] prose-hr:my-8
-              [&>*:first-child]:mt-0 [&>*:last-child]:mb-0
-              [&_.ProseMirror]:outline-none
-              [&_p]:mb-4 [&_p]:leading-7
-              [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:mt-8 [&_h1]:mb-4
-              [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-3
-              [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-4 [&_h3]:mb-2
-              [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:space-y-2
-              [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-2
-              [&_li]:mb-1
-              [&_blockquote]:border-l-4 [&_blockquote]:border-white [&_blockquote]:pl-4 [&_blockquote]:py-2 [&_blockquote]:my-4 [&_blockquote]:bg-[#000000] [&_blockquote]:rounded-r
-              [&_code]:bg-[#000000] [&_code]:text-white [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono
-              [&_pre]:bg-[#000000] [&_pre]:text-white [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-4
-              [&_a]:text-white [&_a]:font-medium [&_a]:hover:underline
-              [&_strong]:font-bold [&_strong]:text-white
-              [&_img]:rounded-lg [&_img]:shadow-md [&_img]:my-4 [&_img]:max-w-full [&_img]:h-auto
-              [&_table]:w-full [&_table]:border-collapse [&_table]:my-4
-              [&_th]:bg-[#000000] [&_th]:font-bold [&_th]:p-2 [&_th]:border [&_th]:border-[#1a1c1d] [&_th]:text-left
-              [&_td]:p-2 [&_td]:border [&_td]:border-[#1a1c1d] [&_td]:text-white/60"
-            dangerouslySetInnerHTML={{ __html: processHtmlImages(contentHtml) }}
-          />
-        ) : (
-          <div className="bg-[#000000] rounded-2xl p-8 text-center">
-            <p className="text-white/60">
-              Content is being prepared. Please check back soon.
-            </p>
-          </div>
-        )}
+        {/* @ts-ignore - TypeScript narrowing issue with Record<string, unknown> */}
+        {contentSection as React.ReactElement}
 
         {/* FAQ */}
         {faqs && faqs.length > 0 && (
