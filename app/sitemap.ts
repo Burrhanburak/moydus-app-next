@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { safeApiGet } from "@/lib/api";
 import { extractLaravelCollection } from "@/lib/extract-laravel-array";
-import { client } from "@/lib/sanity";
+import { client as sanityClient } from "@/lib/sanity";
 
 const BASE_URL = "https://www.moydus.com";
 
@@ -279,8 +279,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
 
     // 9. Marketplace Templates (from Sanity CMS)
-    try {
-      const templates = await client.fetch(
+    if (sanityClient) {
+      try {
+        const templates = await sanityClient.fetch(
         `*[_type == "template" && published == true]{
           "slug": slug.current,
           updatedAt,
@@ -307,8 +308,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
       });
 
-      // Marketplace Categories
-      const categories = await client.fetch(
+        // Marketplace Categories
+        const categories = await sanityClient.fetch(
         `*[_type == "category" && defined(group) && group != ""]{
           "slug": slug.current,
           _updatedAt
@@ -327,9 +328,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           priority: 0.7,
         });
       });
-    } catch (sanityError) {
-      console.error("[Sitemap] Error fetching marketplace templates:", sanityError);
-      // Continue without marketplace templates if Sanity fails
+      } catch (sanityError) {
+        console.error("[Sitemap] Error fetching marketplace templates:", sanityError);
+        // Continue without marketplace templates if Sanity fails
+      }
     }
 
     // 10. Web Stories
