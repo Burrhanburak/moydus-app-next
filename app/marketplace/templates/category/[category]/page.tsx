@@ -56,6 +56,7 @@ const groupLabels: Record<string, string> = {
 const validGroups = ["business", "community", "creative", "style"];
 
 async function getCategory(slug: string) {
+  if (!client) return null;
   const category = await client.fetch(
     `*[_type == "category" && slug.current == $slug][0]{
       title,
@@ -75,6 +76,7 @@ async function getCategory(slug: string) {
 }
 
 async function getSubcategories(slug: string) {
+  if (!client) return [];
   return client.fetch(
     `*[_type == "category" && parent->slug.current == $slug] | order(title asc){
       title,
@@ -87,6 +89,7 @@ async function getSubcategories(slug: string) {
 }
 
 async function getCategoriesByGroup(group: string) {
+  if (!client) return [];
   return client.fetch(
     `*[_type == "category" && group == $group && (!defined(parent) || parent == null || parent == "")] | order(order asc, title asc){
       title,
@@ -104,6 +107,7 @@ async function getTemplatesByCategory(
   slug: string,
   selectedTag?: string | null
 ) {
+  if (!client) return [];
   let query = `*[_type == "template" && published == true && ($slug in categories[]->slug.current || primaryCategory->slug.current == $slug)`;
 
   const params: Record<string, string> = { slug };
@@ -140,6 +144,7 @@ async function getTemplatesByCategory(
 }
 
 async function getTemplatesByGroup(group: string, selectedTag?: string | null) {
+  if (!client) return [];
   // Get all category slugs in this group (without parent)
   const categories = await client.fetch(
     `*[_type == "category" && group == $group && (!defined(parent) || parent == null || parent == "")]{

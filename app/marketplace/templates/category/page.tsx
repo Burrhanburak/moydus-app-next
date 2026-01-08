@@ -37,6 +37,9 @@ const groupLabels: Record<string, string> = {
 };
 
 async function getCategories() {
+  if (!client) {
+    return [];
+  }
   const categories = await client.fetch(
     `*[_type == "category"]{
       title,
