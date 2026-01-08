@@ -87,7 +87,8 @@ export default function BestClient({ bestPage, params }: BestClientProps) {
     (bestPage.meta_title as string) ||
     "Best Lists";
   const description = bestPage.meta_description as string;
-  const contentHtml = bestPage.content_html as string;
+  const contentHtmlRaw = bestPage.content_html;
+  const contentHtml: string | undefined = typeof contentHtmlRaw === 'string' ? contentHtmlRaw : undefined;
   const faqs = bestPage.faqs as
     | Array<{ question: string; answer: string }>
     | undefined;
@@ -390,7 +391,7 @@ export default function BestClient({ bestPage, params }: BestClientProps) {
         </header>
 
         {/* Content */}
-        {contentHtml ? (
+        {typeof contentHtml === 'string' && contentHtml ? (
           <article
             className="prose prose-lg prose-slate max-w-none
               prose-headings:text-white prose-headings:font-bold prose-headings:tracking-tight
@@ -398,8 +399,8 @@ export default function BestClient({ bestPage, params }: BestClientProps) {
               prose-h2:text-3xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-white
               prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-white
               prose-h4:text-xl prose-h4:mt-5 prose-h4:mb-2 prose-h4:text-white
-              prose-p:text-white/60 prose-p:leading-relaxed prose-p:mb-5 prose-p:text-base
-              prose-a:text-white prose-a:no-underline prose-a:font-medium hover:prose-a:underline prose-a:transition-all
+                prose-p:text-white/60 prose-p:leading-relaxed prose-p:mb-5 prose-p:text-base
+                prose-a:text-white prose-a:no-underline prose-a:font-medium hover:prose-a:underline prose-a:transition-all
               prose-strong:text-white prose-strong:font-bold
               prose-em:text-white/60 prose-em:italic
               prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-5 prose-ul:space-y-2

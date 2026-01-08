@@ -140,7 +140,7 @@ export async function generateMetadata({
   const countryName = formatLabel(country);
   
   if (parsed.type === "state") {
-    const stateName = formatLabel(parsed.state);
+    const stateName = formatLabel(parsed.state!);
     return {
       title: `${stateName}, ${countryName} Best Lists | Moydus`,
       description: `Best rankings and reviews from ${stateName}, ${countryName}.`,
@@ -154,7 +154,7 @@ export async function generateMetadata({
   }
   
   if (parsed.type === "city") {
-    const stateName = formatLabel(parsed.state);
+    const stateName = formatLabel(parsed.state!);
     const cityName = formatLabel(parsed.city!);
     return {
       title: `${cityName}, ${stateName} Best Lists | Moydus`,
@@ -169,7 +169,7 @@ export async function generateMetadata({
   }
   
   if (parsed.type === "category") {
-    const stateName = formatLabel(parsed.state);
+    const stateName = formatLabel(parsed.state!);
     const cityName = formatLabel(parsed.city!);
     const categoryName = formatLabel(parsed.category!);
     return {
@@ -247,11 +247,11 @@ export default async function BestCatchAllPage({
   
   // STATE PAGE
   if (parsed.type === "state") {
-    const stateName = formatLabel(parsed.state);
+    const stateName = formatLabel(parsed.state!);
     
     const feedResult = await getBestList({
       country,
-      state: parsed.state,
+      state: parsed.state ?? undefined,
       perPage: 100,
       diverse: true,
     });
@@ -296,13 +296,13 @@ export default async function BestCatchAllPage({
   
   // CITY PAGE
   if (parsed.type === "city") {
-    const stateName = formatLabel(parsed.state);
+    const stateName = formatLabel(parsed.state!);
     const cityName = formatLabel(parsed.city!);
     
     const feedResult = await getBestList({
       country,
-      state: parsed.state,
-      city: parsed.city,
+      state: parsed.state ?? undefined,
+      city: parsed.city ?? undefined,
       perPage: 100,
       diverse: true,
     });
@@ -347,15 +347,15 @@ export default async function BestCatchAllPage({
   
   // CATEGORY PAGE
   if (parsed.type === "category") {
-    const stateName = formatLabel(parsed.state);
+    const stateName = formatLabel(parsed.state!);
     const cityName = formatLabel(parsed.city!);
     const categoryName = formatLabel(parsed.category!);
     
     const feedResult = await getBestList({
       country,
-      state: parsed.state,
-      city: parsed.city,
-      category: parsed.category,
+      state: parsed.state ?? undefined,
+      city: parsed.city ?? undefined,
+      category: parsed.category ?? undefined,
       perPage: 100,
       diverse: true,
     });
@@ -380,9 +380,9 @@ export default async function BestCatchAllPage({
   if (parsed.type === "detail") {
     const bestResult = await getBestPageByLocation(
       country,
-      parsed.state,
-      parsed.city!,
-      parsed.category!,
+      parsed.state ?? null,
+      parsed.city ?? null,
+      parsed.category ?? null,
       parsed.slug!
     );
     
@@ -416,8 +416,8 @@ export default async function BestCatchAllPage({
           bestPage={best as Record<string, unknown>} 
           params={{
             country,
-            state: parsed.state,
-            city: parsed.city!,
+            state: parsed.state ?? null,
+            city: parsed.city ?? null,
             category: parsed.category!,
             slug: parsed.slug!,
           }}
@@ -430,9 +430,9 @@ export default async function BestCatchAllPage({
   if (parsed.type === "detail_no_city") {
     const bestResult = await getBestPageByLocation(
       country,
-      parsed.state,
+      parsed.state ?? null,
       null,
-      parsed.category!,
+      parsed.category ?? null,
       parsed.slug!
     );
     
@@ -466,7 +466,7 @@ export default async function BestCatchAllPage({
           bestPage={best as Record<string, unknown>} 
           params={{
             country,
-            state: parsed.state,
+            state: parsed.state ?? null,
             city: null,
             category: parsed.category!,
             slug: parsed.slug!,
@@ -482,7 +482,7 @@ export default async function BestCatchAllPage({
       country,
       null,
       null,
-      parsed.category!,
+      parsed.category ?? null,
       parsed.slug!
     );
     

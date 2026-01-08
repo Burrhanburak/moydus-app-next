@@ -120,7 +120,12 @@ export async function getServicesByLocation(
   city?: string,
   category?: string
 ): Promise<ApiResult<any>> {
-  return getServicesList(country, state, city, category);
+  return getServicesList({
+    country,
+    state,
+    city,
+    category,
+  });
 }
 
 /**
