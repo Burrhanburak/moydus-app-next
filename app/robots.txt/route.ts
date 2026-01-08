@@ -24,6 +24,10 @@ Disallow: /api/
 Disallow: /studio/
 Disallow: /admin/
 
+# Disallow query parameters (SEO best practice)
+Disallow: /*?*
+Disallow: /*&*
+
 # ——— OPENAI ———
 # Search (shows webpages as links inside ChatGPT search). NOT used for model training.
 User-agent: OAI-SearchBot

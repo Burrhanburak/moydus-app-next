@@ -259,6 +259,7 @@ export default function BlogClient({
               key={linkKey}
               href={href}
               className="group bg-[#000000] rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-[#1a1c1d] hover:border-white/20"
+              prefetch={true} // Enable prefetch for blog post detail pages (high-value pages)
             >
               {/* Image */}
               {/* {(post.featured_image || post.image_url) && (

@@ -96,6 +96,7 @@ export default function BlogFeedWithFilters({
             key={item.href}
             href={item.href}
             className={`${GRID_CARD} ${accentClass}`}
+            prefetch={false} // Disable prefetch for filter links (city/state pages)
           >
             <div>
               <p className="text-xs uppercase tracking-wide text-gray-400">
@@ -181,7 +182,12 @@ export default function BlogFeedWithFilters({
               </h3>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                 {categoryFilters.slice(0, 12).map((item) => (
-                  <Link key={item.href} href={item.href} className={GRID_CARD}>
+                  <Link 
+                    key={item.href} 
+                    href={item.href} 
+                    className={GRID_CARD}
+                    prefetch={false} // Disable prefetch for city/state pages to save crawl budget
+                  >
                     <div>
                       <p className="text-xs uppercase tracking-wide text-white">
                         Category
@@ -211,7 +217,12 @@ export default function BlogFeedWithFilters({
               </h3>
               <div className="mt-5 space-y-3">
                 {countryFilters.slice(0, 6).map((item) => (
-                  <Link key={item.href} href={item.href} className={GRID_CARD}>
+                  <Link 
+                    key={item.href} 
+                    href={item.href} 
+                    className={GRID_CARD}
+                    prefetch={false} // Disable prefetch for city/state pages to save crawl budget
+                  >
                     <div>
                       <p className="text-xs uppercase tracking-wide text-white">
                         Country

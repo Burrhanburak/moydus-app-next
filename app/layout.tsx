@@ -13,14 +13,19 @@ const chatKitScriptUrl =
   process.env.NEXT_PUBLIC_CHATKIT_SCRIPT_URL ||
   "https://cdn.platform.openai.com/deployments/chatkit/chatkit.js";
 
+// Font optimization: font-display: swap for better Core Web Vitals
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap", // Critical for performance - prevents FOIT
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap", // Critical for performance - prevents FOIT
+  preload: false, // Only preload primary font
 });
 
 export const metadata: Metadata = {
@@ -97,6 +102,33 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* 1. charset - MUST be first */}
+        <meta charSet="utf-8" />
+        
+        {/* 2. viewport - Critical for mobile */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        {/* 3. preconnect - DNS prefetch for external resources */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.moydus.com" />
+        <link rel="dns-prefetch" href="https://cdn.moydus.com" />
+        
+        {/* 4. Critical CSS - Inline or preload */}
+        {/* Note: Next.js handles CSS automatically, but you can add critical CSS here if needed */}
+        
+        {/* 5. JSON-LD Schema - Early in head for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              buildWebsiteSchema(),
+              buildOrganizationSchema(),
+            ]),
+          }}
+        />
+        
+        {/* 6. LLMs.txt - For AI crawlers */}
         <script
           type="text/llms.txt"
           dangerouslySetInnerHTML={{
@@ -124,18 +156,11 @@ Moydus is a software company and web design agency delivering custom e-commerce 
 Email: info@moydus.com | Website: https://www.moydus.com`,
           }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
-              buildWebsiteSchema(),
-              buildOrganizationSchema(),
-            ]),
-          }}
-        />
+        
+        {/* 7. Deferred scripts - Load after critical content */}
         <script
           type="module"
-          async
+          defer
           src={chatKitScriptUrl}
           data-chatkit-loader="true"
         />

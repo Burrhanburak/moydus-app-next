@@ -40,17 +40,23 @@ export async function getServicePage(slug: string): Promise<ApiResult<any>> {
   });
 }
 
+export interface ServicePageByLocationParams {
+  country: string;
+  slug: string;
+  state?: string | null;
+  city?: string | null;
+}
+
 /**
  * Get a service page by location (v1 endpoint)
  * Service URL format: /services/{country}/{state?}/{city?}/{slug}
  * NO CATEGORY in service URLs!
  */
 export async function getServicePageByLocation(
-  country: string,
-  state?: string | null,
-  city?: string | null,
-  slug: string
+  params: ServicePageByLocationParams
 ): Promise<ApiResult<any>> {
+  const { country, slug, state, city } = params;
+  
   // Build path-based URL: /v1/service-pages/{country}/{state?}/{city?}/{slug}
   const pathParts = ['/v1/service-pages', country];
 

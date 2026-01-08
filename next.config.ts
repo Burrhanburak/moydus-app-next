@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Static export for Cloudflare Pages (no server-side features)
+  // output: 'export', // Uncomment if deploying to Cloudflare Pages only
+  
+  // Image optimization disabled - Cloudflare Images handles this
   images: {
+    unoptimized: true, // Cloudflare Images/CDN handles optimization
     remotePatterns: [
       {
         protocol: "https",
@@ -38,6 +43,18 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  
+  // Compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production" ? {
+      exclude: ["error", "warn"], // Keep errors and warnings
+    } : false,
+  },
+  
+  // Experimental features for better performance
+  experimental: {
+    optimizePackageImports: ["@radix-ui/react-icons", "lucide-react"],
   },
   async rewrites() {
     return [

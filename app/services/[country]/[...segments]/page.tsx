@@ -102,12 +102,12 @@ export async function generateMetadata({
   
   if (parsed.type === "detail") {
     // Fetch service for canonical URL
-    const serviceResult = await getServicePageByLocation(
+    const serviceResult = await getServicePageByLocation({
       country,
-      parsed.state,
-      parsed.city!,
-      parsed.slug!
-    );
+      slug: parsed.slug!,
+      state: parsed.state,
+      city: parsed.city!,
+    });
 
     const stateName = formatLabel(parsed.state);
     const cityName = formatLabel(parsed.city!);
@@ -138,12 +138,12 @@ export async function generateMetadata({
 
   if (parsed.type === "detail_no_city") {
     // Fetch service for canonical URL
-    const serviceResult = await getServicePageByLocation(
+    const serviceResult = await getServicePageByLocation({
       country,
-      parsed.state,
-      null,
-      parsed.slug!
-    );
+      slug: parsed.slug!,
+      state: parsed.state,
+      city: null,
+    });
 
     const stateName = formatLabel(parsed.state);
     
@@ -173,12 +173,12 @@ export async function generateMetadata({
 
   if (parsed.type === "detail_country_only") {
     // Fetch service for canonical URL
-    const serviceResult = await getServicePageByLocation(
+    const serviceResult = await getServicePageByLocation({
       country,
-      null,
-      null,
-      parsed.slug!
-    );
+      slug: parsed.slug!,
+      state: null,
+      city: null,
+    });
     
     if (serviceResult.success && serviceResult.data) {
       const service = (serviceResult.data as { data?: unknown })?.data || serviceResult.data;
@@ -331,12 +331,12 @@ export default async function ServicesCatchAllPage({
   // DETAIL PAGE (with city)
   if (parsed.type === "detail") {
     // Try to fetch the service
-    const serviceResult = await getServicePageByLocation(
+    const serviceResult = await getServicePageByLocation({
       country,
-      parsed.state,
-      parsed.city!,
-      parsed.slug!
-    );
+      slug: parsed.slug!,
+      state: parsed.state,
+      city: parsed.city!,
+    });
 
     if (!serviceResult.success || !serviceResult.data) {
       notFound();
@@ -359,12 +359,12 @@ export default async function ServicesCatchAllPage({
   
   // DETAIL PAGE (without city - e.g., /services/country/state/slug)
   if (parsed.type === "detail_no_city") {
-    const serviceResult = await getServicePageByLocation(
+    const serviceResult = await getServicePageByLocation({
       country,
-      parsed.state,
-      null, // no city
-      parsed.slug!
-    );
+      slug: parsed.slug!,
+      state: parsed.state,
+      city: null, // no city
+    });
 
     if (!serviceResult.success || !serviceResult.data) {
       notFound();
@@ -387,12 +387,12 @@ export default async function ServicesCatchAllPage({
 
   // DETAIL PAGE (country only - e.g., /services/country/slug)
   if (parsed.type === "detail_country_only") {
-    const serviceResult = await getServicePageByLocation(
+    const serviceResult = await getServicePageByLocation({
       country,
-      null, // no state
-      null, // no city
-      parsed.slug!
-    );
+      slug: parsed.slug!,
+      state: null, // no state
+      city: null, // no city
+    });
 
     if (!serviceResult.success || !serviceResult.data) {
       notFound();

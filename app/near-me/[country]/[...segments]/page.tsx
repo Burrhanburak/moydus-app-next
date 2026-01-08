@@ -194,13 +194,12 @@ export async function generateMetadata({
   if (parsed.type === "detail" || parsed.type === "detail_no_city" || parsed.type === "detail_country_only") {
     // Only fetch service metadata if we have a slug
     if (parsed.slug) {
-      const serviceResult = await getServicePageByLocation(
+      const serviceResult = await getServicePageByLocation({
         country,
-        parsed.state || null,
-        parsed.city || null,
-        parsed.category!,
-        parsed.slug!
-      );
+        slug: parsed.slug!,
+        state: parsed.state || null,
+        city: parsed.city || null,
+      });
       
       if (serviceResult.success && serviceResult.data) {
         const service = (serviceResult.data as { data?: unknown })?.data || serviceResult.data;
@@ -375,13 +374,12 @@ export default async function NearMeCatchAllPage({
   
   // DETAIL PAGE (with city)
   if (parsed.type === "detail") {
-    const serviceResult = await getServicePageByLocation(
+    const serviceResult = await getServicePageByLocation({
       country,
-      parsed.state,
-      parsed.city!,
-      parsed.category!,
-      parsed.slug!
-    );
+      slug: parsed.slug!,
+      state: parsed.state,
+      city: parsed.city!,
+    });
     
     if (!serviceResult.success || !serviceResult.data) {
       notFound();
@@ -405,13 +403,12 @@ export default async function NearMeCatchAllPage({
   
   // DETAIL PAGE (without city)
   if (parsed.type === "detail_no_city") {
-    const serviceResult = await getServicePageByLocation(
+    const serviceResult = await getServicePageByLocation({
       country,
-      parsed.state,
-      null,
-      parsed.category!,
-      parsed.slug!
-    );
+      slug: parsed.slug!,
+      state: parsed.state,
+      city: null,
+    });
     
     if (!serviceResult.success || !serviceResult.data) {
       notFound();
@@ -435,13 +432,12 @@ export default async function NearMeCatchAllPage({
   
   // DETAIL PAGE (country only)
   if (parsed.type === "detail_country_only") {
-    const serviceResult = await getServicePageByLocation(
+    const serviceResult = await getServicePageByLocation({
       country,
-      null,
-      null,
-      parsed.category!,
-      parsed.slug!
-    );
+      slug: parsed.slug!,
+      state: null,
+      city: null,
+    });
     
     if (!serviceResult.success || !serviceResult.data) {
       notFound();
