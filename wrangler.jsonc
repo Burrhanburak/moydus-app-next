@@ -1,5 +1,8 @@
 {
-  "name": "moy-app-next",
-  "compatibility_date": "2026-01-08"
+  "name": "moydus-app-next",
+  "compatibility_date": "2026-01-08",
+  "assets": {
+    "directory": ".next"
+  }
 }
 
