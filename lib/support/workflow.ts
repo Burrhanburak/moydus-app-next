@@ -59,12 +59,18 @@ const CreateTicketOutput = z.object({
   error: z.string().optional(),
 });
 
-export const create_support_ticket = tool({
-  name: "create_support_ticket",
-  description: "Create a support ticket in Moydus Laravel helpdesk. Emergency requires siteUrl.",
-  inputSchema: CreateTicketInput,
-  outputSchema: CreateTicketOutput,
-  execute: async (input) => {
+// Conditional tool creation to avoid build-time errors
+let create_support_ticket: ReturnType<typeof tool> | null = null;
+
+try {
+  // Only create tool at runtime, not during build
+  if (typeof window === 'undefined' && process.env.NEXT_PHASE !== 'phase-production-build') {
+    create_support_ticket = tool({
+      name: "create_support_ticket",
+      description: "Create a support ticket in Moydus Laravel helpdesk. Emergency requires siteUrl.",
+      inputSchema: CreateTicketInput,
+      outputSchema: CreateTicketOutput,
+      execute: async (input) => {
     if (input.category === "emergency") {
       const url = (input.siteUrl ?? "").trim();
       if (!url) return { success: false, error: "Emergency tickets require siteUrl." };
@@ -158,7 +164,7 @@ function looksBlocked(text: string): boolean {
 const MoydusConcierge = new Agent({
   name: "Moydus Concierge",
   model: "gpt-4.1",
-  tools: [create_support_ticket],
+  tools: create_support_ticket ? [create_support_ticket] : [],
   modelSettings: { temperature: 0.6, maxTokens: 1400 },
   instructions: `You are "Moydus Concierge" on moydus.com. Always respond in English.
 
