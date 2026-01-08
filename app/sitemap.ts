@@ -8,7 +8,14 @@ const BASE_URL = "https://www.moydus.com";
 interface SitemapEntry {
   url: string;
   lastModified?: Date | string;
-  changeFrequency?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
+  changeFrequency?:
+    | "always"
+    | "hourly"
+    | "daily"
+    | "weekly"
+    | "monthly"
+    | "yearly"
+    | "never";
   priority?: number;
 }
 
@@ -95,9 +102,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (servicesResult.success && servicesResult.data) {
       const services = extractLaravelCollection(servicesResult.data);
       services.forEach((service: any) => {
-        const country = typeof service.country === "object" ? service.country?.slug : service.country;
-        const state = typeof service.state === "object" ? service.state?.slug : service.state;
-        const city = typeof service.city === "object" ? service.city?.slug : service.city;
+        const country =
+          typeof service.country === "object"
+            ? service.country?.slug
+            : service.country;
+        const state =
+          typeof service.state === "object"
+            ? service.state?.slug
+            : service.state;
+        const city =
+          typeof service.city === "object" ? service.city?.slug : service.city;
         const slug = service.slug;
 
         if (!country || !slug) return;
@@ -109,7 +123,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         entries.push({
           url: pathParts.join("/"),
-          lastModified: service.updated_at || service.published_at || new Date(),
+          lastModified:
+            service.updated_at || service.published_at || new Date(),
           changeFrequency: "daily",
           priority: 0.9,
         });
@@ -121,10 +136,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (blogResult.success && blogResult.data) {
       const posts = extractLaravelCollection(blogResult.data);
       posts.forEach((post: any) => {
-        const country = typeof post.country === "object" ? post.country?.slug : post.country;
-        const state = typeof post.state === "object" ? post.state?.slug : post.state;
-        const city = typeof post.city === "object" ? post.city?.slug : post.city;
-        const category = typeof post.category === "object" ? post.category?.slug : post.category;
+        const country =
+          typeof post.country === "object" ? post.country?.slug : post.country;
+        const state =
+          typeof post.state === "object" ? post.state?.slug : post.state;
+        const city =
+          typeof post.city === "object" ? post.city?.slug : post.city;
+        const category =
+          typeof post.category === "object"
+            ? post.category?.slug
+            : post.category;
         const slug = post.slug;
 
         if (!country || !category || !slug) return;
@@ -148,10 +169,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (bestResult.success && bestResult.data) {
       const pages = extractLaravelCollection(bestResult.data);
       pages.forEach((page: any) => {
-        const country = typeof page.country === "object" ? page.country?.slug : page.country;
-        const state = typeof page.state === "object" ? page.state?.slug : page.state;
-        const city = typeof page.city === "object" ? page.city?.slug : page.city;
-        const category = typeof page.category === "object" ? page.category?.slug : page.category;
+        const country =
+          typeof page.country === "object" ? page.country?.slug : page.country;
+        const state =
+          typeof page.state === "object" ? page.state?.slug : page.state;
+        const city =
+          typeof page.city === "object" ? page.city?.slug : page.city;
+        const category =
+          typeof page.category === "object"
+            ? page.category?.slug
+            : page.category;
         const slug = page.slug;
 
         if (!country || !category || !slug) return;
@@ -175,10 +202,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (topResult.success && topResult.data) {
       const pages = extractLaravelCollection(topResult.data);
       pages.forEach((page: any) => {
-        const country = typeof page.country === "object" ? page.country?.slug : page.country;
-        const state = typeof page.state === "object" ? page.state?.slug : page.state;
-        const city = typeof page.city === "object" ? page.city?.slug : page.city;
-        const category = typeof page.category === "object" ? page.category?.slug : page.category;
+        const country =
+          typeof page.country === "object" ? page.country?.slug : page.country;
+        const state =
+          typeof page.state === "object" ? page.state?.slug : page.state;
+        const city =
+          typeof page.city === "object" ? page.city?.slug : page.city;
+        const category =
+          typeof page.category === "object"
+            ? page.category?.slug
+            : page.category;
         const slug = page.slug;
 
         if (!country || !category || !slug) return;
@@ -202,10 +235,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (howtoResult.success && howtoResult.data) {
       const pages = extractLaravelCollection(howtoResult.data);
       pages.forEach((page: any) => {
-        const country = typeof page.country === "object" ? page.country?.slug : page.country;
-        const state = typeof page.state === "object" ? page.state?.slug : page.state;
-        const city = typeof page.city === "object" ? page.city?.slug : page.city;
-        const category = typeof page.category === "object" ? page.category?.slug : page.category;
+        const country =
+          typeof page.country === "object" ? page.country?.slug : page.country;
+        const state =
+          typeof page.state === "object" ? page.state?.slug : page.state;
+        const city =
+          typeof page.city === "object" ? page.city?.slug : page.city;
+        const category =
+          typeof page.category === "object"
+            ? page.category?.slug
+            : page.category;
         const slug = page.slug;
 
         if (!country || !category || !slug) return;
@@ -229,10 +268,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (faqResult.success && faqResult.data) {
       const pages = extractLaravelCollection(faqResult.data);
       pages.forEach((page: any) => {
-        const country = typeof page.country === "object" ? page.country?.slug : page.country;
-        const state = typeof page.state === "object" ? page.state?.slug : page.state;
-        const city = typeof page.city === "object" ? page.city?.slug : page.city;
-        const category = typeof page.category === "object" ? page.category?.slug : page.category;
+        const country =
+          typeof page.country === "object" ? page.country?.slug : page.country;
+        const state =
+          typeof page.state === "object" ? page.state?.slug : page.state;
+        const city =
+          typeof page.city === "object" ? page.city?.slug : page.city;
+        const category =
+          typeof page.category === "object"
+            ? page.category?.slug
+            : page.category;
         const slug = page.slug;
 
         if (!country || !category || !slug) return;
@@ -256,10 +301,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (compareResult.success && compareResult.data) {
       const pages = extractLaravelCollection(compareResult.data);
       pages.forEach((page: any) => {
-        const country = typeof page.country === "object" ? page.country?.slug : page.country;
-        const state = typeof page.state === "object" ? page.state?.slug : page.state;
-        const city = typeof page.city === "object" ? page.city?.slug : page.city;
-        const category = typeof page.category === "object" ? page.category?.slug : page.category;
+        const country =
+          typeof page.country === "object" ? page.country?.slug : page.country;
+        const state =
+          typeof page.state === "object" ? page.state?.slug : page.state;
+        const city =
+          typeof page.city === "object" ? page.city?.slug : page.city;
+        const category =
+          typeof page.category === "object"
+            ? page.category?.slug
+            : page.category;
         const slug = page.slug;
 
         if (!country || !category || !slug) return;
@@ -279,57 +330,60 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
 
     // 9. Marketplace Templates (from Sanity CMS)
-    if (sanityClient) {
+    if (sanityClient && typeof sanityClient.fetch === 'function') {
       try {
         const templates = await sanityClient.fetch(
-        `*[_type == "template" && published == true]{
+          `*[_type == "template" && published == true]{
           "slug": slug.current,
           updatedAt,
           primaryCategory->{"slug": slug.current},
           categories[]->{"slug": slug.current}
         }`
-      );
+        );
 
-      templates.forEach((template: any) => {
-        const categorySlug =
-          template.primaryCategory?.slug ||
-          template.categories?.[0]?.slug ||
-          "uncategorized";
+        templates.forEach((template: any) => {
+          const categorySlug =
+            template.primaryCategory?.slug ||
+            template.categories?.[0]?.slug ||
+            "uncategorized";
 
-        if (!template.slug) return;
+          if (!template.slug) return;
 
-        entries.push({
-          url: `${BASE_URL}/marketplace/templates/${categorySlug}/${template.slug}`,
-          lastModified: template.updatedAt
-            ? new Date(template.updatedAt)
-            : new Date(),
-          changeFrequency: "weekly",
-          priority: 0.7,
+          entries.push({
+            url: `${BASE_URL}/marketplace/templates/${categorySlug}/${template.slug}`,
+            lastModified: template.updatedAt
+              ? new Date(template.updatedAt)
+              : new Date(),
+            changeFrequency: "weekly",
+            priority: 0.7,
+          });
         });
-      });
 
         // Marketplace Categories
         const categories = await sanityClient.fetch(
-        `*[_type == "category" && defined(group) && group != ""]{
+          `*[_type == "category" && defined(group) && group != ""]{
           "slug": slug.current,
           _updatedAt
         }`
-      );
+        );
 
-      categories.forEach((category: any) => {
-        if (!category.slug) return;
+        categories.forEach((category: any) => {
+          if (!category.slug) return;
 
-        entries.push({
-          url: `${BASE_URL}/marketplace/templates/category/${category.slug}`,
-          lastModified: category._updatedAt
-            ? new Date(category._updatedAt)
-            : new Date(),
-          changeFrequency: "weekly",
-          priority: 0.7,
+          entries.push({
+            url: `${BASE_URL}/marketplace/templates/category/${category.slug}`,
+            lastModified: category._updatedAt
+              ? new Date(category._updatedAt)
+              : new Date(),
+            changeFrequency: "weekly",
+            priority: 0.7,
+          });
         });
-      });
       } catch (sanityError) {
-        console.error("[Sitemap] Error fetching marketplace templates:", sanityError);
+        console.error(
+          "[Sitemap] Error fetching marketplace templates:",
+          sanityError
+        );
         // Continue without marketplace templates if Sanity fails
       }
     }
@@ -340,7 +394,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (storiesResult.success && storiesResult.data) {
         const stories = Array.isArray(storiesResult.data)
           ? storiesResult.data
-          : (storiesResult.data as { stories?: any[]; items?: any[] })?.stories ||
+          : (storiesResult.data as { stories?: any[]; items?: any[] })
+              ?.stories ||
             (storiesResult.data as { stories?: any[]; items?: any[] })?.items ||
             [];
 
@@ -367,4 +422,3 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return entries;
 }
-

@@ -5,16 +5,27 @@ import imageUrlBuilder from '@sanity/image-url';
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const isValidProjectId = projectId && projectId !== 'YOUR_PROJECT_ID' && /^[a-z0-9-]+$/.test(projectId);
 
-export const client = isValidProjectId
-  ? createClient({
+let client: ReturnType<typeof createClient> | null = null;
+let builder: ReturnType<typeof imageUrlBuilder> | null = null;
+
+try {
+  if (isValidProjectId) {
+    client = createClient({
       projectId,
       dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
       useCdn: true,
       apiVersion: '2024-01-01',
-    })
-  : null;
+    });
+    builder = imageUrlBuilder(client);
+  }
+} catch (error) {
+  // Silently fail if Sanity client cannot be created
+  console.warn('[Sanity] Failed to initialize client:', error);
+  client = null;
+  builder = null;
+}
 
-const builder = client ? imageUrlBuilder(client) : null;
+export { client };
 
 export function urlFor(source: any) {
   if (!builder) {
