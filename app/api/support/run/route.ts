@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { runWorkflow } from "@/lib/support/workflow";
 
+// Skip during build - this route requires runtime
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
