@@ -330,7 +330,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
 
     // 9. Marketplace Templates (from Sanity CMS)
-    if (sanityClient && typeof sanityClient.fetch === 'function') {
+    if (sanityClient && typeof sanityClient.fetch === "function") {
       try {
         const templates = await sanityClient.fetch(
           `*[_type == "template" && published == true]{

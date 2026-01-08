@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { runWorkflow } from "@/lib/support/workflow";
 
-// Skip during build - this route requires runtime
-export const runtime = "edge";
+// Use Node.js runtime (not Edge) because workflow uses Node.js APIs
+export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
