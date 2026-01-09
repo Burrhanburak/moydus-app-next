@@ -2,7 +2,7 @@
 "use server";
 
 import { safeApiGet, safeApiPost, ApiResult } from "@/lib/api";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export interface BlogListParams {
   country?: string;
@@ -42,13 +42,14 @@ export async function getBlogList(
     console.log("[Blog] Fetch:", endpoint);
   }
 
+  // Normalized tag: shorter and cleaner format
+  const tag = `blog:list:${params.country || "all"}:${params.state || "all"}:${
+    params.city || "all"
+  }:${params.category || "all"}:${params.groupBy || "none"}`;
+
   return safeApiGet(endpoint, {
     revalidate: 3600,
-    tags: [
-      `blog-list:${params.country || ""}:${params.state || ""}:${
-        params.city || ""
-      }:${params.category || ""}:${params.groupBy || ""}`,
-    ],
+    tags: [tag],
   });
 }
 
@@ -93,8 +94,13 @@ export async function getBlogPostByLocation(
     console.log("[Blog] Location Fetch:", endpoint);
   }
 
+  // Normalized tag: include all location params for proper cache invalidation
+  const tag = `blog:post:loc:${country}:${state || "all"}:${city || "all"}:${
+    category || "all"
+  }:${slug}`;
+
   return safeApiGet(endpoint, {
     revalidate: 3600,
-    tags: [`blog-post-loc:${country}:${slug}`],
+    tags: [tag],
   });
 }

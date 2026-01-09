@@ -81,23 +81,26 @@ export async function apiGet<T = unknown>(
     headers,
   };
 
-  // Handle cache options
+  // Handle cache options - Next.js 16 format
   if (options?.cache) {
     // Explicit cache option takes precedence
     fetchOptions.cache = options.cache;
-    if (options?.tags) {
+    // Still include next options for revalidate/tags if provided
+    if (options?.revalidate !== undefined || options?.tags) {
       fetchOptions.next = {
-        tags: options.tags,
+        ...(options.revalidate !== undefined && { revalidate: options.revalidate }),
+        ...(options.tags && { tags: options.tags }),
       };
     }
   } else if (options?.revalidate !== undefined) {
-    // Use revalidate if specified
+    // Use revalidate with force-cache for read-only content
+    fetchOptions.cache = "force-cache";
     fetchOptions.next = {
       revalidate: options.revalidate,
-      tags: options?.tags,
+      ...(options.tags && { tags: options.tags }),
     };
   } else {
-    // Default: no-store for fresh data
+    // Default: no-store for fresh data (user-specific, auth, mutations)
     fetchOptions.cache = "no-store";
     if (options?.tags) {
       fetchOptions.next = {
