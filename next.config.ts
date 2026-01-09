@@ -1,13 +1,17 @@
 import type { NextConfig } from "next";
 
+const isStaticExport = process.env.NEXT_OUTPUT === "export";
+
 const nextConfig: NextConfig = {
   // Skip TypeScript errors during build (fix later)
   typescript: {
     ignoreBuildErrors: true,
   },
-  
-  // Static export for Cloudflare Pages (no server-side features)
-  output: 'export',
+
+  cacheComponents: true,
+
+  // Static export when explicitly requested (e.g. Cloudflare Pages)
+  ...(isStaticExport ? { output: "export" } : {}),
   
   // Image optimization disabled - Cloudflare Images handles this
   images: {

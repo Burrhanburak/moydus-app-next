@@ -1,5 +1,8 @@
 import { getStories } from "@/app/actions/story-actions";
 import { NextResponse } from "next/server";
+export const dynamic = "force-static";
+export const revalidate = 3600;
+
 
 interface Story {
   slug: string;

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const revalidate = 3600;
+
 // ChatKit CustomApiConfig için endpoint
 // ChatKit bu endpoint'e çeşitli istekler gönderir (sessions, messages, threads, etc.)
 
@@ -93,4 +95,3 @@ export async function PUT(req: Request) {
 export async function DELETE(req: Request) {
   return POST(req);
 }
-

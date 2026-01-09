@@ -7,6 +7,9 @@ import {
   buildWebPageSchema,
 } from "@/seo/json-ld-builders";
 
+export const dynamic = "force-static";
+export const revalidate = 3600;
+
 type RouteParams = {
   country: string;
   state: string;

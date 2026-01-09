@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 
 // Use Node.js runtime (not Edge) because workflow uses Node.js APIs
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
 
 // Lazy import to avoid build-time errors with @openai/agents
 export async function POST(req: Request) {

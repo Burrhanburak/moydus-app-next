@@ -1,6 +1,9 @@
 // app/api/ai-summary/[...path]/route.ts
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-static";
+export const revalidate = 3600;
+
 export async function GET(
   req: Request,
   context: { params: Promise<{ path: string[] }> }
