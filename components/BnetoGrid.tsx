@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { r2cdn } from "@/lib/cdn";
 import {
   Loader,
   Paperclip,
@@ -600,7 +601,7 @@ function SimplifyProductCard() {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="/moydus-video.mp4" type="video/mp4" />
+            <source src={r2cdn("/moydus-video.mp4")} type="video/mp4" />
           </video>
           {/* Overlay for better text readability */}
           <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/40" />

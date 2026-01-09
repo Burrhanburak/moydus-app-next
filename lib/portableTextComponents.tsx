@@ -1,24 +1,35 @@
 import Image from "next/image";
 import { PortableTextComponents } from "@portabletext/react";
-import { urlFor } from "@/lib/sanity";
+import { urlForOptimized, urlForBlurPlaceholder } from "@/lib/sanity";
 
 export const portableTextComponents: PortableTextComponents = {
   types: {
-    image: ({ value }) =>
-      value ? (
+    image: ({ value }) => {
+      if (!value) return null;
+
+      const imageUrl = urlForOptimized(value, {
+        width: 1200, // Higher resolution for better quality
+        quality: 85,
+        format: 'auto',
+      }).url();
+
+      const blurDataUrl = urlForBlurPlaceholder(value);
+
+      return (
         <Image
           className="rounded-lg w-full h-auto my-4"
-          src={urlFor(value)
-            .width(800)
-            .height(600)
-            .quality(80)
-            .auto("format")
-            .url()}
+          src={imageUrl}
           alt={value?.alt || ""}
-          width={800}
-          height={600}
+          width={1200}
+          height={900}
+          loading="lazy"
+          placeholder={blurDataUrl ? "blur" : undefined}
+          blurDataURL={blurDataUrl}
+          quality={85}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
         />
-      ) : null,
+      );
+    },
   },
   block: {
     h1: ({ children }) => (

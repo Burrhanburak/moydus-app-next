@@ -49,6 +49,11 @@ const nextConfig: NextConfig = {
         hostname: "framerusercontent.com", // Framer CDN for images
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "imagedelivery.net", // Cloudflare Images CDN
+        pathname: "/**",
+      },
     ],
   },
   
@@ -62,7 +67,17 @@ const nextConfig: NextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ["@radix-ui/react-icons", "lucide-react"],
+    optimizeCss: true, // Optimize CSS delivery
+    // Avoid serving legacy JavaScript to modern browsers
+    esmExternals: true, // Use ESM externals for better tree-shaking
   },
+  
+  // Modern JavaScript output - avoid legacy polyfills
+  swcMinify: true, // Use SWC minifier (faster and better, default but explicit)
+  
+  // Optimize CSS loading
+  optimizeFonts: true,
+  
   // Note: rewrites() is not supported in static export mode
 };
 

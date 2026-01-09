@@ -5,7 +5,10 @@ import Footer from "@/components/Footer";
 import LenisScrollProvider from "@/components/providers/lenis-provider";
 import HeaderRadix from "@/components/Header";
 import ChatWidget from "@/components/chat/ChatWidget";
-import { buildWebsiteSchema, buildOrganizationSchema } from "@/seo/json-ld/index";
+import {
+  buildWebsiteSchema,
+  buildOrganizationSchema,
+} from "@/seo/json-ld/index";
 
 // Load ChatKit script directly from CDN to avoid frame URL issues
 // If proxy is needed, use NEXT_PUBLIC_CHATKIT_SCRIPT_URL env var
@@ -33,7 +36,7 @@ export const metadata: Metadata = {
 
   title: "Software Company & Web Design Agency | Moydus®", // 52 karakter → mükemmel
   description:
-    "Software company & web design agency delivering custom e-commerce, SaaS and AI automation solutions. Trusted by 1,200+ brands.", // 132 karakter → %100 görünür
+    "Full-service software company and web design agency delivering scalable e-commerce platforms, custom SaaS products, and AI automation solutions. Trusted by 1,200+ brands.",
 
   keywords: [
     "software company",
@@ -44,7 +47,7 @@ export const metadata: Metadata = {
     "saas development",
     "web designer",
     "digital agency",
-    "web design company near me",
+    "web design company ",
   ],
 
   openGraph: {
@@ -92,6 +95,16 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  other: {
+    sameAs: [
+      "https://www.linkedin.com/company/moydus",
+      "https://twitter.com/moydus",
+      "https://www.instagram.com/moydus",
+    ],
+    areaServed: "Worldwide",
+    geoRegion: "Global",
+    geoPlacename: "Worldwide",
+  },
 };
 
 export default function RootLayout({
@@ -104,19 +117,23 @@ export default function RootLayout({
       <head>
         {/* 1. charset - MUST be first */}
         <meta charSet="utf-8" />
-        
+
         {/* 2. viewport - Critical for mobile */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        
+
         {/* 3. preconnect - DNS prefetch for external resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link rel="preconnect" href="https://cdn.moydus.com" />
         <link rel="dns-prefetch" href="https://cdn.moydus.com" />
-        
+
         {/* 4. Critical CSS - Inline or preload */}
         {/* Note: Next.js handles CSS automatically, but you can add critical CSS here if needed */}
-        
+
         {/* 5. JSON-LD Schema - Early in head for SEO */}
         <script
           type="application/ld+json"
@@ -127,7 +144,7 @@ export default function RootLayout({
             ]),
           }}
         />
-        
+
         {/* 6. LLMs.txt - For AI crawlers */}
         <script
           type="text/llms.txt"
@@ -156,7 +173,7 @@ Moydus is a software company and web design agency delivering custom e-commerce 
 Email: info@moydus.com | Website: https://www.moydus.com`,
           }}
         />
-        
+
         {/* 7. Deferred scripts - Load after critical content */}
         <script
           type="module"

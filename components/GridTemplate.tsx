@@ -2,6 +2,8 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useMemo, useRef } from "react";
+import Image from "next/image";
+import { cdn, r2cdn } from "@/lib/cdn";
 
 type Media = {
   type: "image" | "video";
@@ -241,6 +243,12 @@ function ParallaxColumn({
 function CardItem({ card }: { card: Card }): JSX.Element {
   const { media } = card;
 
+  // Calculate responsive image width based on container size
+  // Mobile: 120px, Tablet: 200px, Desktop: 360px
+  // Use larger width for better quality on retina displays
+  // Default to desktop size for SSR, will be optimized on client
+  const imageWidth = 720; // lg: 360px * 2 for retina (default)
+
   return (
     <motion.div
       initial={{ y: 24, opacity: 0 }}
@@ -267,9 +275,15 @@ function CardItem({ card }: { card: Card }): JSX.Element {
       >
         <div className="absolute inset-0">
           {media.type === "image" ? (
-            <img
-              src={media.src}
+            <Image
+              src={cdn(media.src, imageWidth, 80)}
+              width={100}
+              height={100}
+              loading={media.src === "/grid/grid4.png" ? "eager" : "lazy"}
+              fetchPriority={media.src === "/grid/grid4.png" ? "high" : "auto"}
               alt="Template showcase gallery"
+              unoptimized
+              sizes="(max-width: 768px) 120px, (max-width: 1024px) 200px, 360px"
               style={{
                 width: "100%",
                 height: "100%",
@@ -280,8 +294,10 @@ function CardItem({ card }: { card: Card }): JSX.Element {
             />
           ) : (
             <video
-              src={media.src}
-              poster={media.poster}
+              src={r2cdn(media.src, undefined, undefined)}
+              poster={
+                media.poster ? cdn(media.poster, imageWidth, 80) : undefined
+              }
               playsInline
               loop
               muted

@@ -5,26 +5,22 @@ import { useState, useRef, useEffect } from "react";
 import { ArrowRight, RedoDot } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { r2cdn } from "@/lib/cdn";
 
 const collections = [
   {
     title: "Business Templates",
     subtitle: "See business templates",
-    image: "/gridcoli.gif",
+    image: "/mc.gif",
     size: "350px",
     href: "/marketplace/templates",
   },
   {
     title: "Service Categories",
     subtitle: "View all categories",
-    image: "/mc.gif",
-    href: "/marketplace/templates/category",
-  },
-  {
-    title: "Top Services",
-    subtitle: "Discover top services",
+
     image: "/muis.gif",
-    href: "/top",
+    href: "/marketplace/templates/category",
   },
 ];
 
@@ -123,7 +119,8 @@ export default function Collec() {
                     className="h-full w-full object-cover object-center transition-all duration-500 ease-out group-hover:scale-105"
                     height={400}
                     width={300}
-                    src={collection.image}
+                    src={r2cdn(collection.image)}
+                    unoptimized
                     style={{
                       aspectRatio: "3 / 4",
                     }}

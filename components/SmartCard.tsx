@@ -38,8 +38,8 @@ function Card({ title, desc, icon, delay = 0 }: Benefit & { delay?: number }) {
 export default function SmartCard() {
   const benefits: Benefit[] = [
     {
-      title: "AI-Powered Strategies",
-      desc: "Adaptive strategies driven by real-time machine learning.",
+      title: "Website Design & Development Services",
+      desc: "Professional website design and development services focused on performance, accessibility, SEO, and conversion optimization.",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -145,8 +145,8 @@ export default function SmartCard() {
       ),
     },
     {
-      title: "Custom Digital Experiences",
-      desc: "Tailored e-commerce, SaaS, and design solutions built to drive measurable results.",
+      title: "E-Commerce Website Development",
+      desc: "Custom e-commerce development for brands that need fast, secure, and scalable online stores built for growth.",
       icon: (
         <svg
           viewBox="0 0 256 256"
@@ -162,8 +162,8 @@ export default function SmartCard() {
       ),
     },
     {
-      title: "Real-Time Insights",
-      desc: "Live data that empowers smarter business decisions and digital growth.",
+      title: "Custom Software & SaaS Development",
+      desc: "We build custom software and SaaS platforms tailored to complex business needs, workflows, and long-term scalability.",
       icon: (
         <svg
           viewBox="0 0 256 256"
@@ -179,8 +179,8 @@ export default function SmartCard() {
       ),
     },
     {
-      title: "Smart Automation",
-      desc: "Connect custom tools, platforms, and processes for smooth end-to-end execution.",
+      title: "AI Automation & Workflow Optimization",
+      desc: "Automation solutions that integrate AI to improve efficiency, eliminate repetitive tasks, and optimize internal operations.",
       icon: (
         <svg
           viewBox="0 0 256 256"
@@ -196,8 +196,8 @@ export default function SmartCard() {
       ),
     },
     {
-      title: "Dynamic Growth Management",
-      desc: "Flexible digital strategies designed to scale with your business needs",
+      title: "Digital Marketing & Performance Growth",
+      desc: "Performance-focused digital marketing strategies that support growth through SEO, conversion optimization, and scalable campaigns.",
       icon: (
         <svg
           viewBox="0 0 256 256"
@@ -208,23 +208,6 @@ export default function SmartCard() {
         >
           <g>
             <path d="M208,28H48A20,20,0,0,0,28,48V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V48A20,20,0,0,0,208,28ZM52,52H76v95.22a24,24,0,1,0,24,0V125l40,40v39H52ZM204,204H164V160a12,12,0,0,0-3.51-8.49L100,91V52h24V72a12,12,0,0,0,3.51,8.49l17.31,17.3a24,24,0,1,0,17-17L148,67V52h56Z" />
-          </g>
-        </svg>
-      ),
-    },
-    {
-      title: "Social Media Performance",
-      desc: "Track engagement, reach, and growth with real-time insights and clear reporting.",
-      icon: (
-        <svg
-          viewBox="0 0 256 256"
-          width="24"
-          height="24"
-          className="w-6 h-6"
-          fill="currentColor"
-        >
-          <g>
-            <path d="M232,108H140V92h4a20,20,0,0,0,20-20V40a20,20,0,0,0-20-20H112A20,20,0,0,0,92,40V72a20,20,0,0,0,20,20h4v16H24a12,12,0,0,0,0,24H52v24H48a20,20,0,0,0-20,20v32a20,20,0,0,0,20,20H80a20,20,0,0,0,20-20V176a20,20,0,0,0-20-20H76V132H180v24h-4a20,20,0,0,0-20,20v32a20,20,0,0,0,20,20h32a20,20,0,0,0,20-20V176a20,20,0,0,0-20-20h-4V132h28a12,12,0,0,0,0-24ZM116,44h24V68H116ZM76,204H52V180H76Zm128,0H180V180h24Z" />
           </g>
         </svg>
       ),
@@ -240,7 +223,7 @@ export default function SmartCard() {
       <div className="flex flex-col items-center gap-[25px] w-full max-w-[600px] md:max-w-[1100px]">
         <div className="flex flex-col items-center gap-0 md:gap-[20px] w-full">
           <h2 className="text-white text-[32px] md:text-[40px] lg:text-4xl leading-[1.1] tracking-[-0.02em] font-semibold text-center md:leading-tight">
-            Smarter Digital Strategies. <br /> Stronger Business Outcomes.
+            Our Core Services
           </h2>
         </div>
 

@@ -2,82 +2,62 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Rocket, ShoppingBag, Globe, Users } from "lucide-react";
 
-function FeatureCard1() {
+type Client = {
+  title: string;
+  desc: string;
+  icon: React.ReactNode;
+};
+
+function Card({ title, desc, icon, delay = 0 }: Client & { delay?: number }) {
   return (
-    <motion.div
-      className="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-[10px] relative overflow-visible z-[1]"
-      initial={{ opacity: 0, y: 30 }}
+    <motion.li
+      className="bg-[#000000] hover:bg-[#0a0a0a] relative cursor-pointer gap-2 overflow-hidden px-4 py-3 rounded-[20px] border border-[#262626] transition-colors"
+      style={{
+        marginBlock: "10px",
+        minHeight: "110px",
+      }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ type: "spring", duration: 0.8, bounce: 0.01 }}
+      transition={{ type: "spring", duration: 0.6, bounce: 0.1, delay }}
     >
-      {/* Heading - Mobile: order-1, Desktop: normal */}
-      <div
-        className="flex flex-col w-full md:flex-1 md:min-w-0 md:w-px items-center md:items-start gap-5 md:gap-8 order-1 md:order-none"
-        style={{
-          padding: "0",
-        }}
-      >
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-            @media (min-width: 768px) {
-              .feature-card1-content {
-                gap: 32px !important;
-                padding: 20px 0 0 !important;
-              }
-            }
-          `,
-          }}
-        />
-        <div className="feature-card1-content flex flex-col w-full">
-          <div className="flex flex-col gap-3">
-            <h3 className="text-white text-[24px] md:text-2xl lg:text-3xl font-semibold tracking-tight">
-              AI-Powered Social Media Marketing & Growth
-            </h3>
-            <p className="text-white/80 text-[15px] md:text-base lg:text-lg leading-relaxed">
-              Plan, publish, and optimize social campaigns across platforms.
-              Track engagement, reach, and conversions in real time with
-              AI-driven insights.
-            </p>
-          </div>
+      <div className="flex h-fit items-center gap-3 pl-1 pt-1">
+        <div className="w-6 h-6 flex items-center justify-center text-white shrink-0">
+          {icon}
         </div>
+        <span className="text-sm tracking-tight text-white font-medium">
+          {title}
+        </span>
       </div>
-
-      {/* Removed duplicate mobile-only button - unified button exists above */}
-
-      {/* Visual - Mobile: order-3, Desktop: normal */}
-      <div className="feature-soone-container w-full md:flex-1 md:min-w-0 md:w-px relative order-3 md:order-none h-[240px] md:h-[365px]">
-        <div className="absolute inset-0 rounded-[10px] overflow-hidden">
-          {/* Background SVG */}
-          <div
-            className="feature-soone-bg absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage: "url('/soone.svg')",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-              zIndex: 0,
-              opacity: 0.9,
-            }}
-          />
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `
-                @media (max-width: 809.98px) {
-                  .feature-soone-container { height: 280px !important; }
-                  .feature-soone-bg { background-size: contain !important; background-position: center bottom !important; }
-                }
-              `,
-            }}
-          />
-        </div>
-      </div>
-    </motion.div>
+      <p className="px-1 pt-2 pb-1 text-sm text-white/70">{desc}</p>
+    </motion.li>
   );
 }
+
+const clients: Client[] = [
+  {
+    title: "Startups Building Their First Product",
+    desc: "We help startups design, build, and launch their first digital products with clear roadmaps, fast iteration cycles, and scalable technical foundations.",
+    icon: <Rocket className="w-6 h-6" />,
+  },
+  {
+    title: "Growing E-Commerce Brands",
+    desc: "We partner with e-commerce brands ready to scale, optimizing storefronts, performance, automation, and infrastructure to support increasing demand and revenue.",
+    icon: <ShoppingBag className="w-6 h-6" />,
+  },
+  {
+    title: "SaaS Companies Scaling Globally",
+    desc: "We support SaaS teams scaling globally with robust architecture, performance optimization, and development processes designed for international growth.",
+    icon: <Globe className="w-6 h-6" />,
+  },
+  {
+    title: "Agencies & Teams Needing Technical Partners",
+    desc: "We act as a reliable technical partner for agencies and teams, delivering high-quality development, automation, and infrastructure support when needed.",
+    icon: <Users className="w-6 h-6" />,
+  },
+];
 
 export default function Feature() {
   return (
@@ -92,56 +72,30 @@ export default function Feature() {
         aria-hidden
       ></div>
 
-      <div
-        className="flex flex-col items-center w-full max-w-[1100px] relative z-[1] gap-[30px] lg:gap-[25px]"
-        style={{ height: "min-content" }}
-      >
-        {/* Heading */}
-
-        {/* Feature Cards */}
-        <div
-          className="flex flex-col items-center w-full gap-[85px] lg:max-w-[810px] relative"
-          style={{ height: "min-content" }}
-        >
-          {/* Glow Top - Mobile */}
-          <div
-            className="feature-glow-top-mobile absolute pointer-events-none"
-            style={{
-              willChange: "transform",
-              opacity: 0.58,
-            }}
-            aria-hidden
-          />
-          {/* Glow Top - Desktop */}
-          <div
-            className="feature-glow-top-desktop hidden lg:block absolute pointer-events-none"
-            style={{
-              willChange: "transform",
-              opacity: 0.66,
-            }}
-            aria-hidden
-          />
-          {/* Glow Bottom - Mobile */}
-          <div
-            className="feature-glow-bottom-mobile absolute pointer-events-none"
-            style={{
-              willChange: "transform",
-              opacity: 0.58,
-            }}
-            aria-hidden
-          />
-          {/* Glow Bottom - Desktop */}
-          <div
-            className="feature-glow-bottom-desktop hidden lg:block absolute pointer-events-none"
-            style={{
-              willChange: "transform",
-              opacity: 0.8,
-            }}
-            aria-hidden
-          />
-
-          <FeatureCard1 />
+      <div className="flex flex-col items-center gap-[25px] w-full max-w-[600px] md:max-w-[1100px]">
+        <div className="flex flex-col items-center gap-0 md:gap-[20px] w-full">
+          <motion.h2
+            className="text-white text-[32px] md:text-[40px] lg:text-4xl leading-[1.1] tracking-[-0.02em] font-semibold text-center md:leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ type: "spring", duration: 0.6, bounce: 0.05 }}
+          >
+            Who We Work With
+          </motion.h2>
         </div>
+
+        <ul className="grid w-full mx-auto gap-[10px] md:gap-[15px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-min list-none p-0 m-0">
+          {clients.map((c, i) => (
+            <Card
+              key={i}
+              title={c.title}
+              desc={c.desc}
+              icon={c.icon}
+              delay={i * 0.12}
+            />
+          ))}
+        </ul>
       </div>
     </section>
   );

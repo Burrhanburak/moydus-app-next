@@ -2,7 +2,6 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import {
   ShieldCheck,
   Layers,
@@ -52,10 +51,10 @@ export default function Intro() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ type: "spring", duration: 0.6, bounce: 0.05 }}
         >
-          <h2 className="text-white text-[20px] md:text-xl font-medium">
+          <h2 className="text-white text-[25px] md:text-xl font-medium">
             Trusted by High-Growth Digital Brands Worldwide{" "}
           </h2>
-          <p className="text-white/80 text-[12px] m-2 md:text-lg text-center w-full md:max-w-[700px] leading-[1.5] md:leading-relaxed px-6 md:px-0">
+          <p className="text-white/80 text-[14px] m-2 md:text-lg text-center w-full md:max-w-[700px] leading-[1.5] md:leading-relaxed px-6 md:px-0">
             Global brands trust Moydus to build scalable websites, SaaS
             platforms, and automation systems that perform across markets.
           </p>
@@ -286,68 +285,53 @@ export default function Intro() {
               delay: 0.1,
             }}
           >
-            <div className="flex flex-col items-center md:items-start gap-3 w-full max-w-[320px] md:max-w-[700px] px-0 mx-0">
+            <div className="flex flex-col items-center md:items-start gap-6 w-full max-w-[320px] md:max-w-[700px] px-0 mx-0">
               <h2 className="text-white text-[28px] md:text-[38px] lg:text-[42px] leading-[1.15] md:leading-[1.1] tracking-[-0.02em] font-semibold text-center md:text-left break-words">
-                Global Software, Web & E-Commerce Solutions Built to Scale{" "}
+                A Full-Service Software Company for Modern Businesses
               </h2>
-              <p className="text-white/80 text-[15px] md:text-base lg:text-lg max-w-[500px] mx-auto md:mx-0 leading-relaxed text-center md:text-left">
-                We design{" "}
-                <strong>
-                  scalable websites, e-commerce platforms, SaaS products, and
-                  AI-powered automation helping brands expand into 50+ countries
-                  worldwide.
-                </strong>{" "}
-              </p>
-              <Link
-                href="/about"
-                target="_blank"
-                className="inline-flex items-center justify-center gap-[10px] feature-button"
-                style={{
-                  borderBottomWidth: "0px",
-                  borderLeftWidth: "0px",
-                  borderRightWidth: "0px",
-                  borderTopWidth: "0px",
-                  borderColor: "rgba(0, 0, 0, 0)",
-                  borderStyle: "solid",
-                  backdropFilter: "none",
-                  backgroundColor: "rgba(255, 255, 255, 0.85)",
-                  borderRadius: "27px",
-                  boxShadow: "none",
-                  padding: "10px 10px 10px 15px",
-                  textDecoration: "none",
-                  willChange: "transform",
-                }}
-              >
-                <style
-                  dangerouslySetInnerHTML={{
-                    __html: `
-                    @media (min-width: 768px) {
-                      .feature-button { padding: 8px 6px 8px 15px !important; }
-                    }
-                  `,
-                  }}
-                />
-                <span className="text-sm font-medium text-black">
-                  Learn More
-                </span>
-                <span
-                  className="shrink-0 size-5 rounded-full grid place-items-center text-white"
-                  style={{
-                    backgroundColor: "rgb(0,0,0)",
-                    WebkitMask:
-                      "radial-gradient(50% 50%, rgb(0,0,0) 97.7319%, rgba(0,0,0,0) 100%)",
-                    mask: "radial-gradient(50% 50%, rgb(0,0,0) 97.7319%, rgba(0,0,0,0) 100%)",
-                  }}
-                >
-                  <svg
-                    viewBox="0 0 256 256"
-                    className="w-3.5 h-3.5"
-                    fill="currentColor"
-                  >
-                    <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
-                  </svg>
-                </span>
-              </Link>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <div>
+                  <h3 className="text-white text-lg md:text-xl font-semibold mb-2">
+                    Custom Web Design & Development
+                  </h3>
+                  <p className="text-white/70 text-[15px] md:text-base leading-relaxed">
+                    We design and develop modern, high-performing websites
+                    focused on speed, usability, and conversion, tailored to
+                    your brand, goals, and long-term growth strategy.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-white text-lg md:text-xl font-semibold mb-2">
+                    Scalable E-Commerce Platforms
+                  </h3>
+                  <p className="text-white/70 text-[15px] md:text-base leading-relaxed">
+                    We build scalable e-commerce platforms optimized for
+                    performance, growth, and global sales, using modern
+                    technologies and flexible architectures that scale with your
+                    business.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-white text-lg md:text-xl font-semibold mb-2">
+                    SaaS Product Development
+                  </h3>
+                  <p className="text-white/70 text-[15px] md:text-base leading-relaxed">
+                    From MVP to production, we develop custom SaaS products with
+                    secure architecture, intuitive UX, and scalable
+                    infrastructure built for long-term success.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-white text-lg md:text-xl font-semibold mb-2">
+                    AI-Powered Automation Solutions
+                  </h3>
+                  <p className="text-white/70 text-[15px] md:text-base leading-relaxed">
+                    We create AI-powered automation tools that streamline
+                    workflows, reduce manual work, and help teams operate
+                    faster, smarter, and more efficiently.
+                  </p>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

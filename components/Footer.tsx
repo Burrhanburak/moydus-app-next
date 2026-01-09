@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/Logo";
 
 import Image from "next/image";
+import { cdn } from "@/lib/cdn";
 
 const servicesLinks = [
   { label: "Services", href: "/services" },
@@ -121,7 +122,7 @@ export default function Footer({ location }: { location?: Location }) {
                   <Logo variant="default" />
                 </Link>
               </div>
-              <p className="mt-4 max-w-xs text-sm font-semibold text-[#C7C5C5]">
+              <p className="mt-4 max-w-xs text-sm font-semibold text-[#b8b9b9]">
                 We are everywhere, including{" "}
                 {location?.cityName || (
                     <span className="font-bold underline text-[#ff4d00]">
@@ -138,28 +139,28 @@ export default function Footer({ location }: { location?: Location }) {
 
             <div>
               <h3 className="mb-4 font-bold text-white">Top Pages</h3>
-              <ul className="space-y-4 text-muted-foreground">
+              <ul className="space-y-4 text-[#b8b9b9]">
                 {topPagesLinks.map((link, index) => renderLink(link, index))}
               </ul>
             </div>
 
             <div>
               <h3 className="mb-4 font-bold text-white">Services</h3>
-              <ul className="space-y-4 text-muted-foreground">
+              <ul className="space-y-4 text-[#b8b9b9]">
                 {servicesLinks.map((link, index) => renderLink(link, index))}
               </ul>
             </div>
 
             <div>
               <h3 className="mb-4 font-bold text-white">Company</h3>
-              <ul className="space-y-4 text-muted-foreground">
+              <ul className="space-y-4 text-[#b8b9b9]">
                 {companyLinks.map((link, index) => renderLink(link, index))}
               </ul>
             </div>
 
             <div>
               <h3 className="mb-4 font-bold text-white">Resources</h3>
-              <ul className="space-y-4 text-muted-foreground">
+              <ul className="space-y-4 text-[#b8b9b9]">
                 {resourceLinks.map((link, index) => renderLink(link, index))}
               </ul>
             </div>
@@ -169,7 +170,7 @@ export default function Footer({ location }: { location?: Location }) {
                 <h3 className="mb-4 font-bold text-white">
                   {location.cityName} Services
                 </h3>
-                <ul className="space-y-4 text-muted-foreground">
+                <ul className="space-y-4 text-[#b8b9b9]">
                   <li className="font-medium">
                     <Link
                       href="/{location.cityName}"
@@ -200,21 +201,21 @@ export default function Footer({ location }: { location?: Location }) {
 
             <div>
               <h3 className="mb-4 font-bold text-white">Platform</h3>
-              <ul className="space-y-4 text-muted-foreground">
+              <ul className="space-y-4 text-[#b8b9b9]">
                 {platformLinks.map((link, index) => renderLink(link, index))}
               </ul>
             </div>
 
             <div>
               <h3 className="mb-4 font-bold text-white">Legal</h3>
-              <ul className="space-y-4 text-muted-foreground">
+              <ul className="space-y-4 text-[#b8b9b9]">
                 {legalLinks.map((link, index) => renderLink(link, index))}
               </ul>
             </div>
 
             <div>
               <h3 className="mb-4 font-bold text-white">Follow Moydus</h3>
-              <ul className="space-y-4 text-muted-foreground">
+              <ul className="space-y-4 text-[#b8b9b9]">
                 {socialLinks.map(({ label, href }, index) => (
                   <li key={`${label}-${index}`} className="font-medium">
                     <Link
@@ -308,11 +309,12 @@ export default function Footer({ location }: { location?: Location }) {
           }}
         >
           <Image
-            src="/moydus.png"
+            src={cdn("/moydus.png", 800, 85)}
             alt="Moydus Logo"
             width={800}
             height={800}
             className="mx-auto object-contain w-full h-full"
+            unoptimized
           />
         </div>
       </div>

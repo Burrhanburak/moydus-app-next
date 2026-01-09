@@ -1,6 +1,6 @@
 "use client";
 
-import { client, urlFor } from "@/lib/sanity";
+import { client, urlFor, urlForOptimized, urlForBlurPlaceholder } from "@/lib/sanity";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -28,7 +28,6 @@ interface Category {
 interface Template {
   title: string;
   slug: string;
-  price: string;
   designer: string;
   description: string;
   thumbnails?: Array<{
@@ -41,6 +40,10 @@ interface Template {
     title: string;
     slug: string;
   }>;
+  primaryCategory?: {
+    title: string;
+    slug: string;
+  };
 }
 
 async function getCategories() {
@@ -65,22 +68,16 @@ async function getCategories() {
 }
 
 async function getTemplates(
-  categorySlug?: string | null,
-  price?: string | null
+  categorySlug?: string | null
 ) {
-  let query = `*[_type == "template"`;
+  let query = `*[_type == "template" && published == true`;
 
   const conditions: string[] = [];
   const params: Record<string, string> = {};
 
   if (categorySlug) {
-    conditions.push(`$categorySlug in categories[]->slug.current`);
+    conditions.push(`($categorySlug in categories[]->slug.current || primaryCategory->slug.current == $categorySlug)`);
     params.categorySlug = categorySlug;
-  }
-
-  if (price) {
-    conditions.push(`price == $price`);
-    params.price = price;
   }
 
   if (conditions.length > 0) {
@@ -90,12 +87,12 @@ async function getTemplates(
   query += `] | order(_createdAt desc){
     title,
     "slug": slug.current,
-    price,
     designer,
     description,
     thumbnails,
     tags,
-    categories[]->{title, "slug": slug.current}
+    categories[]->{title, "slug": slug.current},
+    primaryCategory->{title, "slug": slug.current}
   }`;
 
   return client.fetch(query, params);
@@ -123,7 +120,7 @@ export function generateTemplateJsonLd(template: any) {
     },
     offers: {
       "@type": "Offer",
-      price: template.price || "0",
+      price: "0",
       priceCurrency: "USD",
       url: template.demoUrl,
       availability: "https://schema.org/InStock",
@@ -159,7 +156,6 @@ export default function MarketplaceTemplatesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [templates, setTemplates] = useState<Template[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -206,8 +202,7 @@ export default function MarketplaceTemplatesPage() {
         setLoading(true);
         setError(null);
         const temps = await getTemplates(
-          selectedCategory || undefined,
-          selectedPrice || undefined
+          selectedCategory || undefined
         );
         console.log("Filtered templates:", temps);
         setTemplates(temps || []);
@@ -221,7 +216,7 @@ export default function MarketplaceTemplatesPage() {
       }
     }
     loadTemplates();
-  }, [selectedCategory, selectedPrice]);
+  }, [selectedCategory]);
 
   return (
     <div className="min-h-screen bg-[#000000]  text-white">
@@ -264,24 +259,36 @@ export default function MarketplaceTemplatesPage() {
                             {/* Desktop/Tablet: spans 2 columns, first row */}
                             <div className="hidden md:block md:col-span-2 aspect-[4/3] relative overflow-hidden rounded-[3px]">
                               <Image
-                                src={urlFor(category.thumbnails[0])
-                                  .width(400)
-                                  .height(300)
-                                  .url()}
+                                src={urlForOptimized(category.thumbnails[0], {
+                                  width: 800,
+                                  height: 600,
+                                  quality: 85,
+                                  format: 'auto',
+                                }).url()}
                                 alt={`${category.title} thumbnail 1`}
                                 fill
+                                loading="lazy"
+                                placeholder="blur"
+                                blurDataURL={urlForBlurPlaceholder(category.thumbnails[0])}
+                                sizes="(max-width: 768px) 50vw, 66vw"
                                 className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                               />
                             </div>
                             {/* Mobile: shows as first image */}
                             <div className="col-span-1 md:hidden aspect-[4/3] relative overflow-hidden rounded-[3px]">
                               <Image
-                                src={urlFor(category.thumbnails[0])
-                                  .width(200)
-                                  .height(150)
-                                  .url()}
+                                src={urlForOptimized(category.thumbnails[0], {
+                                  width: 400,
+                                  height: 300,
+                                  quality: 85,
+                                  format: 'auto',
+                                }).url()}
                                 alt={`${category.title} thumbnail 1`}
                                 fill
+                                loading="lazy"
+                                placeholder="blur"
+                                blurDataURL={urlForBlurPlaceholder(category.thumbnails[0])}
+                                sizes="100vw"
                                 className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                               />
                             </div>
@@ -291,12 +298,18 @@ export default function MarketplaceTemplatesPage() {
                         {category.thumbnails[1] ? (
                           <div className="col-span-1 aspect-[4/3] relative overflow-hidden rounded-[3px]">
                             <Image
-                              src={urlFor(category.thumbnails[1])
-                                .width(200)
-                                .height(150)
-                                .url()}
+                              src={urlForOptimized(category.thumbnails[1], {
+                                width: 400,
+                                height: 300,
+                                quality: 85,
+                                format: 'auto',
+                              }).url()}
                               alt={`${category.title} thumbnail 2`}
                               fill
+                              loading="lazy"
+                              placeholder="blur"
+                              blurDataURL={urlForBlurPlaceholder(category.thumbnails[1])}
+                              sizes="(max-width: 768px) 50vw, 33vw"
                               className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                             />
                           </div>
@@ -307,10 +320,12 @@ export default function MarketplaceTemplatesPage() {
                         {category.thumbnails[2] ? (
                           <div className="hidden md:block col-span-1 aspect-[4/3] relative overflow-hidden rounded-[3px]">
                             <Image
-                              src={urlFor(category.thumbnails[2])
-                                .width(200)
-                                .height(150)
-                                .url()}
+                              src={urlForOptimized(category.thumbnails[2], {
+                                width: 400,
+                                height: 300,
+                                quality: 85,
+                                format: 'auto',
+                              }).url()}
                               alt={`${category.title} thumbnail 3`}
                               fill
                               className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
@@ -319,14 +334,16 @@ export default function MarketplaceTemplatesPage() {
                         ) : category.previewTemplates?.[0]?.thumbnails?.[0] ? (
                           <div className="hidden md:block col-span-1 aspect-[4/3] relative overflow-hidden rounded-[3px]">
                             <Image
-                              src={urlFor(
-                                category.previewTemplates[0].thumbnails[0]
-                              )
-                                .width(200)
-                                .height(150)
-                                .url()}
+                              src={urlForOptimized(
+                                category.previewTemplates[0].thumbnails[0],
+                                { width: 400, height: 300, quality: 85, format: 'auto' }
+                              ).url()}
                               alt={`${category.title} template 3`}
                               fill
+                              loading="lazy"
+                              placeholder="blur"
+                              blurDataURL={urlForBlurPlaceholder(category.previewTemplates[0].thumbnails[0])}
+                              sizes="33vw"
                               className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                             />
                           </div>
@@ -342,27 +359,31 @@ export default function MarketplaceTemplatesPage() {
                           <>
                             <div className="hidden md:block md:col-span-2 aspect-[4/3] relative overflow-hidden rounded-[3px]">
                               <Image
-                                src={urlFor(
-                                  category.previewTemplates[0].thumbnails[0]
-                                )
-                                  .width(400)
-                                  .height(300)
-                                  .url()}
+                                src={urlForOptimized(
+                                  category.previewTemplates[0].thumbnails[0],
+                                  { width: 800, height: 600, quality: 85, format: 'auto' }
+                                ).url()}
                                 alt={`${category.title} template 1`}
                                 fill
+                                loading="lazy"
+                                placeholder="blur"
+                                blurDataURL={urlForBlurPlaceholder(category.previewTemplates[0].thumbnails[0])}
+                                sizes="(max-width: 768px) 100vw, 66vw"
                                 className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                               />
                             </div>
                             <div className="col-span-1 md:hidden aspect-[4/3] relative overflow-hidden rounded-[3px]">
                               <Image
-                                src={urlFor(
-                                  category.previewTemplates[0].thumbnails[0]
-                                )
-                                  .width(200)
-                                  .height(150)
-                                  .url()}
+                                src={urlForOptimized(
+                                  category.previewTemplates[0].thumbnails[0],
+                                  { width: 400, height: 300, quality: 85, format: 'auto' }
+                                ).url()}
                                 alt={`${category.title} template 1`}
                                 fill
+                                loading="lazy"
+                                placeholder="blur"
+                                blurDataURL={urlForBlurPlaceholder(category.previewTemplates[0].thumbnails[0])}
+                                sizes="100vw"
                                 className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                               />
                             </div>
@@ -371,7 +392,10 @@ export default function MarketplaceTemplatesPage() {
                         {category.previewTemplates[1]?.thumbnails?.[0] && (
                           <div className="col-span-1 aspect-[4/3] relative overflow-hidden rounded-[3px]">
                             <Image
-                              src={urlFor(
+                              src={urlForOptimized(
+                                category.previewTemplates[1].thumbnails[0],
+                                { width: 400, height: 300, quality: 85, format: 'auto' }
+                              ).url()}
                                 category.previewTemplates[1].thumbnails[0]
                               )
                                 .width(200)
@@ -457,9 +481,9 @@ export default function MarketplaceTemplatesPage() {
             <AnimatedDrawer
               categories={categories}
               selectedCategory={selectedCategory}
-              selectedPrice={selectedPrice}
+              selectedPrice={null}
               onCategoryChange={setSelectedCategory}
-              onPriceChange={setSelectedPrice}
+              onPriceChange={() => {}}
             />
           </div>
         </div>

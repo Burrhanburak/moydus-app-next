@@ -39,17 +39,18 @@ export default function Cta() {
               animate={{ opacity: 1 }}
               transition={{ type: "spring", stiffness: 100, damping: 15 }}
             >
-              {/* Grid Element - Animated GIF Background */}
+              {/* Grid Element - Animated GIF Background - Lazy loaded */}
               <motion.div
                 className="absolute inset-0 z-[1] overflow-hidden pointer-events-none rounded-[20px]"
-                style={{
-                  backgroundImage: "url('/1.gif')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  clipPath: "polygon(0px 0px, 0% 0px, 0% 100%, 0px 100%)",
-                  opacity: 0.15,
-                }}
+                // style={{
+                //   backgroundImage: `url('${r2cdn("/moos.gif")}')`,
+                //   backgroundSize: "cover",
+                //   backgroundPosition: "center",
+                //   backgroundRepeat: "no-repeat",
+                //   clipPath: "polygon(0px 0px, 0% 0px, 0% 100%, 0px 100%)",
+                //   opacity: 0.15,
+                //   contentVisibility: "auto", // Optimize rendering
+                // }}
                 initial={{
                   clipPath: "polygon(0px 0px, 0% 0px, 0% 100%, 0px 100%)",
                   opacity: 0,
@@ -74,8 +75,26 @@ export default function Cta() {
                 animate={{ opacity: 1 }}
                 transition={{ type: "spring", stiffness: 100, damping: 15 }}
               >
-                Start Growing Smarter Today
+                Let&apos;s Build Something That Scales
               </motion.h2>
+
+              {/* H3 */}
+              <motion.h3
+                className="text-center text-white/90 font-medium text-lg md:text-xl relative z-[5] mb-2"
+                style={{
+                  willChange: "transform",
+                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  delay: 0.1,
+                }}
+              >
+                Start Your Project with Moydus
+              </motion.h3>
 
               {/* Description */}
               <motion.p
@@ -86,11 +105,16 @@ export default function Cta() {
                 }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.81 }}
-                transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15,
+                  delay: 0.2,
+                }}
               >
                 Harness the power of AI and automation to scale your websites,
                 e-commerce stores, SaaS platforms, and custom workflows with
-                confidence and clarity..
+                confidence and clarity.
               </motion.p>
 
               {/* Button */}

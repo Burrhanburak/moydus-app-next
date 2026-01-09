@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
+import { cdn } from "@/lib/cdn";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -90,7 +91,7 @@ export default function Header() {
                                 height="100"
                                 decoding="async"
                                 className="w-full h-full object-cover"
-                                src="/nav-tem-1.webp"
+                                src={cdn("/nav-tem-1.webp", 200, 85)}
                                 style={{ color: "transparent" }}
                               />
                             </div>
@@ -112,7 +113,7 @@ export default function Header() {
                                 height="100"
                                 decoding="async"
                                 className="w-full h-full object-cover"
-                                src="/bg-features.webp"
+                                src={cdn("/bg-features.webp", 200, 85)}
                               />
                             </div>
                           </Link>
@@ -208,7 +209,7 @@ export default function Header() {
                               height="70"
                               decoding="async"
                               className="w-[70px] h-[70px] rounded-lg object-cover"
-                              src="/team.png"
+                              src={cdn("/team.png", 200, 85)}
                               style={{ color: "transparent" }}
                             />
                             <div className="flex flex-col gap-1">
@@ -278,7 +279,7 @@ export default function Header() {
                               height="336"
                               decoding="async"
                               className="opacity-50 w-full h-full object-cover"
-                              src="/moydus.png"
+                              src={cdn("/moydus.png", 200, 85)}
                               style={{ color: "transparent" }}
                             />
                             <div className="absolute top-0 left-0 pt-3 pl-3 flex flex-col gap-0.5">
@@ -343,7 +344,7 @@ export default function Header() {
                                 height="336"
                                 decoding="async"
                                 className="opacity-50 w-full h-full object-cover"
-                                src="/nav-tem-1.webp"
+                                src={cdn("/nav-tem-1.webp", 200, 85)}
                                 style={{ color: "transparent" }}
                               />
                               <div className="absolute top-0 pt-3 pl-3 flex flex-col gap-0.5">
@@ -414,7 +415,7 @@ export default function Header() {
                                 height="336"
                                 decoding="async"
                                 className="opacity-50 w-full h-full object-cover"
-                                src="/moydus.png"
+                                src={cdn("/moydus.png", 200, 85)}
                                 style={{ color: "transparent" }}
                               />
                               <div className="absolute top-0 left-0 pt-3 pl-3">
@@ -532,528 +533,212 @@ export default function Header() {
             </div>
           </div>
           <div className="overflow-y-auto overflow-x-hidden h-[calc(100dvh-72px)] flex w-full py-4 md:hidden bg-[#070204] rounded-lg">
-              <div className="relative w-full">
-                {/* Main Menu */}
-                <div
-                  className={`absolute top-0 left-0 min-h-full px-6 w-screen ${
-                    activeSubmenu ? "hidden" : ""
-                  }`}
+            <div className="relative w-full">
+              {/* Main Menu */}
+              <div
+                className={`absolute top-0 left-0 min-h-full px-6 w-screen ${
+                  activeSubmenu ? "hidden" : ""
+                }`}
+              >
+                <Link
+                  href="https://app.moydus.com/login"
+                  className="inline-flex items-center justify-center border select-none relative cursor-pointer  disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 bg-black/30 border-white/20 text-white not-disabled:hover:bg-white/20 focus-visible:bg-white/20 focus-visible:ring-white/20 font-normal focus-visible:ring-2 focus-visible:outline-hidden text-base h-11 px-4 rounded-xl gap-2 mb-4 w-full"
                 >
-                  <Link
-                    href="https://app.moydus.com/login"
-                    className="inline-flex items-center justify-center border select-none relative cursor-pointer  disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 bg-black/30 border-white/20 text-white not-disabled:hover:bg-white/20 focus-visible:bg-white/20 focus-visible:ring-white/20 font-normal focus-visible:ring-2 focus-visible:outline-hidden text-base h-11 px-4 rounded-xl gap-2 mb-4 w-full"
+                  Log In
+                </Link>
+                <Link
+                  href="https://app.moydus.com/signup"
+                  className="font-semibold inline-flex items-center justify-center border select-none relative cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 bg-white border-white/20 text-black not-disabled:hover:bg-white/20 focus-visible:bg-white/20 focus-visible:ring-white/20 focus-visible:ring-2 focus-visible:outline-hidden text-base h-11 px-4 rounded-xl gap-2 mb-4 w-full"
+                >
+                  Get Started
+                </Link>
+                <button
+                  onClick={() => setActiveSubmenu("templates")}
+                  className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                >
+                  Templates
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Log In
-                  </Link>
-                  <Link
-                    href="https://app.moydus.com/signup"
-                    className="font-semibold inline-flex items-center justify-center border select-none relative cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 bg-white border-white/20 text-black not-disabled:hover:bg-white/20 focus-visible:bg-white/20 focus-visible:ring-white/20 focus-visible:ring-2 focus-visible:outline-hidden text-base h-11 px-4 rounded-xl gap-2 mb-4 w-full"
+                    <path
+                      d="M13.75 6.75L19.25 12L13.75 17.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M19 12H4.75"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setActiveSubmenu("company")}
+                  className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                >
+                  Company
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Get Started
-                  </Link>
-                  <button
-                    onClick={() => setActiveSubmenu("templates")}
-                    className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                    <path
+                      d="M13.75 6.75L19.25 12L13.75 17.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M19 12H4.75"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setActiveSubmenu("resources")}
+                  className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                >
+                  Resources
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Templates
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13.75 6.75L19.25 12L13.75 17.25"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                      <path
-                        d="M19 12H4.75"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => setActiveSubmenu("company")}
-                    className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                    <path
+                      d="M13.75 6.75L19.25 12L13.75 17.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M19 12H4.75"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setActiveSubmenu("help")}
+                  className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                >
+                  Help
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Company
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13.75 6.75L19.25 12L13.75 17.25"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                      <path
-                        d="M19 12H4.75"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => setActiveSubmenu("resources")}
-                    className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                    <path
+                      d="M13.75 6.75L19.25 12L13.75 17.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M19 12H4.75"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setActiveSubmenu("docs")}
+                  className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-slate-12"
+                >
+                  Docs
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Resources
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13.75 6.75L19.25 12L13.75 17.25"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                      <path
-                        d="M19 12H4.75"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => setActiveSubmenu("help")}
-                    className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                  >
-                    Help
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13.75 6.75L19.25 12L13.75 17.25"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                      <path
-                        d="M19 12H4.75"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => setActiveSubmenu("docs")}
-                    className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-slate-12"
-                  >
-                    Docs
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13.75 6.75L19.25 12L13.75 17.25"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                      <path
-                        d="M19 12H4.75"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                    </svg>
-                  </button>
-                  <Link
-                    href="/pricing"
-                    className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Pricing
-                  </Link>
-                </div>
+                    <path
+                      d="M13.75 6.75L19.25 12L13.75 17.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M19 12H4.75"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </button>
+                <Link
+                  href="/pricing"
+                  className="flex items-center justify-between text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Pricing
+                </Link>
+              </div>
 
-                {/* Templates Submenu */}
-                <div
-                  className={`absolute top-0 left-0 min-h-full px-6 w-screen bg-[#070204] rounded-lg ${
-                    activeSubmenu === "templates" ? "" : "hidden"
-                  }`}
+              {/* Templates Submenu */}
+              <div
+                className={`absolute top-0 left-0 min-h-full px-6 w-screen bg-[#070204] rounded-lg ${
+                  activeSubmenu === "templates" ? "" : "hidden"
+                }`}
+              >
+                <button
+                  onClick={() => setActiveSubmenu(null)}
+                  className="inline-flex items-center justify-center border disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 focus-visible:ring-2 focus-visible:outline-hidden h-8 w-8 min-w-8 rounded-xl bg-transparent border-none text-white not-disabled:hover:bg-white/10 focus-visible:bg-white/10 focus-visible:ring-white/20 -ml-1"
                 >
-                  <button
-                    onClick={() => setActiveSubmenu(null)}
-                    className="inline-flex items-center justify-center border disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 focus-visible:ring-2 focus-visible:outline-hidden h-8 w-8 min-w-8 rounded-xl bg-transparent border-none text-white not-disabled:hover:bg-white/10 focus-visible:bg-white/10 focus-visible:ring-white/20 -ml-1"
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M10.25 6.75L4.75 12L10.25 17.25"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                      <path
-                        d="M19.25 12H5"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div className="my-6">
-                    <div className="flex gap-2 items-stretch h-48">
-                      <Link
-                        href="/marketplace/templates/category"
-                        className="w-1/2"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
-                          <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
-                          <div className="h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden relative flex items-end">
-                            <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
-                            <img
-                              alt="Categories"
-                              loading="lazy"
-                              width="276"
-                              height="336"
-                              decoding="async"
-                              className="w-full h-full object-cover"
-                              src="/nav-tem-1.webp"
-                              style={{ color: "transparent" }}
-                            />
-                            <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem] absolute top-0 pt-3 pl-3">
-                              Template
-                              <br />
-                              Categories
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                      <Link
-                        href="/marketplace/templates"
-                        className="w-1/2"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
-                          <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
-                          <div className="h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden relative flex items-end">
-                            <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
-                            <img
-                              alt="All Templates"
-                              loading="lazy"
-                              width="276"
-                              height="336"
-                              decoding="async"
-                              className="w-full h-full object-cover"
-                              src="/nav-temp-2.webp"
-                              style={{ color: "transparent" }}
-                            />
-                            <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem] absolute top-0 pt-3 pl-3">
-                              All
-                              <br />
-                              Templates
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                  <Link
-                    href="/services"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Services
-                  </Link>
-                  <Link
-                    href="/compare"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Compare Services
-                  </Link>
-                  <Link
-                    href="/best"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Best Services
-                  </Link>
-                </div>
-
-                {/* Company Submenu */}
-                <div
-                  className={`absolute top-0 left-0 min-h-full px-6 w-screen bg-[#070204]  rounded-lg ${
-                    activeSubmenu === "company" ? "" : "hidden"
-                  }`}
-                >
-                  <button
-                    onClick={() => setActiveSubmenu(null)}
-                    className="inline-flex items-center justify-center border disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 focus-visible:ring-2 focus-visible:outline-hidden h-8 w-8 min-w-8 rounded-xl bg-transparent border-none text-white not-disabled:hover:bg-white/10 focus-visible:bg-white/10 focus-visible:ring-white/20 -ml-1"
-                  >
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M10.25 6.75L4.75 12L10.25 17.25"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                      <path
-                        d="M19.25 12H5"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div className="my-6">
-                    <div className="flex flex-col gap-2 items-stretch h-full">
-                      <Link
-                        href="/about"
-                        className="h-1/2"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
-                          <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
-                          <div className="relative h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden">
-                            <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
-                            <div className="absolute inset-0 opacity-40 bg-[radial-gradient(142%_172%_at_116%_-36%,_rgba(0,0,0,0)_0%,rgba(72,72,72,.40)_100%),_rgba(18,18,18,.76)] mix-blend-hard-light blur-xs backdrop-filter"></div>
-                            <div className="relative flex gap-5 justify-start items-center px-3 h-full">
-                              <img
-                                alt="About Us"
-                                loading="lazy"
-                                width="60"
-                                height="60"
-                                decoding="async"
-                                className="w-[70px] h-[70px] rounded-2xl object-cover p-1"
-                                src="/team.png"
-                                style={{ color: "transparent" }}
-                              />
-                              <div className="flex flex-col gap-0.5">
-                                <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem]">
-                                  About Us
-                                </span>
-                                <span className="text-xs text-white font-normal">
-                                  Learn about our company
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                      <Link
-                        href="/stories"
-                        className="h-1/2"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
-                          <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
-                          <div className="relative h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden">
-                            <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
-                            <div className="absolute inset-0 opacity-40 bg-[radial-gradient(142%_172%_at_116%_-36%,_rgba(0,0,0,0)_0%,rgba(72,72,72,.40)_100%),_rgba(18,18,18,.76)] mix-blend-hard-light blur-xs backdrop-filter"></div>
-                            <div className="relative flex gap-5 justify-start items-center px-3 h-full">
-                              <img
-                                alt="Stories"
-                                loading="lazy"
-                                width="70"
-                                height="70"
-                                decoding="async"
-                                className="w-[70px] h-[70px] rounded-2xl object-cover p-1"
-                                src="/moydus.png"
-                                style={{ color: "transparent" }}
-                              />
-                              <div className="flex flex-col gap-0.5">
-                                <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem]">
-                                  Stories
-                                </span>
-                                <span className="text-xs text-white font-normal">
-                                  Customer success stories
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                  <Link
-                    href="/blog"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Blog
-                  </Link>
-                  <Link
-                    href="/careers"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Careers
-                  </Link>
-                  <Link
-                    href="/customers"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Customers
-                  </Link>
-                </div>
-
-                {/* Resources Submenu */}
-                <div
-                  className={`absolute top-0 left-0 min-h-full px-6 w-screen bg-[#070204] rounded-lg ${
-                    activeSubmenu === "resources" ? "" : "hidden"
-                  }`}
-                >
-                  <button
-                    onClick={() => setActiveSubmenu(null)}
-                    className="inline-flex items-center justify-center border disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 focus-visible:ring-2 focus-visible:outline-hidden h-8 w-8 min-w-8 rounded-xl bg-transparent border-none text-white not-disabled:hover:bg-white/10 focus-visible:bg-white/10 focus-visible:ring-white/20 -ml-1"
-                  >
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M10.25 6.75L4.75 12L10.25 17.25"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                      <path
-                        d="M19.25 12H5"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div className="my-6">
+                    <path
+                      d="M10.25 6.75L4.75 12L10.25 17.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M19.25 12H5"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </button>
+                <div className="my-6">
+                  <div className="flex gap-2 items-stretch h-48">
                     <Link
-                      href="/blog"
-                      className="w-full"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
-                        <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
-                        <div className="h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden relative flex items-end">
-                          <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
-                          <div className="absolute inset-0 opacity-40 bg-[radial-gradient(142%_172%_at_116%_-36%,_rgba(0,0,0,0)_0%,rgba(72,72,72,.40)_100%),_rgba(18,18,18,.76)] mix-blend-hard-light blur-xs backdrop-filter"></div>
-                          <img
-                            alt="Blog"
-                            loading="lazy"
-                            width="276"
-                            height="336"
-                            decoding="async"
-                            className="opacity-50 w-full h-full object-cover"
-                            src="/moydus.png"
-                            style={{ color: "transparent" }}
-                          />
-                          <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem] absolute top-0 pt-3 pl-3">
-                            Blog
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                  <Link
-                    href="/how-to"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    How To
-                  </Link>
-                  <Link
-                    href="/faq"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    FAQ
-                  </Link>
-                </div>
-
-                {/* Help Submenu */}
-                <div
-                  className={`absolute top-0 left-0 min-h-full px-6 w-screen bg-[#070204] rounded-lg ${
-                    activeSubmenu === "help" ? "" : "hidden"
-                  }`}
-                >
-                  <button
-                    onClick={() => setActiveSubmenu(null)}
-                    className="inline-flex items-center justify-center border disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 focus-visible:ring-2 focus-visible:outline-hidden h-8 w-8 min-w-8 rounded-xl bg-transparent border-none text-white not-disabled:hover:bg-white/10 focus-visible:bg-white/10 focus-visible:ring-white/20 -ml-1"
-                  >
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M10.25 6.75L4.75 12L10.25 17.25"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                      <path
-                        d="M19.25 12H5"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div className="my-6">
-                    <Link
-                      href="/support"
-                      className="w-full"
+                      href="/marketplace/templates/category"
+                      className="w-1/2"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
@@ -1061,148 +746,464 @@ export default function Header() {
                         <div className="h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden relative flex items-end">
                           <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
                           <img
-                            alt="Support"
+                            alt="Categories"
                             loading="lazy"
                             width="276"
                             height="336"
                             decoding="async"
-                            className="opacity-50 w-full h-full object-cover"
+                            className="w-full h-full object-cover"
                             src="/nav-tem-1.webp"
                             style={{ color: "transparent" }}
                           />
                           <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem] absolute top-0 pt-3 pl-3">
-                            Support
+                            Template
+                            <br />
+                            Categories
                           </span>
                         </div>
                       </div>
                     </Link>
-                  </div>
-                  <Link
-                    href="/support"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Support
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Contact
-                  </Link>
-                  <Link
-                    href="/faq"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    FAQ
-                  </Link>
-                  <Link
-                    href="https://status.moydus.com"
-                    target="_blank"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Status
-                  </Link>
-                </div>
-
-                {/* Docs Submenu */}
-                <div
-                  className={`absolute top-0 left-0 min-h-full px-6 w-screen bg-[#070204] rounded-lg ${
-                    activeSubmenu === "docs" ? "" : "hidden"
-                  }`}
-                >
-                  <button
-                    onClick={() => setActiveSubmenu(null)}
-                    className="inline-flex items-center justify-center border disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 focus-visible:ring-2 focus-visible:outline-hidden h-8 w-8 min-w-8 rounded-xl bg-transparent border-none text-white not-disabled:hover:bg-white/10 focus-visible:bg-white/10 focus-visible:ring-white/20 -ml-1"
-                  >
-                    <svg
-                      fill="none"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M10.25 6.75L4.75 12L10.25 17.25"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                      <path
-                        d="M19.25 12H5"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div className="my-6">
                     <Link
-                      href="https://docs.moydus.com"
-                      target="_blank"
-                      className="w-full"
+                      href="/marketplace/templates"
+                      className="w-1/2"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
                         <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
                         <div className="h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden relative flex items-end">
                           <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
-                          <div className="absolute inset-0 opacity-40 bg-[radial-gradient(142%_172%_at_116%_-36%,_rgba(0,0,0,0)_0%,rgba(72,72,72,.40)_100%),_rgba(18,18,18,.76)] mix-blend-hard-light blur-xs backdrop-filter"></div>
                           <img
-                            alt="Documentation"
+                            alt="All Templates"
                             loading="lazy"
                             width="276"
                             height="336"
                             decoding="async"
-                            className="opacity-50 w-full h-full object-cover"
-                            src="/moydus.png"
+                            className="w-full h-full object-cover"
+                            src={cdn("/nav-temp-2.webp", 200, 85)}
                             style={{ color: "transparent" }}
                           />
-                          <div className="absolute top-0 pt-3 pl-3">
-                            <span className="text-xs text-white/70 font-normal block tracking-wide">
-                              Docs
-                            </span>
-                            <span className="font-normal text-[#C7C5C5] group/nav-card:focus-visible:text-gray-10 font-display text-sm tracking-[.0125rem]">
-                              Complete documentation and guides
-                            </span>
+                          <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem] absolute top-0 pt-3 pl-3">
+                            All
+                            <br />
+                            Templates
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+                <Link
+                  href="/services"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Services
+                </Link>
+                <Link
+                  href="/compare"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Compare Services
+                </Link>
+                <Link
+                  href="/best"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Best Services
+                </Link>
+              </div>
+
+              {/* Company Submenu */}
+              <div
+                className={`absolute top-0 left-0 min-h-full px-6 w-screen bg-[#070204]  rounded-lg ${
+                  activeSubmenu === "company" ? "" : "hidden"
+                }`}
+              >
+                <button
+                  onClick={() => setActiveSubmenu(null)}
+                  className="inline-flex items-center justify-center border disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 focus-visible:ring-2 focus-visible:outline-hidden h-8 w-8 min-w-8 rounded-xl bg-transparent border-none text-white not-disabled:hover:bg-white/10 focus-visible:bg-white/10 focus-visible:ring-white/20 -ml-1"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.25 6.75L4.75 12L10.25 17.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M19.25 12H5"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </button>
+                <div className="my-6">
+                  <div className="flex flex-col gap-2 items-stretch h-full">
+                    <Link
+                      href="/about"
+                      className="h-1/2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
+                        <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
+                        <div className="relative h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden">
+                          <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
+                          <div className="absolute inset-0 opacity-40 bg-[radial-gradient(142%_172%_at_116%_-36%,_rgba(0,0,0,0)_0%,rgba(72,72,72,.40)_100%),_rgba(18,18,18,.76)] mix-blend-hard-light blur-xs backdrop-filter"></div>
+                          <div className="relative flex gap-5 justify-start items-center px-3 h-full">
+                            <img
+                              alt="About Us"
+                              loading="lazy"
+                              width="60"
+                              height="60"
+                              decoding="async"
+                              className="w-[70px] h-[70px] rounded-2xl object-cover p-1"
+                              src={cdn("/team.png", 200, 85)}
+                              style={{ color: "transparent" }}
+                            />
+                            <div className="flex flex-col gap-0.5">
+                              <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem]">
+                                About Us
+                              </span>
+                              <span className="text-xs text-white font-normal">
+                                Learn about our company
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                    <Link
+                      href="/stories"
+                      className="h-1/2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
+                        <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
+                        <div className="relative h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden">
+                          <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
+                          <div className="absolute inset-0 opacity-40 bg-[radial-gradient(142%_172%_at_116%_-36%,_rgba(0,0,0,0)_0%,rgba(72,72,72,.40)_100%),_rgba(18,18,18,.76)] mix-blend-hard-light blur-xs backdrop-filter"></div>
+                          <div className="relative flex gap-5 justify-start items-center px-3 h-full">
+                            <img
+                              alt="Stories"
+                              loading="lazy"
+                              width="70"
+                              height="70"
+                              decoding="async"
+                              className="w-[70px] h-[70px] rounded-2xl object-cover p-1"
+                              src={cdn("/moydus.png", 200, 85)}
+                              style={{ color: "transparent" }}
+                            />
+                            <div className="flex flex-col gap-0.5">
+                              <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem]">
+                                Stories
+                              </span>
+                              <span className="text-xs text-white font-normal">
+                                Customer success stories
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </Link>
                   </div>
+                </div>
+                <Link
+                  href="/blog"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/careers"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Careers
+                </Link>
+                <Link
+                  href="/customers"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Customers
+                </Link>
+              </div>
+
+              {/* Resources Submenu */}
+              <div
+                className={`absolute top-0 left-0 min-h-full px-6 w-screen bg-[#070204] rounded-lg ${
+                  activeSubmenu === "resources" ? "" : "hidden"
+                }`}
+              >
+                <button
+                  onClick={() => setActiveSubmenu(null)}
+                  className="inline-flex items-center justify-center border disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 focus-visible:ring-2 focus-visible:outline-hidden h-8 w-8 min-w-8 rounded-xl bg-transparent border-none text-white not-disabled:hover:bg-white/10 focus-visible:bg-white/10 focus-visible:ring-white/20 -ml-1"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.25 6.75L4.75 12L10.25 17.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M19.25 12H5"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </button>
+                <div className="my-6">
+                  <Link
+                    href="/blog"
+                    className="w-full"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
+                      <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
+                      <div className="h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden relative flex items-end">
+                        <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
+                        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(142%_172%_at_116%_-36%,_rgba(0,0,0,0)_0%,rgba(72,72,72,.40)_100%),_rgba(18,18,18,.76)] mix-blend-hard-light blur-xs backdrop-filter"></div>
+                        <img
+                          alt="Blog"
+                          loading="lazy"
+                          width="276"
+                          height="336"
+                          decoding="async"
+                          className="opacity-50 w-full h-full object-cover"
+                          src={cdn("/moydus.png", 276, 85)}
+                          style={{ color: "transparent" }}
+                        />
+                        <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem] absolute top-0 pt-3 pl-3">
+                          Blog
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                <Link
+                  href="/how-to"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  How To
+                </Link>
+                <Link
+                  href="/faq"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  FAQ
+                </Link>
+              </div>
+
+              {/* Help Submenu */}
+              <div
+                className={`absolute top-0 left-0 min-h-full px-6 w-screen bg-[#070204] rounded-lg ${
+                  activeSubmenu === "help" ? "" : "hidden"
+                }`}
+              >
+                <button
+                  onClick={() => setActiveSubmenu(null)}
+                  className="inline-flex items-center justify-center border disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 focus-visible:ring-2 focus-visible:outline-hidden h-8 w-8 min-w-8 rounded-xl bg-transparent border-none text-white not-disabled:hover:bg-white/10 focus-visible:bg-white/10 focus-visible:ring-white/20 -ml-1"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.25 6.75L4.75 12L10.25 17.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M19.25 12H5"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </button>
+                <div className="my-6">
+                  <Link
+                    href="/support"
+                    className="w-full"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
+                      <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
+                      <div className="h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden relative flex items-end">
+                        <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
+                        <img
+                          alt="Support"
+                          loading="lazy"
+                          width="276"
+                          height="336"
+                          decoding="async"
+                          className="opacity-50 w-full h-full object-cover"
+                          src="/nav-tem-1.webp"
+                          style={{ color: "transparent" }}
+                        />
+                        <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem] absolute top-0 pt-3 pl-3">
+                          Support
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                <Link
+                  href="/support"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Support
+                </Link>
+                <Link
+                  href="/contact"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+                <Link
+                  href="/faq"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  FAQ
+                </Link>
+                <Link
+                  href="https://status.moydus.com"
+                  target="_blank"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Status
+                </Link>
+              </div>
+
+              {/* Docs Submenu */}
+              <div
+                className={`absolute top-0 left-0 min-h-full px-6 w-screen bg-[#070204] rounded-lg ${
+                  activeSubmenu === "docs" ? "" : "hidden"
+                }`}
+              >
+                <button
+                  onClick={() => setActiveSubmenu(null)}
+                  className="inline-flex items-center justify-center border disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200 focus-visible:ring-2 focus-visible:outline-hidden h-8 w-8 min-w-8 rounded-xl bg-transparent border-none text-white not-disabled:hover:bg-white/10 focus-visible:bg-white/10 focus-visible:ring-white/20 -ml-1"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.25 6.75L4.75 12L10.25 17.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                    <path
+                      d="M19.25 12H5"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    ></path>
+                  </svg>
+                </button>
+                <div className="my-6">
                   <Link
                     href="https://docs.moydus.com"
                     target="_blank"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                    className="w-full"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Documentation
-                  </Link>
-                  <Link
-                    href="https://docs.moydus.com/select-package/introduction"
-                    target="_blank"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    How to Choose a Package
-                  </Link>
-                  <Link
-                    href="https://app.moydus.com"
-                    target="_blank"
-                    className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Get Started
+                    <div className="transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] border border-transparent hover:border-[#373737] group/nav-card relative h-full overflow-hidden rounded-2xl bg-[#1C1C1C70] p-px [box-shadow:0_.25rem_1.25rem_.125rem_rgba(0,0,0,.18)]">
+                      <div className="absolute -inset-px opacity-40 bg-gradient-to-b from-white/10 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/nav-card:bg-[#373737]"></div>
+                      <div className="h-full w-full rounded-[calc(1rem-2px)] bg-[#1C1C1C70] overflow-hidden relative flex items-end">
+                        <div className="absolute left-1/3 top-2/3 aspect-square w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-[radial-gradient(circle,rgba(255,255,255,1)_0%,rgba(255,255,255,0)_100%)] opacity-5 blur-2xl"></div>
+                        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(142%_172%_at_116%_-36%,_rgba(0,0,0,0)_0%,rgba(72,72,72,.40)_100%),_rgba(18,18,18,.76)] mix-blend-hard-light blur-xs backdrop-filter"></div>
+                        <img
+                          alt="Documentation"
+                          loading="lazy"
+                          width="276"
+                          height="336"
+                          decoding="async"
+                          className="opacity-50 w-full h-full object-cover"
+                          src={cdn("/moydus.png", 276, 85)}
+                          style={{ color: "transparent" }}
+                        />
+                        <div className="absolute top-0 pt-3 pl-3">
+                          <span className="text-xs text-white/70 font-normal block tracking-wide">
+                            Docs
+                          </span>
+                          <span className="font-normal text-[#C7C5C5] group/nav-card:focus-visible:text-gray-10 font-display text-sm tracking-[.0125rem]">
+                            Complete documentation and guides
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </Link>
                 </div>
+                <Link
+                  href="https://docs.moydus.com"
+                  target="_blank"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Documentation
+                </Link>
+                <Link
+                  href="https://docs.moydus.com/select-package/introduction"
+                  target="_blank"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  How to Choose a Package
+                </Link>
+                <Link
+                  href="https://app.moydus.com"
+                  target="_blank"
+                  className="block text-md w-full border-b border-white/20 py-4 font-semibold text-white transition duration-200 ease-in-out last:border-none hover:text-white/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Get Started
+                </Link>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </header>
   );

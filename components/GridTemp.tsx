@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { cdn } from "@/lib/cdn";
 
 const showcaseItems = [
   {
@@ -54,7 +55,7 @@ const showcaseItems = [
     category: "Multi-Vendor Marketplace Development",
     description:
       "Custom B2B & B2C solutions & multi-vendor platforms built to meet your specific business requirements globally.",
-    image: "/grid/b2b-moy.png",
+    image: "/grid/b2b-moys.png",
     alt: "Multi-Vendor Marketplace Development",
   },
 ];
@@ -124,9 +125,10 @@ export default function GridTemp() {
                   <Image
                     alt={item.alt}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    src={item.image}
+                    src={cdn(item.image, 800, 85)}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
+                    unoptimized
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 

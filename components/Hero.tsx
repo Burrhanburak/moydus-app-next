@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { GL } from "./hero/gl";
-import { Leva } from "leva";
+import Image from "next/image";
+import { cdn, r2cdn } from "@/lib/cdn";
 
 export default function Hero() {
   const [badgeVisible, setBadgeVisible] = useState(false);
@@ -18,60 +18,6 @@ export default function Hero() {
 
     return () => clearTimeout(timer);
   }, []);
-  const supportingTextWords = [
-    "We",
-    "build",
-    "scalable",
-    "e-commerce",
-    "stores,",
-    "custom",
-    "SaaS",
-    "platforms",
-    "and",
-    "AI-powered",
-    "automation",
-    "high-performing",
-    "websites,",
-    "e-commerce",
-    "platforms,",
-    "SaaS",
-    "products",
-    "and",
-    "automation",
-    "tools",
-    "",
-    "that",
-    "help",
-    "brands",
-    "grow",
-    "faster.",
-    "",
-    "As",
-    "a",
-    "full-service",
-    "software",
-    "company,",
-    "web",
-    "designer,",
-    "e-commerce",
-    "service",
-    "and",
-    "digital",
-    "advertising",
-    "agency,",
-    "MOYDUS",
-    "delivers",
-    "design,",
-    "development,",
-    "marketing",
-    "and",
-    "AI-powered",
-    "automation",
-    "",
-    "under",
-    "one",
-    "roof.",
-  ];
 
   return (
     <section
@@ -169,6 +115,33 @@ export default function Hero() {
                   .heading-container {
                     gap: 16px;
                   }
+                  .hero-h1 {
+                    font-size: 60px !important;
+                  }
+                  .hero-subtitle {
+                    width: 368px;
+                    max-width: 100%;
+                  }
+                }
+                @media (min-width: 810px) and (max-width: 1199.98px) {
+                  .hero-h1 {
+                    width: 440px;
+                    max-width: 100%;
+                  }
+                  .hero-subtitle {
+                    width: 460px;
+                    max-width: 100%;
+                  }
+                }
+                @media (min-width: 1200px) {
+                  .hero-h1 {
+                    width: 540px;
+                    max-width: 100%;
+                  }
+                  .hero-subtitle {
+                    width: 562px;
+                    max-width: 100%;
+                  }
                 }
               `,
             }}
@@ -212,34 +185,25 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-white text-[20px] md:text-[48px] lg:text-[56px] font-bold leading-[1.2] md:leading-tight text-center w-full"
-                style={{
-                  paddingLeft: 0,
-                  paddingRight: 0,
-                }}
+                className="hero-h1 text-white md:text-[48px] lg:text-[56px] font-bold leading-[1.2] md:leading-tight text-center"
               >
-                Software Company & Web Design Agency for E-Commerce & SaaS
-                Development{" "}
+                Build Better Websites, Faster
               </motion.h1>
 
               {/* Supporting Text */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-white/80 text-[12px] md:text-lg text-center w-full md:max-w-[700px] leading-[1.5] md:leading-relaxed px-6 md:px-0"
-                style={{ maxWidth: "100%", boxSizing: "border-box" }}
-              >
+              <motion.p className="hero-subtitle text-white/80 text-[15px] md:text-lg text-center leading-[1.5] md:leading-relaxed px-6 md:px-0">
                 Moydus is a full-service <strong>software company</strong> and{" "}
                 <strong>web design agency</strong> building{" "}
                 <strong>high-performing websites</strong>,{" "}
                 <strong>scalable e-commerce platforms</strong>,{" "}
                 <strong>custom SaaS products</strong>, and{" "}
-                <strong>AI-powered automation</strong> to help brands grow
-                faster and scale globally.
+                <strong>AI-powered automation</strong> for growing brands
+                worldwide.
+                <br />
+                <br />
                 <span className="block mt-2 text-white/70">
-                  Available for startups and teams worldwide — with scalable
-                  delivery, clear timelines, and measurable outcomes.
+                  Trusted by startups and teams with clear timelines, scalable
+                  delivery, and measurable business outcomes.
                 </span>
               </motion.p>
             </div>
@@ -401,7 +365,7 @@ export default function Hero() {
                 ].map((avatar, i) => (
                   <div
                     key={i}
-                    className="rounded-full overflow-hidden flex-shrink-0"
+                    className="rounded-full overflow-hidden flex-shrink-0 relative"
                     style={{
                       width: "28px",
                       height: "28px",
@@ -409,9 +373,15 @@ export default function Hero() {
                       marginLeft: avatar.marginLeft || 0,
                     }}
                   >
-                    <img
-                      src={avatar.src}
+                    <Image
+                      src={cdn(avatar.src, 28, 75)}
                       alt="Trusted customer avatar"
+                      width={28}
+                      height={28}
+                      loading="lazy"
+                      quality={75}
+                      sizes="28px"
+                      unoptimized
                       style={{
                         width: "100%",
                         height: "100%",
@@ -608,9 +578,14 @@ export default function Hero() {
             <GL hovering={hovering} /> */}
           </div>
           <div className="absolute top-0 left-0 w-full h-full z-0 shadow-2xl blur-sm"></div>
-          <img
-            src="/moos.gif"
-            alt="Hero Visual"
+          {/* Optimized: Use MP4 video instead of GIF (26MB → 4.8MB, 82% reduction) */}
+          {/* <video
+            src={r2cdn("/moos-optimized.mp4")}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="none"
             style={{
               position: "absolute",
               top: 0,
@@ -621,7 +596,7 @@ export default function Hero() {
               objectPosition: "center center",
               zIndex: 0,
             }}
-          />
+          /> */}
         </motion.div>
       </div>
       <div

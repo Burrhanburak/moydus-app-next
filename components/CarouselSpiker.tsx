@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/carousel";
 import Image from "next/image";
 import Link from "next/link";
+import { cdn } from "@/lib/cdn";
 
 const Skiper54 = () => {
   const images = [
@@ -152,9 +153,10 @@ const Carousel_006 = ({
                   <Image
                     width={1000}
                     height={1000}
-                    src={img.src}
+                    src={cdn(img.src, 1000, 85)}
                     alt={img.alt}
                     className="h-full w-full scale-105 object-cover"
+                    unoptimized
                   />
                 </div>
               </motion.div>

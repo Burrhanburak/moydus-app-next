@@ -16,6 +16,7 @@ export const Logo = ({ className, variant = "default" }: LogoProps) => {
           src="/m.svg"
           alt="Moydus"
           fill
+          loading="lazy"
           className={`object-contain ${
             variant === "dark" ? "hidden" : "block dark:hidden"
           }`}
@@ -27,18 +28,22 @@ export const Logo = ({ className, variant = "default" }: LogoProps) => {
           src="/moy-black.svg"
           alt="Moydus"
           fill
+          loading="lazy"
           className={`object-contain ${
             variant === "dark" ? "block" : "hidden dark:block"
           }`}
           sizes="42px"
         />
+
         <span className="text-[7px] font-medium text-white leading-none select-none pt-0.5 -mb-4 ml-8">
           ®
         </span>
       </div>
-      {/* <span className="text-sm font-medium text-white leading-none select-none p-1">
-        Moydus
-      </span> */}
+      <div className="relative w-[42px] h-[22px] flex-shrink-0 flex items-center justify-center">
+        <span className="text-xs font-medium text-white leading-none select-none p-0.9">
+          Moydus
+        </span>
+      </div>
     </div>
   );
 };
