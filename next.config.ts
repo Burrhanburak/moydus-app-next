@@ -8,8 +8,6 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
-  cacheComponents: true,
-
   // Static export when explicitly requested (e.g. Cloudflare Pages)
   ...(isStaticExport ? { output: "export" } : {}),
   

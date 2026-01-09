@@ -2,9 +2,6 @@ import { MetadataRoute } from "next";
 import { safeApiGet } from "@/lib/api";
 import { extractLaravelCollection } from "@/lib/extract-laravel-array";
 import { client as sanityClient } from "@/lib/sanity";
-export const dynamic = "force-static";
-export const revalidate = 3600;
-
 
 const BASE_URL = "https://www.moydus.com";
 

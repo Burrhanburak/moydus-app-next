@@ -2,7 +2,6 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-export const revalidate = 3600;
 
 export const size = {
   width: 1200,

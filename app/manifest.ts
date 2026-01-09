@@ -1,8 +1,5 @@
 import type { MetadataRoute } from "next";
 
-export const dynamic = "force-static";
-export const revalidate = 3600;
-
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Moydus – Software Company & Web Design Agency",

@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 
 export const runtime = "edge";
 
-export const revalidate = 3600;
 
 export async function GET() {
   const llmsContent = `# Moydus - LLM Instructions

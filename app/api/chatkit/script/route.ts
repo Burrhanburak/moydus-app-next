@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 3600;
 
 const DEFAULT_SCRIPT_URL =
   "https://cdn.platform.openai.com/deployments/chatkit/chatkit.js";

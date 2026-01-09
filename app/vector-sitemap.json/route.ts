@@ -1,9 +1,6 @@
 import { getVectorSitemap } from "@/app/actions/ai-actions";
 import { NextResponse } from "next/server";
 
-// Static export compatibility
-export const dynamic = "force-static";
-export const revalidate = 3600; // Revalidate every hour
 
 export async function GET() {
   const result = await getVectorSitemap();

@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
 
-// Static export compatibility
-export const dynamic = "force-static";
-export const revalidate = 86400; // Revalidate daily
-
 export async function GET() {
   const robotsTxt = `User-agent: *
 Allow: /

@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 3600;
 
 // ChatKit CustomApiConfig için endpoint
 // ChatKit bu endpoint'e çeşitli istekler gönderir (sessions, messages, threads, etc.)
