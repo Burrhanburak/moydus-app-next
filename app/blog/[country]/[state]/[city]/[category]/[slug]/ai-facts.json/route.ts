@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { fetchBlogPostByGeo } from "@/app/blog/_lib/fetch-blog-post";
+// Static export compatibility
+export const dynamic = "force-static";
+export const revalidate = 3600; // Revalidate every hour
 import { formatSegmentLabel } from "@/app/blog/_lib/location-utils";
 
 type RouteParams = {
