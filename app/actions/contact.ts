@@ -37,6 +37,65 @@ export async function submitContactForm(
   prevState: FormState,
   formData: FormData
 ): Promise<FormState> {
+  // Verify Turnstile token
+  const turnstileToken = formData.get("turnstileToken") as string;
+  if (!turnstileToken) {
+    return {
+      success: false,
+      errors: {
+        message: ["Security verification required."],
+      },
+    };
+  }
+
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+  if (turnstileSecret) {
+    const turnstileVerifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5_000);
+
+    try {
+      const verifyRes = await fetch(turnstileVerifyUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          secret: turnstileSecret,
+          response: turnstileToken,
+        }),
+        signal: controller.signal,
+      }).finally(() => clearTimeout(timeout));
+
+      const verifyData = await verifyRes.json().catch(() => null);
+      if (!verifyRes.ok || !verifyData?.success) {
+        return {
+          success: false,
+          errors: {
+            message: ["Security verification failed. Please try again."],
+          },
+        };
+      }
+    } catch (verifyError: any) {
+      if (verifyError.name === "AbortError") {
+        return {
+          success: false,
+          errors: {
+            message: ["Security verification timeout."],
+          },
+        };
+      }
+      // Log error but don't block in development if secret is not set
+      if (process.env.NODE_ENV === "production") {
+        console.error("[Contact Form] Turnstile verification error:", verifyError);
+        return {
+          success: false,
+          errors: {
+            message: ["Security verification failed."],
+          },
+        };
+      }
+    }
+  }
+
   const rawFormData = {
     name: formData.get("name") as string,
     email: formData.get("email") as string,

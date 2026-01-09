@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { createNewSupportTicket } from "@/app/actions/support-actions";
+import { Turnstile } from "next-turnstile";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -71,6 +71,10 @@ export default function SupportTicketsClient({
     success: boolean;
     message?: string;
   } | null>(null);
+  const [turnstileStatus, setTurnstileStatus] = useState<
+    "success" | "error" | "expired" | "required"
+  >("required");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const form = useForm<SupportTicketFormValues>({
     resolver: zodResolver(supportTicketSchema),
@@ -99,25 +103,55 @@ export default function SupportTicketsClient({
   };
 
   async function onSubmit(values: SupportTicketFormValues) {
-    startTransition(async () => {
-      const result = await createNewSupportTicket({
-        subject: values.subject,
-        message: values.message,
-        email: values.email,
-        category: values.category || category,
-        priority: values.priority || priority,
+    // Turnstile verification check
+    if (turnstileStatus !== "success" || !turnstileToken) {
+      setSubmitStatus({
+        success: false,
+        message: "Please verify you are not a robot",
       });
+      return;
+    }
 
-      if (result.success) {
+    startTransition(async () => {
+      try {
+        const res = await fetch("/api/support/tickets", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: values.email,
+            subject: values.subject,
+            message: values.message,
+            category: values.category || category,
+            priority: values.priority || priority,
+            turnstileToken,
+            metadata: {
+              language: "en",
+              page: typeof window !== "undefined" ? window.location.pathname : null,
+              userAgent: typeof window !== "undefined" ? navigator.userAgent : null,
+            },
+            transcript: "",
+          }),
+        });
+
+        const data = await res.json().catch(() => null);
+
+        if (!res.ok || !data?.success) {
+          setSubmitStatus({
+            success: false,
+            message: data?.error || "Failed to create support ticket. Please try again.",
+          });
+          return;
+        }
+
         form.reset();
+        setTurnstileStatus("required");
+        setTurnstileToken(null);
         setOpen(false);
         setAlertOpen(true);
-      } else {
+      } catch (error: any) {
         setSubmitStatus({
           success: false,
-          message:
-            result.error ||
-            "Failed to create support ticket. Please try again.",
+          message: error?.message || "Failed to create support ticket. Please try again.",
         });
       }
     });
@@ -200,6 +234,37 @@ export default function SupportTicketsClient({
                 </FormItem>
               )}
             />
+            <div className="flex justify-center">
+              <Turnstile
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                retry="auto"
+                refreshExpired="auto"
+                sandbox={process.env.NODE_ENV === "development"}
+                onError={() => {
+                  setTurnstileStatus("error");
+                  setSubmitStatus({
+                    success: false,
+                    message: "Security check failed. Please try again.",
+                  });
+                }}
+                onExpire={() => {
+                  setTurnstileStatus("expired");
+                  setSubmitStatus({
+                    success: false,
+                    message: "Security check expired. Please verify again.",
+                  });
+                }}
+                onLoad={() => {
+                  setTurnstileStatus("required");
+                  setSubmitStatus(null);
+                }}
+                onVerify={(token) => {
+                  setTurnstileStatus("success");
+                  setTurnstileToken(token);
+                  setSubmitStatus(null);
+                }}
+              />
+            </div>
             {submitStatus && (
               <div
                 className={`p-3 rounded-md ${

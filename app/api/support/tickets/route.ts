@@ -24,6 +24,58 @@ export async function POST(req: Request) {
       );
     }
 
+    // Extract and validate Turnstile token
+    const turnstileToken = String(body.turnstileToken || "").trim();
+    if (!turnstileToken) {
+      return NextResponse.json(
+        { success: false, error: "Security verification required." },
+        { status: 400 }
+      );
+    }
+
+    // Verify Turnstile token
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+    if (turnstileSecret) {
+      const turnstileVerifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5_000);
+
+      try {
+        const verifyRes = await fetch(turnstileVerifyUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            secret: turnstileSecret,
+            response: turnstileToken,
+          }),
+          signal: controller.signal,
+        }).finally(() => clearTimeout(timeout));
+
+        const verifyData = await verifyRes.json().catch(() => null);
+        if (!verifyRes.ok || !verifyData?.success) {
+          return NextResponse.json(
+            { success: false, error: "Security verification failed. Please try again." },
+            { status: 400 }
+          );
+        }
+      } catch (verifyError: any) {
+        if (verifyError.name === "AbortError") {
+          return NextResponse.json(
+            { success: false, error: "Security verification timeout." },
+            { status: 504 }
+          );
+        }
+        // Log error but don't block in development if secret is not set
+        if (process.env.NODE_ENV === "production") {
+          console.error("[Support Tickets] Turnstile verification error:", verifyError);
+          return NextResponse.json(
+            { success: false, error: "Security verification failed." },
+            { status: 500 }
+          );
+        }
+      }
+    }
+
     // Extract and validate fields
     const email = String(body.email || "").trim();
     const subject = String(body.subject || "").trim();

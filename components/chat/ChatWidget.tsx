@@ -6,6 +6,7 @@ import { ChatKit, useChatKit } from "@openai/chatkit-react";
 import type { ChatKitOptions, HostedApiConfig } from "@openai/chatkit";
 import { AIInput } from "./AIInput";
 import { cn } from "@/lib/utils";
+import { Turnstile } from "next-turnstile";
 
 // Official Moydus info
 const MOYDUS_ADDRESS_LINE =
@@ -60,6 +61,10 @@ export default function ChatWidget() {
     publicId?: string;
   } | null>(null);
   const [submitErr, setSubmitErr] = useState<string | null>(null);
+  const [turnstileStatus, setTurnstileStatus] = useState<
+    "success" | "error" | "expired" | "required"
+  >("required");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const envScriptUrl = process.env.NEXT_PUBLIC_CHATKIT_SCRIPT_URL;
   const isEnvUrlValid =
@@ -672,6 +677,13 @@ export default function ChatWidget() {
     setSubmitErr(null);
 
     try {
+      // Turnstile verification check
+      if (turnstileStatus !== "success" || !turnstileToken) {
+        setSubmitErr("Please verify you are not a robot");
+        setSubmitBusy(false);
+        return;
+      }
+
       const isEmergency = category === "emergency";
       if (!email.trim()) throw new Error("Email is required.");
       if (!subject.trim()) throw new Error("Subject is required.");
@@ -689,6 +701,7 @@ export default function ChatWidget() {
           category,
           priority,
           siteUrl: isEmergency ? siteUrl : null,
+          turnstileToken, // Include Turnstile token
           metadata: {
             language: "en",
             page:
@@ -952,6 +965,32 @@ export default function ChatWidget() {
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="What happened? What did you expect? Any error messages?"
+                    />
+                  </div>
+
+                  <div className="flex justify-center">
+                    <Turnstile
+                      siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                      retry="auto"
+                      refreshExpired="auto"
+                      sandbox={process.env.NODE_ENV === "development"}
+                      onError={() => {
+                        setTurnstileStatus("error");
+                        setSubmitErr("Security check failed. Please try again.");
+                      }}
+                      onExpire={() => {
+                        setTurnstileStatus("expired");
+                        setSubmitErr("Security check expired. Please verify again.");
+                      }}
+                      onLoad={() => {
+                        setTurnstileStatus("required");
+                        setSubmitErr(null);
+                      }}
+                      onVerify={(token) => {
+                        setTurnstileStatus("success");
+                        setTurnstileToken(token);
+                        setSubmitErr(null);
+                      }}
                     />
                   </div>
 

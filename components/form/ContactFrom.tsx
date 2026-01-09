@@ -1,11 +1,12 @@
 "use client";
 
-import { useActionState, useTransition, useEffect } from "react";
+import { useActionState, useTransition, useEffect, useState } from "react";
 import { submitContactForm } from "@/app/actions/contact";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { Turnstile } from "next-turnstile";
 import {
   Form,
   FormControl,
@@ -56,14 +57,27 @@ export function ContactForm() {
   });
 
   const [isTransitioning, startTransition] = useTransition();
+  const [turnstileStatus, setTurnstileStatus] = useState<
+    "success" | "error" | "expired" | "required"
+  >("required");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileError, setTurnstileError] = useState<string | null>(null);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    // Turnstile verification check
+    if (turnstileStatus !== "success" || !turnstileToken) {
+      setTurnstileError("Please verify you are not a robot");
+      return;
+    }
+
+    setTurnstileError(null);
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
     formData.append("company", values.company);
     formData.append("country", values.country);
     formData.append("message", values.message);
+    formData.append("turnstileToken", turnstileToken);
 
     startTransition(async () => {
       await formAction(formData);
@@ -198,6 +212,37 @@ export function ContactForm() {
             </FormItem>
           )}
         />
+
+        <div className="flex justify-center w-full rounded-xl bg-white/10 border-white/20 focus-within:border-white/20 text-white placeholder:text-[#999999] text-white">
+          <Turnstile
+            className="w-full rounded-xl bg-white/10 border-white/20 focus-within:border-white/20 text-white placeholder:text-[#999999] text-white"
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            retry="auto"
+            refreshExpired="auto"
+            sandbox={process.env.NODE_ENV === "development"}
+            onError={() => {
+              setTurnstileStatus("error");
+              setTurnstileError("Security check failed. Please try again.");
+            }}
+            onExpire={() => {
+              setTurnstileStatus("expired");
+              setTurnstileError("Security check expired. Please verify again.");
+            }}
+            onLoad={() => {
+              setTurnstileStatus("required");
+              setTurnstileError(null);
+            }}
+            onVerify={(token) => {
+              setTurnstileStatus("success");
+              setTurnstileToken(token);
+              setTurnstileError(null);
+            }}
+          />
+        </div>
+
+        {turnstileError && (
+          <p className="text-sm text-red-500">{turnstileError}</p>
+        )}
 
         {state?.success && (
           <p className="text-sm text-green-500">{state.message}</p>
