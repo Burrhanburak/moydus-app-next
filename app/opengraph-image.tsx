@@ -2,7 +2,6 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-
 export const size = {
   width: 1200,
   height: 630,
@@ -25,8 +24,16 @@ export default function OG() {
           height={100}
           alt="Moydus Logo"
         />
-        <div style={title}>Moydus</div>
-        <div style={desc}>Software Company & Web Design Agency</div>
+        <div style={content}>
+          <div style={title}>
+            Software Company & Web Design Agency | Moydus®
+          </div>
+          <div style={desc}>
+            Full-service software company and web design agency delivering
+            scalable e-commerce platforms, custom SaaS products, and AI
+            automation solutions. Trusted by 1,200+ brands.
+          </div>
+        </div>
       </div>
     ),
     size
@@ -40,6 +47,7 @@ const container: React.CSSProperties = {
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
+  gap: 32,
   backgroundColor: "#fff",
   backgroundImage: `
     radial-gradient(circle at 24px 24px, rgba(0,0,0,0.12) 1.5%, transparent 0%),
@@ -50,11 +58,20 @@ const container: React.CSSProperties = {
   backgroundSize: "120px 120px",
 };
 
+const content: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 16,
+  alignItems: "center",
+  textAlign: "center",
+};
+
 const title: React.CSSProperties = {
   fontSize: 48,
   fontWeight: 700,
   color: "#000000",
   lineHeight: 1.2,
+  textAlign: "center",
 };
 
 const desc: React.CSSProperties = {
@@ -63,4 +80,6 @@ const desc: React.CSSProperties = {
   color: "#000000",
   opacity: 0.7,
   lineHeight: 1.4,
+  textAlign: "center",
+  maxWidth: "900px",
 };

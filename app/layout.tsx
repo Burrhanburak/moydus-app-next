@@ -8,6 +8,9 @@ import ChatWidget from "@/components/chat/ChatWidget";
 import {
   buildWebsiteSchema,
   buildOrganizationSchema,
+  buildSoftwareApplicationSchema,
+  buildServiceSchema,
+  buildLocalBusinessSchema,
 } from "@/seo/json-ld/index";
 
 // Load ChatKit script directly from CDN to avoid frame URL issues
@@ -141,6 +144,16 @@ export default function RootLayout({
             __html: JSON.stringify([
               buildWebsiteSchema(),
               buildOrganizationSchema(),
+              buildSoftwareApplicationSchema(),
+              buildServiceSchema({
+                url: "https://www.moydus.com/services",
+                name: "Digital Services",
+                description:
+                  "Comprehensive digital services including web design, web development, e-commerce development, custom software development, and digital marketing services. Serving businesses worldwide across 150+ countries.",
+                category: "Digital Services",
+                areaServed: "Worldwide",
+              }),
+              buildLocalBusinessSchema(),
             ]),
           }}
         />

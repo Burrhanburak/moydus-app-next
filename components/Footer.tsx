@@ -58,16 +58,31 @@ const socialLinks = [
     href: "https://twitter.com/moydus",
   },
   {
+    label: "Instagram",
+    href: "https://www.instagram.com/moydus",
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/moydus",
+  },
+  {
     label: "GitHub",
     href: "https://github.com/moydus",
   },
+];
+
+const locationLinks = [
   {
-    label: " Google Maps",
-    href: "https://www.google.com/maps/place/Moydus/@35.1073992,-106.5865127,17z/data=!3m1!4b1!4m6!3m5!1s0x86e6616957113181:0x14b275447931448a!8m2!3d35.1073992!4d-106.584324!16s%2Fg%2F11c402qmrj?entry=ttu&g_ep=EgoyMDI1MDIyMi4wIKXMDSoASAFQAw%3D%3D",
+    label: "Google Maps",
+    href: "https://www.google.com/maps/d/u/0/edit?mid=1PiBXsyTOSpvXJyMsghtgh1nI0R-wiSk&usp=sharing",
+  },
+  {
+    label: "Google Business Profile",
+    href: "https://maps.app.goo.gl/vG6rKsrURLD7ZfN99",
   },
   {
     label: "Apple Maps",
-    href: "https://www.google.com/maps/place/Moydus/@35.1073992,-106.5865127,17z/data=!3m1!4b1!4m6!3m5!1s0x86e6616957113181:0x14b275447931448a!8m2!3d35.1073992!4d-106.584324!16s%2Fg%2F11c402qmrj?entry=ttu&g_ep=EgoyMDI1MDIyMi4wIKXMDSoASAFQAw%3D%3D",
+    href: "https://maps.apple.com/place?address=1209%20Mountain%20Road%20Pl%20NE,%20Ste%20N,%20Albuquerque,%20NM%20%2087110,%20United%20States&coordinate=35.091662,-106.558042&name=Moydus&place-id=I7227B81EF3262EDD&map=explore",
   },
 ];
 
@@ -130,11 +145,27 @@ export default function Footer({ location }: { location?: Location }) {
                     </span>
                   ) || <span className="font-bold">your city</span>}{" "}
                 - Growth playbooks, technical delivery, and analytics built for
-                operators
-                <br />
-                1209 Mountain Road Pl NE, Ste N, Albuquerque, NM 87111 New
-                Mexico (NM). <br /> United States of America (USA).
+                operators.
               </p>
+              <div className="mt-4">
+                <p className="text-sm text-[#b8b9b9] mb-2">
+                  <strong className="text-white">Office Address:</strong>
+                  <br />
+                  Moydus LLC | E-Commerce, Social, Web Design & SaaS Agency -
+                  USA
+                  <br />
+                  1209 Mountain Road Pl NE, Ste N, Albuquerque, NM 87110, United
+                  States
+                </p>
+                <a
+                  href="https://maps.app.goo.gl/vG6rKsrURLD7ZfN99"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#ff4d00] hover:text-[#ff4d00]/80 transition-colors text-sm inline-flex items-center gap-1"
+                >
+                  📍 View our location on Google Maps
+                </a>
+              </div>
             </div>
 
             <div>
@@ -229,13 +260,29 @@ export default function Footer({ location }: { location?: Location }) {
                   </li>
                 ))}
               </ul>
+            </div>
 
-              {/* Status Badge */}
+            <div>
+              <h3 className="mb-4 font-bold text-white">Find Us</h3>
+              <ul className="space-y-4 text-[#b8b9b9]">
+                {locationLinks.map(({ label, href }, index) => (
+                  <li key={`${label}-${index}`} className="font-medium">
+                    <Link
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-[#ff4d00] transition-colors duration-200"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
           <div className="mt-6">
             <Link
-              href=""
+              href="https://status.moydus.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full font-medium text-[13px] px-3 py-1 bg-[#262626] text-[#C7C5C5] border border-transparent hover:bg-[#3a3a3a] hover:text-white transition-colors duration-200"

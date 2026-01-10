@@ -186,7 +186,7 @@ export default function Header() {
                               height="70"
                               decoding="async"
                               className="w-[70px] h-[70px] rounded-lg object-cover"
-                              src="/moydus-tree.png"
+                              src={cdn("/team.png", 200, 85)}
                               style={{ color: "transparent" }}
                             />
                             <div className="flex flex-col gap-1">
@@ -209,7 +209,7 @@ export default function Header() {
                               height="70"
                               decoding="async"
                               className="w-[70px] h-[70px] rounded-lg object-cover"
-                              src={cdn("/team.png", 200, 85)}
+                              src={cdn("/stories.png", 200, 85)}
                               style={{ color: "transparent" }}
                             />
                             <div className="flex flex-col gap-1">
@@ -752,7 +752,7 @@ export default function Header() {
                             height="336"
                             decoding="async"
                             className="w-full h-full object-cover"
-                            src="/nav-tem-1.webp"
+                            src={cdn("/nav-tem-1.webp", 200, 85)}
                             style={{ color: "transparent" }}
                           />
                           <span className="font-normal text-white group/nav-card:focus-visible:text-white font-display text-sm tracking-[.0125rem] absolute top-0 pt-3 pl-3">
@@ -901,7 +901,7 @@ export default function Header() {
                               height="70"
                               decoding="async"
                               className="w-[70px] h-[70px] rounded-2xl object-cover p-1"
-                              src={cdn("/moydus.png", 200, 85)}
+                              src={cdn("/stories.png", 200, 85)}
                               style={{ color: "transparent" }}
                             />
                             <div className="flex flex-col gap-0.5">

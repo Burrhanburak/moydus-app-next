@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { r2cdn } from "@/lib/cdn";
 
 export const metadata: Metadata = {
   title: "Careers at Moydus – Web, SaaS & Automation (Remote)",
@@ -188,11 +189,12 @@ function CareersPage() {
               </p>
               <div className="mt-6 overflow-hidden rounded-xl border border-white/10">
                 <Image
-                  src={highlightCard.image.src}
+                  src={r2cdn(highlightCard.image.src)}
                   alt={highlightCard.image.alt}
                   width={900}
                   height={520}
                   className="h-48 w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+                  unoptimized
                 />
               </div>
             </Link>

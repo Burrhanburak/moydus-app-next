@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { ContactForm } from "@/components/form/ContactFrom";
 import type { Metadata } from "next";
 import { JsonLd } from "@/seo/json-ld";
@@ -89,8 +90,100 @@ export default function ContactPage() {
                 at <span className="text-[#ff5309]">info@moydus.com</span>, and
                 our team will get back to you as soon as possible.
               </p>
-              <div className="flex items-center gap-4">
-                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-[3px] bg-[#FF4D00] text-white shadow-xs hover:bg-[#FF4D00]/90 h-9 px-4 py-2 text-md rounded-xl ">
+
+              {/* Address & Location Links */}
+              <div className="flex flex-col gap-4 mt-6 relative z-20">
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-lg font-semibold text-white">
+                    📍 Address
+                  </h3>
+                  <p className="text-white/70 text-base">
+                    Moydus LLC | E-Commerce, Social, Web Design & SaaS Agency -
+                    USA
+                    <br />
+                    1209 Mountain Road Pl NE, Ste N<br />
+                    Albuquerque, NM 87110
+                    <br />
+                    United States
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-3 relative z-20">
+                  <a
+                    href="https://www.google.com/maps/d/u/0/edit?mid=1PiBXsyTOSpvXJyMsghtgh1nI0R-wiSk&usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#ff5309] hover:text-[#ff5309]/80 transition-colors text-base font-medium inline-flex items-center gap-2 cursor-pointer relative z-30"
+                  >
+                    📍 View on Google Maps
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 17L17 7"></path>
+                      <path d="M7 7h10v10"></path>
+                    </svg>
+                  </a>
+
+                  <a
+                    href="https://maps.app.goo.gl/vG6rKsrURLD7ZfN99"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#ff5309] hover:text-[#ff5309]/80 transition-colors text-base font-medium inline-flex items-center gap-2 cursor-pointer relative z-30"
+                  >
+                    🏢 View our Google Business Profile
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 17L17 7"></path>
+                      <path d="M7 7h10v10"></path>
+                    </svg>
+                  </a>
+
+                  <a
+                    href="https://maps.apple.com/place?address=1209%20Mountain%20Road%20Pl%20NE,%20Ste%20N,%20Albuquerque,%20NM%20%2087110,%20United%20States&coordinate=35.091662,-106.558042&name=Moydus&place-id=I7227B81EF3262EDD&map=explore"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#ff5309] hover:text-[#ff5309]/80 transition-colors text-base font-medium inline-flex items-center gap-2 cursor-pointer relative z-30"
+                  >
+                    🍎 View on Apple Maps
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 17L17 7"></path>
+                      <path d="M7 7h10v10"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 relative z-20">
+                <Link
+                  href="/services"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-[3px] bg-[#FF4D00] text-white shadow-xs hover:bg-[#FF4D00]/90 h-9 px-4 py-2 text-md rounded-xl cursor-pointer relative z-30"
+                >
                   Explore{" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -108,8 +201,11 @@ export default function ContactPage() {
                     <path d="M5 12h14"></path>
                     <path d="m12 5 7 7-7 7"></path>
                   </svg>
-                </button>
-                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-[3px] bg-white/10 text-white shadow-xs hover:bg-white/20 h-9 px-4 py-2 text-md rounded-xl ">
+                </Link>
+                <Link
+                  href="/support"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-[3px] bg-white/10 text-white shadow-xs hover:bg-white/20 h-9 px-4 py-2 text-md rounded-xl cursor-pointer relative z-30"
+                >
                   Documentation{" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +223,7 @@ export default function ContactPage() {
                     <path d="M5 12h14"></path>
                     <path d="m12 5 7 7-7 7"></path>
                   </svg>
-                </button>
+                </Link>
               </div>
               <div className="flex items-center justify-start gap-7">
                 <div className="text-right">

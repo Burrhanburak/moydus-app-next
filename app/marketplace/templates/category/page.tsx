@@ -64,7 +64,13 @@ export default async function CategoryPage() {
   // Only show categories that have a valid group assigned
   const categoriesWithGroup = categories.filter((category: Category) => {
     const group = category.group?.trim();
-    return group && group !== "" && ["business", "community", "creative", "style"].includes(group.toLowerCase());
+    return (
+      group &&
+      group !== "" &&
+      ["business", "community", "creative", "style"].includes(
+        group.toLowerCase()
+      )
+    );
   });
 
   // Debug: Log categories to see what we're getting
@@ -134,13 +140,15 @@ export default async function CategoryPage() {
   const groupedCategories = categoriesWithGroup.reduce(
     (acc: Record<string, Category[]>, category: Category) => {
       // Use the group directly since we've already filtered for valid groups
-      const group = category.group?.toLowerCase().trim() || inferGroupFromTitle(category.title, category.group);
-      
+      const group =
+        category.group?.toLowerCase().trim() ||
+        inferGroupFromTitle(category.title, category.group);
+
       // Only include valid groups
       if (!["business", "community", "creative", "style"].includes(group)) {
         return acc; // Skip invalid groups
       }
-      
+
       if (!acc[group]) {
         acc[group] = [];
       }
@@ -172,7 +180,10 @@ export default async function CategoryPage() {
             Categories
           </h1>
           <p className="text-white/60 text-lg max-w-2xl">
-            Discover templates organized by category groups
+            Explore templates grouped by product category. Professionally
+            designed UI systems for websites, e-commerce stores, and SaaS
+            platforms — built to help teams launch faster with scalable,
+            production-ready components trusted by global brands.
           </p>
         </div>
 

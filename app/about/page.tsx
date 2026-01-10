@@ -6,6 +6,9 @@ import {
   buildWebPageSchema,
   buildOrganizationSchema,
 } from "@/seo/json-ld/index";
+import { r2cdn } from "@/lib/cdn";
+import Link from "next/link";
+import { MapMinus, MapPinCheck, MapPinned } from "lucide-react";
 
 export const metadata: Metadata = {
   title:
@@ -96,31 +99,34 @@ function AboutPage() {
         <div className="container relative mx-auto flex flex-col gap-28">
           <div className="mx-auto w-full max-w-5xl px-6 md:max-w-7xl">
             <Image
-              src="/about-logo-moydus.png"
+              src={r2cdn("/about-logo-moydus.png")}
               alt="Moydus company logo - Global digital solutions provider"
               width={280}
               height={380}
               className="mx-auto"
+              unoptimized
             />
             <h1 className="mb-2.5 text-[32px] md:text-[48px] lg:text-5xl font-semibold text-white text-center">
-              Building the <br />
-              Modern Software Development Platform
+              About Us
             </h1>
-            <p className="text-base md:text-lg lg:text-[1.125rem] md:leading-[1.5] text-white/70 font-normal text-balance text-center mt-6">
+            <h2 className="text-[24px] md:text-[32px] lg:text-[40px] font-semibold text-white text-center mb-6">
+              We are Building the Modern Software Development Platform
+            </h2>
+            <p className="text-base md:text-lg lg:text-[1.125rem] md:leading-[1.5] text-white/70 font-normal text-balance text-center mt-6 mb-6 max-w-3xl mx-auto">
               The web has come a long way in the last ten years, but why is
-              software development stuck in the past?
-              <br />
-              It doesn&apos;t have to be that way. We want to change that. We
-              want to reimagine software development for businesses worldwide.
+              software development stuck in the past? It doesn&apos;t have to be
+              that way. We want to change that. We want to reimagine software
+              development for businesses worldwide.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             <Image
-              src="/moydus-two.png"
+              src={r2cdn("/moydus-two.png")}
               alt="Moydus team working on global digital solutions and software development"
               width={800}
               height={400}
               className="size-full max-h-96 rounded-2xl object-cover"
+              unoptimized
             />
             <div className="bg-white/5 flex flex-col justify-between gap-10 rounded-2xl p-10">
               <p className="text-white/60 text-sm font-medium uppercase tracking-wide">
@@ -244,11 +250,12 @@ function AboutPage() {
             </div>
             <div>
               <Image
-                src="/team-moydus.png"
+                src={r2cdn("/team-moydus.png")}
                 alt="Team of moydus in the office"
                 width={800}
                 height={144}
                 className="mb-6 max-h-96 w-full rounded-xl object-cover"
+                unoptimized
               />
               <p className="text-white/70 text-base md:text-lg">
                 And we&apos;re looking for the right people to help us do it. If
@@ -256,6 +263,55 @@ function AboutPage() {
                 building global digital solutions, this might be the place for
                 you.
               </p>
+            </div>
+          </div>
+
+          {/* Address & Location Links */}
+          <div className="flex flex-col gap-2 mt-12">
+            <div className="flex flex-col gap-2">
+              <h3 className="text-lg font-semibold text-white">
+                Get to know us
+              </h3>
+              <p className="text-white/70 text-base">
+                Moydus LLC | E-Commerce, Social, Web Design & SaaS Agency - USA
+                <br />
+                1209 Mountain Road Pl NE, Ste N<br />
+                Albuquerque, NM 87110
+                <br />
+                United States
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Link
+                href="https://www.google.com/maps/d/u/0/edit?mid=1PiBXsyTOSpvXJyMsghtgh1nI0R-wiSk&usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-white/80 transition-colors text-xs font-medium inline-flex items-center gap-2"
+              >
+                <MapPinCheck className="size-4 text-white" />
+                View on Google Maps
+              </Link>
+
+              <Link
+                href="https://maps.app.goo.gl/vG6rKsrURLD7ZfN99"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-white/80 transition-colors text-xs font-medium inline-flex items-center gap-2"
+              >
+                <MapMinus className="size-4 text-white" />
+                View on Google Maps
+              </Link>
+
+              <Link
+                href="https://maps.apple.com/place?address=1209%20Mountain%20Road%20Pl%20NE,%20Ste%20N,%20Albuquerque,%20NM%20%2087110,%20United%20States&coordinate=35.091662,-106.558042&name=Moydus&place-id=I7227B81EF3262EDD&map=explore"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-white/80 transition-colors text-xs font-medium inline-flex items-center gap-2"
+              >
+                <MapPinned className="size-4 text-white" />
+                View on Apple Maps
+              </Link>
             </div>
           </div>
         </div>

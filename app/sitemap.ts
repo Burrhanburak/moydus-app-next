@@ -36,6 +36,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 1.0,
       },
       {
+        url: `${BASE_URL}/about`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.9,
+      },
+      {
+        url: `${BASE_URL}/contact`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.9,
+      },
+      {
         url: `${BASE_URL}/services`,
         lastModified: new Date(),
         changeFrequency: "daily",
@@ -78,6 +90,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
       },
       {
+        url: `${BASE_URL}/pricing`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.9,
+      },
+      {
+        url: `${BASE_URL}/careers`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.8,
+      },
+      {
+        url: `${BASE_URL}/customers`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.8,
+      },
+      {
+        url: `${BASE_URL}/support`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
+      },
+      {
+        url: `${BASE_URL}/near-me`,
+        lastModified: new Date(),
+        changeFrequency: "daily",
+        priority: 0.8,
+      },
+      {
         url: `${BASE_URL}/marketplace/templates`,
         lastModified: new Date(),
         changeFrequency: "daily",
@@ -94,6 +136,86 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: "daily",
         priority: 0.8,
+      },
+      // Money Pages - High Priority
+      {
+        url: `${BASE_URL}/web-design-agency`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.9,
+      },
+      {
+        url: `${BASE_URL}/web-design-company`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.9,
+      },
+      {
+        url: `${BASE_URL}/web-development-company`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.9,
+      },
+      {
+        url: `${BASE_URL}/digital-marketing-services`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.9,
+      },
+      {
+        url: `${BASE_URL}/ecommerce-website-development`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.9,
+      },
+      {
+        url: `${BASE_URL}/software-company`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.9,
+      },
+      {
+        url: `${BASE_URL}/web-design`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
+      },
+      {
+        url: `${BASE_URL}/web-development`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
+      },
+      {
+        url: `${BASE_URL}/custom-software-development`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
+      },
+      {
+        url: `${BASE_URL}/multi-vendor-marketplace-development`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
+      },
+      // Legal Pages
+      {
+        url: `${BASE_URL}/privacy-policy`,
+        lastModified: new Date(),
+        changeFrequency: "yearly",
+        priority: 0.5,
+      },
+      {
+        url: `${BASE_URL}/terms-of-service`,
+        lastModified: new Date(),
+        changeFrequency: "yearly",
+        priority: 0.5,
+      },
+      {
+        url: `${BASE_URL}/refund-policy`,
+        lastModified: new Date(),
+        changeFrequency: "yearly",
+        priority: 0.5,
       }
     );
 

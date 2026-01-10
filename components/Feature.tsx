@@ -13,25 +13,21 @@ type Client = {
 function Card({ title, desc, icon, delay = 0 }: Client & { delay?: number }) {
   return (
     <motion.li
-      className="bg-[#000000] hover:bg-[#0a0a0a] relative cursor-pointer gap-2 overflow-hidden px-4 py-3 rounded-[20px] border border-[#262626] transition-colors"
-      style={{
-        marginBlock: "10px",
-        minHeight: "110px",
-      }}
+      className="flex flex-col"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ type: "spring", duration: 0.6, bounce: 0.1, delay }}
     >
-      <div className="flex h-fit items-center gap-3 pl-1 pt-1">
-        <div className="w-6 h-6 flex items-center justify-center text-white shrink-0">
+      <div className="bg-accent mb-5 flex size-12 items-center justify-center rounded-2xl">
+        <div className="w-6 h-6 flex items-center justify-center text-black">
           {icon}
         </div>
-        <span className="text-sm tracking-tight text-white font-medium">
-          {title}
-        </span>
       </div>
-      <p className="px-1 pt-2 pb-1 text-sm text-white/70">{desc}</p>
+      <h3 className="mb-3 mt-2 text-xl md:text-2xl font-semibold text-white">
+        {title}
+      </h3>
+      <p className="text-white/70 text-base md:text-lg">{desc}</p>
     </motion.li>
   );
 }
@@ -85,7 +81,7 @@ export default function Feature() {
           </motion.h2>
         </div>
 
-        <ul className="grid w-full mx-auto gap-[10px] md:gap-[15px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-min list-none p-0 m-0">
+        <ul className="grid w-full mx-auto gap-10 md:grid-cols-2 px-2 auto-rows-min list-none p-0 m-0">
           {clients.map((c, i) => (
             <Card
               key={i}

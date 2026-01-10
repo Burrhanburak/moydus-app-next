@@ -186,7 +186,7 @@ export default function ServicesFeedWithFilters({
       <section className="mb-10 rounded-3xl bg-gradient-to-br from-[lab(0_0_0)] via-[lab(27_31.49_44.29)] to-black p-10 text-white shadow-2xl">
         <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-gray-400">
+            <p className="text-xs uppercase tracking-[0.4em] text-white/60">
               Service Intelligence Hub
             </p>
             <h1 className="mt-4 text-4xl md:text-5xl font-bold">{title}</h1>
@@ -198,12 +198,15 @@ export default function ServicesFeedWithFilters({
           </div>
           <div className="grid grid-cols-2 gap-4 text-center md:grid-cols-5 lg:text-right">
             {stats.map((stat) => (
-              <div key={stat.label} className="rounded-2xl bg-white/5 p-4">
+              <div
+                key={stat.label}
+                className="rounded-2xl bg-white/5 p-4 flex flex-col items-center justify-center"
+              >
                 <p className="text-2xl font-bold text-white">
                   {stat.value.toLocaleString()}
                 </p>
                 <p className="text-xs uppercase tracking-wider text-white/60">
-                  {stat.label}
+                  {/* {stat.label} */}
                 </p>
               </div>
             ))}

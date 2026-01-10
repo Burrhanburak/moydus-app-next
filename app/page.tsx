@@ -4,7 +4,6 @@ import Cta from "@/components/Cta";
 import Faq from "@/components/Faq";
 import Feature from "@/components/Feature";
 import PricingCard from "@/components/PricingCard";
-import SmartCard from "@/components/SmartCard";
 import Testimional from "@/components/Testimional";
 import Stats from "@/components/Stats";
 import { motion } from "framer-motion";
@@ -48,7 +47,6 @@ export default function Home() {
           <BentoGrid />
           {/* <BetonGridSecond /> */}
           <Feature />
-          <SmartCard />
           <GridTemp />
           <Collec />
           <Stats />

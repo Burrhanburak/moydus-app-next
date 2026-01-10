@@ -157,8 +157,8 @@ const formatPublishedDate = (value?: string): string | null => {
     return null;
   }
 
-  return date.toLocaleDateString(undefined, {
-    month: "short",
+  return date.toLocaleDateString("en-US", {
+    month: "long",
     day: "numeric",
     year: "numeric",
   });
@@ -209,14 +209,17 @@ export default function StoryClient({
   return (
     <main className="min-h-screen bg-[#050505] text-white px-6 py-19">
       <div className="mx-auto flex max-w-6xl flex-col gap-12">
-        <header className="space-y-4 text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-white/40">
-            Web Stories
-          </p>
-          <h1 className="text-4xl font-semibold">{title}</h1>
-          {description && (
-            <p className="text-lg text-white/60">{description}</p>
-          )}
+        <header className="space-y-6 text-center mb-8">
+          <div className="space-y-3">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+              {title}
+            </h1>
+            {description && (
+              <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
+                {description}
+              </p>
+            )}
+          </div>
         </header>
 
         <section className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
@@ -269,33 +272,43 @@ export default function StoryClient({
                 </div>
 
                 <div className="flex flex-1 flex-col gap-4 p-6">
-                  {published && (
-                    <p className="text-xs uppercase tracking-[0.3em] text-white/40">
-                      {published}
-                    </p>
-                  )}
-                  <h2 className="text-2xl font-semibold">
-                    {story.title || "Untitled story"}
-                  </h2>
-                  {summary && (
-                    <p className="text-sm leading-relaxed text-white/70">
-                      {summary}
-                    </p>
-                  )}
-
-                  <div className="mt-auto flex items-center justify-between">
-                    <Link
-                      href={href}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-200 transition hover:text-white"
-                    >
-                      Read story
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                    {story.author_name && (
-                      <p className="text-sm text-white/60">
-                        {story.author_name}
+                  <div className="space-y-2">
+                    <h2 className="text-xl md:text-2xl font-semibold line-clamp-2">
+                      {story.title || "Untitled story"}
+                    </h2>
+                    {summary && (
+                      <p className="text-sm leading-relaxed text-white/70 line-clamp-3">
+                        {summary}
                       </p>
                     )}
+                  </div>
+
+                  <div className="mt-auto pt-4 border-t border-white/10 space-y-3">
+                    {published && (
+                      <div className="flex items-center gap-2">
+                        <time 
+                          dateTime={story.published_at || story.created_at || undefined}
+                          className="inline-flex items-center gap-1.5 text-xs font-medium text-white/50 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 hover:bg-white/10 transition-colors"
+                        >
+                          <span className="text-[10px]">📅</span>
+                          <span>{published}</span>
+                        </time>
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between">
+                      <Link
+                        href={href}
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
+                      >
+                        Read story
+                        <span aria-hidden="true" className="text-emerald-400">→</span>
+                      </Link>
+                      {story.author_name && (
+                        <p className="text-xs text-white/50">
+                          {story.author_name}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </article>

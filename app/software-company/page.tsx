@@ -244,21 +244,18 @@ export default function SoftwareCompanyPage() {
           <h2 className="text-3xl md:text-4xl font-semibold mb-12 text-white text-center">
             Our Software Development Services
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid gap-10 md:grid-cols-2 px-2">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <div
-                  key={index}
-                  className="bg-[#0a0a0a] border border-[#262626] rounded-2xl p-6 hover:border-white/20 transition-colors"
-                >
-                  <div className="bg-white/10 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-white" />
+                <div key={index} className="flex flex-col">
+                  <div className="bg-accent mb-5 flex size-12 items-center justify-center rounded-2xl">
+                    <Icon className="w-6 h-6 text-black" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 text-white">
+                  <h3 className="mb-3 mt-2 text-xl md:text-2xl font-semibold text-white">
                     {service.title}
                   </h3>
-                  <p className="text-white/70 text-base leading-relaxed">
+                  <p className="text-white/70 text-base md:text-lg">
                     {service.description}
                   </p>
                 </div>

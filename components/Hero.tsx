@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { cdn, r2cdn } from "@/lib/cdn";
+import { cdn } from "@/lib/cdn";
 
 export default function Hero() {
   const [badgeVisible, setBadgeVisible] = useState(false);
@@ -116,7 +116,7 @@ export default function Hero() {
                     gap: 16px;
                   }
                   .hero-h1 {
-                    font-size: 60px !important;
+                    font-size:50px !important;
                   }
                   .hero-subtitle {
                     width: 368px;
@@ -156,7 +156,7 @@ export default function Hero() {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              gap: "25px",
+              gap: "17px",
               width: "100%",
               maxWidth: "800px",
               height: "min-content",
@@ -201,7 +201,7 @@ export default function Hero() {
                 worldwide.
                 <br />
                 <br />
-                <span className="block mt-2 text-white/70">
+                <span className="block mt-1 text-white/70">
                   Trusted by startups and teams with clear timelines, scalable
                   delivery, and measurable business outcomes.
                 </span>
@@ -343,23 +343,23 @@ export default function Hero() {
               >
                 {[
                   {
-                    src: "/trusted/1.png",
+                    src: cdn("/trusted/1.png", 48, 80, "webp"),
                     marginLeft: 0,
                   },
                   {
-                    src: "/trusted/2.png",
+                    src: cdn("/trusted/2.png", 48, 80, "webp"),
                     marginLeft: "-16px",
                   },
                   {
-                    src: "/trusted/3.png",
+                    src: cdn("/trusted/3.png", 48, 80, "webp"),
                     marginLeft: "-16px",
                   },
                   {
-                    src: "/trusted/4.png",
+                    src: cdn("/trusted/4.png", 48, 80, "webp"),
                     marginLeft: "-16px",
                   },
                   {
-                    src: "/trusted/6.png",
+                    src: cdn("/trusted/6.png", 48, 80, "webp"),
                     marginLeft: "-16px",
                   },
                 ].map((avatar, i) => (
@@ -374,14 +374,13 @@ export default function Hero() {
                     }}
                   >
                     <Image
-                      src={cdn(avatar.src, 28, 75)}
+                      src={avatar.src}
                       alt="Trusted customer avatar"
-                      width={28}
-                      height={28}
+                      width={48}
+                      height={48}
                       loading="lazy"
-                      quality={75}
+                      quality={80}
                       sizes="28px"
-                      unoptimized
                       style={{
                         width: "100%",
                         height: "100%",
@@ -579,6 +578,23 @@ export default function Hero() {
           </div>
           <div className="absolute top-0 left-0 w-full h-full z-0 shadow-2xl blur-sm"></div>
           {/* Optimized: Use MP4 video instead of GIF (26MB → 4.8MB, 82% reduction) */}
+          {/* <Image
+            src="https://cdn.moydus.com/37792e14-c450-4188-0743-6a776269c700"
+            alt="Moydus"
+            width={1000}
+            height={1000}
+            unoptimized
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center center",
+              zIndex: 0,
+            }}
+          /> */}
           {/* <video
             src={r2cdn("/moos-optimized.mp4")}
             autoPlay

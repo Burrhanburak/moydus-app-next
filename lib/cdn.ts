@@ -55,6 +55,7 @@ const CLOUDFLARE_IMAGES_ID_MAP: Record<string, string> = {
   // Other images
   "/ai.png": "29cec669-f053-4947-58b9-0f7357bb4300", // ✅ Updated
   "/moydus.png": "7539a07d-2a21-4250-58fe-fe329e471b00", // ✅ Added
+  "/hero.png": "37792e14-c450-4188-0743-6a776269c700", // ✅ Updated
   "/grid/b2b-moy.png": "69c6b56c-cd21-4324-9527-a086662aae00", // ✅ Updated
   "/grid/b2b-moys.png": "69c6b56c-cd21-4324-9527-a086662aae00", // ✅ Added (same file, different name)
   
@@ -62,6 +63,7 @@ const CLOUDFLARE_IMAGES_ID_MAP: Record<string, string> = {
   "/nav-tem-1.webp": "fe43c588-1de7-4a3a-10e6-798a36ee2a00", // ✅ Added
   "/nav-temp-2.webp": "867e2a9a-77ef-45f2-9273-fe3c80928600", // ✅ Added
   "/bg-features.webp": "197f7533-b48b-44ff-1aa5-6d44449cb600", // ✅ Added
+  "/stories.png": "2552361c-b7b3-4816-8ee2-a76ea74ec800", // ✅ Added
 };
 
 /**

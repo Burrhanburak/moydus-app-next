@@ -1,10 +1,16 @@
 "use client";
 
-import { client, urlFor, urlForOptimized, urlForBlurPlaceholder } from "@/lib/sanity";
+import {
+  client,
+  urlFor,
+  urlForOptimized,
+  urlForBlurPlaceholder,
+} from "@/lib/sanity";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatedDrawer } from "@/components/DrawerFilter";
+import { TrendingUp } from "lucide-react";
 
 interface Category {
   title: string;
@@ -67,16 +73,16 @@ async function getCategories() {
   return shuffled.slice(0, 5);
 }
 
-async function getTemplates(
-  categorySlug?: string | null
-) {
+async function getTemplates(categorySlug?: string | null) {
   let query = `*[_type == "template" && published == true`;
 
   const conditions: string[] = [];
   const params: Record<string, string> = {};
 
   if (categorySlug) {
-    conditions.push(`($categorySlug in categories[]->slug.current || primaryCategory->slug.current == $categorySlug)`);
+    conditions.push(
+      `($categorySlug in categories[]->slug.current || primaryCategory->slug.current == $categorySlug)`
+    );
     params.categorySlug = categorySlug;
   }
 
@@ -201,9 +207,7 @@ export default function MarketplaceTemplatesPage() {
       try {
         setLoading(true);
         setError(null);
-        const temps = await getTemplates(
-          selectedCategory || undefined
-        );
+        const temps = await getTemplates(selectedCategory || undefined);
         console.log("Filtered templates:", temps);
         setTemplates(temps || []);
       } catch (err) {
@@ -220,12 +224,14 @@ export default function MarketplaceTemplatesPage() {
 
   return (
     <div className="min-h-screen bg-[#000000]  text-white">
-      <div className="container mx-auto max-w-7xl px-4 md:px-6 py-16">
+      <div className="container mx-auto max-w-7xl px-4 md:px-6 py-21 md:py-16">
         {/* Header */}
         <div className="mb-12">
           <h1 className="text-5xl font-semibold mb-4 md:text-6xl">Templates</h1>
           <p className="text-white/60 text-lg max-w-2xl">
-            Discover beautiful email templates crafted by talented designers
+            Discover professionally designed templates for websites e-commerce
+            stores, SaaS platforms, Launch faster with scalable,
+            production-ready UI systems used by global brands.
           </p>
         </div>
 
@@ -263,13 +269,15 @@ export default function MarketplaceTemplatesPage() {
                                   width: 800,
                                   height: 600,
                                   quality: 85,
-                                  format: 'auto',
+                                  format: "auto",
                                 }).url()}
                                 alt={`${category.title} thumbnail 1`}
                                 fill
                                 loading="lazy"
                                 placeholder="blur"
-                                blurDataURL={urlForBlurPlaceholder(category.thumbnails[0])}
+                                blurDataURL={urlForBlurPlaceholder(
+                                  category.thumbnails[0]
+                                )}
                                 sizes="(max-width: 768px) 50vw, 66vw"
                                 className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                               />
@@ -281,13 +289,15 @@ export default function MarketplaceTemplatesPage() {
                                   width: 400,
                                   height: 300,
                                   quality: 85,
-                                  format: 'auto',
+                                  format: "auto",
                                 }).url()}
                                 alt={`${category.title} thumbnail 1`}
                                 fill
                                 loading="lazy"
                                 placeholder="blur"
-                                blurDataURL={urlForBlurPlaceholder(category.thumbnails[0])}
+                                blurDataURL={urlForBlurPlaceholder(
+                                  category.thumbnails[0]
+                                )}
                                 sizes="100vw"
                                 className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                               />
@@ -302,13 +312,15 @@ export default function MarketplaceTemplatesPage() {
                                 width: 400,
                                 height: 300,
                                 quality: 85,
-                                format: 'auto',
+                                format: "auto",
                               }).url()}
                               alt={`${category.title} thumbnail 2`}
                               fill
                               loading="lazy"
                               placeholder="blur"
-                              blurDataURL={urlForBlurPlaceholder(category.thumbnails[1])}
+                              blurDataURL={urlForBlurPlaceholder(
+                                category.thumbnails[1]
+                              )}
                               sizes="(max-width: 768px) 50vw, 33vw"
                               className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                             />
@@ -324,7 +336,7 @@ export default function MarketplaceTemplatesPage() {
                                 width: 400,
                                 height: 300,
                                 quality: 85,
-                                format: 'auto',
+                                format: "auto",
                               }).url()}
                               alt={`${category.title} thumbnail 3`}
                               fill
@@ -336,13 +348,20 @@ export default function MarketplaceTemplatesPage() {
                             <Image
                               src={urlForOptimized(
                                 category.previewTemplates[0].thumbnails[0],
-                                { width: 400, height: 300, quality: 85, format: 'auto' }
+                                {
+                                  width: 400,
+                                  height: 300,
+                                  quality: 85,
+                                  format: "auto",
+                                }
                               ).url()}
                               alt={`${category.title} template 3`}
                               fill
                               loading="lazy"
                               placeholder="blur"
-                              blurDataURL={urlForBlurPlaceholder(category.previewTemplates[0].thumbnails[0])}
+                              blurDataURL={urlForBlurPlaceholder(
+                                category.previewTemplates[0].thumbnails[0]
+                              )}
                               sizes="33vw"
                               className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                             />
@@ -361,13 +380,20 @@ export default function MarketplaceTemplatesPage() {
                               <Image
                                 src={urlForOptimized(
                                   category.previewTemplates[0].thumbnails[0],
-                                  { width: 800, height: 600, quality: 85, format: 'auto' }
+                                  {
+                                    width: 800,
+                                    height: 600,
+                                    quality: 85,
+                                    format: "auto",
+                                  }
                                 ).url()}
                                 alt={`${category.title} template 1`}
                                 fill
                                 loading="lazy"
                                 placeholder="blur"
-                                blurDataURL={urlForBlurPlaceholder(category.previewTemplates[0].thumbnails[0])}
+                                blurDataURL={urlForBlurPlaceholder(
+                                  category.previewTemplates[0].thumbnails[0]
+                                )}
                                 sizes="(max-width: 768px) 100vw, 66vw"
                                 className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                               />
@@ -376,13 +402,20 @@ export default function MarketplaceTemplatesPage() {
                               <Image
                                 src={urlForOptimized(
                                   category.previewTemplates[0].thumbnails[0],
-                                  { width: 400, height: 300, quality: 85, format: 'auto' }
+                                  {
+                                    width: 400,
+                                    height: 300,
+                                    quality: 85,
+                                    format: "auto",
+                                  }
                                 ).url()}
                                 alt={`${category.title} template 1`}
                                 fill
                                 loading="lazy"
                                 placeholder="blur"
-                                blurDataURL={urlForBlurPlaceholder(category.previewTemplates[0].thumbnails[0])}
+                                blurDataURL={urlForBlurPlaceholder(
+                                  category.previewTemplates[0].thumbnails[0]
+                                )}
                                 sizes="100vw"
                                 className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
                               />
@@ -394,7 +427,12 @@ export default function MarketplaceTemplatesPage() {
                             <Image
                               src={urlForOptimized(
                                 category.previewTemplates[1].thumbnails[0],
-                                { width: 400, height: 300, quality: 85, format: 'auto' }
+                                {
+                                  width: 400,
+                                  height: 300,
+                                  quality: 85,
+                                  format: "auto",
+                                }
                               ).url()}
                               alt={`${category.title} template 2`}
                               fill

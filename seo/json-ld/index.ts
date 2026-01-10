@@ -93,6 +93,9 @@ export function buildOrganizationSchema() {
       "https://www.linkedin.com/company/moydus",
       "https://x.com/moydus",
       "https://www.facebook.com/moydus",
+      "https://www.google.com/maps/d/u/0/edit?mid=1PiBXsyTOSpvXJyMsghtgh1nI0R-wiSk&usp=sharing",
+      "https://maps.app.goo.gl/vG6rKsrURLD7ZfN99",
+      "https://maps.apple.com/place?address=1209%20Mountain%20Road%20Pl%20NE,%20Ste%20N,%20Albuquerque,%20NM%20%2087110,%20United%20States&coordinate=35.091662,-106.558042&name=Moydus&place-id=I7227B81EF3262EDD&map=explore",
     ],
     contactPoint: {
       "@type": "ContactPoint",
@@ -471,6 +474,166 @@ export function buildWebStorySchema(params: {
         width: 96,
         height: 96,
       },
+    },
+  };
+}
+
+/* -------------------------
+ * SOFTWARE APPLICATION
+ * ------------------------*/
+export function buildSoftwareApplicationSchema(params?: {
+  name?: string;
+  description?: string;
+  applicationCategory?: string;
+  operatingSystem?: string | string[];
+  offers?: {
+    price?: number;
+    priceCurrency?: string;
+    availability?: string;
+  };
+  softwareVersion?: string;
+  releaseNotes?: string;
+  downloadUrl?: string;
+  screenshot?: MoydusImage;
+}) {
+  const {
+    name = "Moydus Platform",
+    description = "Full-service software development platform and web design agency delivering scalable e-commerce platforms, custom SaaS products, and AI automation solutions.",
+    applicationCategory = "WebApplication",
+    operatingSystem = ["Web Browser", "iOS", "Android"],
+    offers,
+    softwareVersion,
+    releaseNotes,
+    downloadUrl,
+    screenshot,
+  } = params || {};
+
+  const data: any = {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "SoftwareApplication",
+    name,
+    description,
+    applicationCategory,
+    operatingSystem: Array.isArray(operatingSystem)
+      ? operatingSystem
+      : [operatingSystem],
+    url: "https://www.moydus.com",
+    author: {
+      "@type": "Organization",
+      name: "Moydus LLC",
+      url: "https://www.moydus.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.moydus.com/logo.png",
+        width: 512,
+        height: 512,
+      },
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Moydus LLC",
+      url: "https://www.moydus.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.moydus.com/logo.png",
+        width: 512,
+        height: 512,
+      },
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      ratingCount: "1200",
+      bestRating: "5",
+      worstRating: "1",
+    },
+  };
+
+  if (offers) {
+    data.offers = {
+      "@type": "Offer",
+      price: offers.price ?? 0,
+      priceCurrency: offers.priceCurrency ?? "USD",
+      availability: offers.availability ?? "https://schema.org/InStock",
+      url: "https://www.moydus.com/pricing",
+    };
+  }
+
+  if (softwareVersion) {
+    data.softwareVersion = softwareVersion;
+  }
+
+  if (releaseNotes) {
+    data.releaseNotes = releaseNotes;
+  }
+
+  if (downloadUrl) {
+    data.downloadUrl = downloadUrl;
+  }
+
+  if (screenshot) {
+    data.screenshot = {
+      "@type": "ImageObject",
+      url: screenshot.url,
+      width: screenshot.width ?? 1200,
+      height: screenshot.height ?? 630,
+      caption: screenshot.alt || name,
+    };
+  }
+
+  return data;
+}
+
+/* -------------------------
+ * LOCAL BUSINESS (with Google Maps & Apple Maps)
+ * ------------------------*/
+export function buildLocalBusinessSchema() {
+  return {
+    "@context": SCHEMA_CONTEXT,
+    "@type": "LocalBusiness",
+    name: "Moydus LLC",
+    legalName: "Moydus LLC",
+    url: "https://www.moydus.com",
+    description:
+      "E-Commerce, Social, Web Design & SaaS Agency serving businesses worldwide across 150+ countries.",
+    image: "https://www.moydus.com/logo.png",
+    telephone: "+1-505-460-5392",
+    email: "info@moydus.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "1209 Mountain Road Place Northeast, Ste N",
+      addressLocality: "Albuquerque",
+      addressRegion: "New Mexico",
+      postalCode: "87110",
+      addressCountry: "US",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 35.091662,
+      longitude: -106.558042,
+    },
+    areaServed: {
+      "@type": "Place",
+      name: "Worldwide",
+      description: "Serving businesses globally across 150+ countries",
+    },
+    hasMap: [
+      "https://maps.app.goo.gl/vG6rKsrURLD7ZfN99",
+      "https://maps.apple.com/place?address=1209%20Mountain%20Road%20Pl%20NE,%20Ste%20N,%20Albuquerque,%20NM%20%2087110,%20United%20States&coordinate=35.091662,-106.558042&name=Moydus&place-id=I7227B81EF3262EDD&map=explore",
+    ],
+    sameAs: [
+      "https://www.linkedin.com/company/moydus",
+      "https://x.com/moydus",
+      "https://www.facebook.com/moydus",
+      "https://maps.app.goo.gl/vG6rKsrURLD7ZfN99",
+      "https://maps.apple.com/place?address=1209%20Mountain%20Road%20Pl%20NE,%20Ste%20N,%20Albuquerque,%20NM%20%2087110,%20United%20States&coordinate=35.091662,-106.558042&name=Moydus&place-id=I7227B81EF3262EDD&map=explore",
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      ratingCount: "1200",
+      bestRating: "5",
+      worstRating: "1",
     },
   };
 }
