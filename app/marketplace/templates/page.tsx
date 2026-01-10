@@ -396,11 +396,6 @@ export default function MarketplaceTemplatesPage() {
                                 category.previewTemplates[1].thumbnails[0],
                                 { width: 400, height: 300, quality: 85, format: 'auto' }
                               ).url()}
-                                category.previewTemplates[1].thumbnails[0]
-                              )
-                                .width(200)
-                                .height(150)
-                                .url()}
                               alt={`${category.title} template 2`}
                               fill
                               className="object-cover outline outline-1 outline-white/10 outline-offset-[-1px] rounded-[3px]"
