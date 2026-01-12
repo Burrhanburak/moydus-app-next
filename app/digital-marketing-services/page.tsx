@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { JsonLd } from "@/seo/json-ld";
 import ScrollNarrator from "@/components/ScrollNarrator";
 import {
@@ -18,6 +19,7 @@ import {
   Megaphone,
   ArrowRight,
 } from "lucide-react";
+import { cdn } from "@/lib/cdn";
 
 export const metadata: Metadata = {
   title:
@@ -243,6 +245,25 @@ export default function DigitalMarketingServicesPage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
+          </div>
+
+          {/* Featured Image */}
+          <div className="w-full aspect-video rounded-2xl overflow-hidden bg-[#000000] mb-8 md:mb-12">
+            <Image
+              src={cdn("/digital-marketing-services/hero.jpg", 1920, 90) || "/digital-marketing-services/hero.jpg"}
+              alt="Digital Marketing Services – SEO, Content & Performance Marketing"
+              width={1920}
+              height={1080}
+              className="w-full h-full object-cover"
+              loading="eager"
+              priority
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                if (!target.src.includes("/digital-marketing-services/hero.jpg")) {
+                  target.src = "/digital-marketing-services/hero.jpg";
+                }
+              }}
+            />
           </div>
 
           {/* Services Grid */}

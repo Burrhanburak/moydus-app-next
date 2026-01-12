@@ -149,7 +149,7 @@ const Carousel_006 = ({
                 }}
                 className="h-full w-full overflow-hidden rounded-3xl"
               >
-                <div className="relative h-full w-full border">
+                <div className="relative h-full w-full border-white/5">
                   <Image
                     width={1000}
                     height={1000}

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { JsonLd } from "@/seo/json-ld";
 import ScrollNarrator from "@/components/ScrollNarrator";
 import {
@@ -18,6 +19,7 @@ import {
   Shield,
   ArrowRight,
 } from "lucide-react";
+import { cdn } from "@/lib/cdn";
 
 export const metadata: Metadata = {
   title: "E-Commerce Website Development | Moydus",
@@ -240,6 +242,25 @@ export default function EcommerceWebsiteDevelopmentPage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
+          </div>
+
+          {/* Featured Image */}
+          <div className="w-full aspect-video rounded-2xl overflow-hidden bg-[#000000] mb-8 md:mb-12">
+            <Image
+              src={cdn("/ecommerce-website-development/hero.jpg", 1920, 90) || "/ecommerce-website-development/hero.jpg"}
+              alt="E-Commerce Website Development – Online Store Development Services"
+              width={1920}
+              height={1080}
+              className="w-full h-full object-cover"
+              loading="eager"
+              priority
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                if (!target.src.includes("/ecommerce-website-development/hero.jpg")) {
+                  target.src = "/ecommerce-website-development/hero.jpg";
+                }
+              }}
+            />
           </div>
 
           {/* Services Grid */}

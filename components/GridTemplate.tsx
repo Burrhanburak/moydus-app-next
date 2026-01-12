@@ -1,7 +1,12 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import React, { useMemo, useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion";
+import React, { useMemo, useRef, useEffect, useCallback, memo } from "react";
 import Image from "next/image";
 import { cdn, r2cdn } from "@/lib/cdn";
 
@@ -21,7 +26,7 @@ type Column = {
   parallax?: number; // multiplier for y transform
 };
 
-export default function GridTemplate(): JSX.Element {
+export default function GridTemplate(): React.JSX.Element {
   const columns: Column[] = useMemo(
     () => [
       {
@@ -211,27 +216,37 @@ export default function GridTemplate(): JSX.Element {
   );
 }
 
-function ParallaxColumn({
+const ParallaxColumn = memo(function ParallaxColumn({
   column,
   rootRef,
 }: {
   column: Column;
-  rootRef: React.RefObject<HTMLElement>;
-}): JSX.Element {
+  rootRef: React.RefObject<HTMLDivElement | null>;
+}): React.JSX.Element {
+  const shouldReduceMotion = useReducedMotion();
+
   // Delay parallax start until the row enters deeper into viewport
+  // Using smoother offset for better scroll performance
   const { scrollYProgress } = useScroll({
     target: rootRef,
-    offset: ["start 0.98", "end 1"],
+    offset: ["start 0.95", "end 0.05"],
   });
+
   const y = useTransform(
     scrollYProgress,
     [0, 1],
-    [0, -600 * (column.parallax ?? 0.3)]
+    shouldReduceMotion ? [0, 0] : [0, -600 * (column.parallax ?? 0.3)],
+    {
+      clamp: false, // Allow smooth scrolling without clamping
+    }
   );
 
   return (
     <motion.div
-      style={{ y }}
+      style={{
+        y,
+        willChange: shouldReduceMotion ? "auto" : "transform",
+      }}
       className="w-[120px] md:w-[200px] lg:w-[360px] flex flex-col items-center gap-2 flex-shrink-0"
     >
       {column.items.map((card, i) => (
@@ -239,15 +254,100 @@ function ParallaxColumn({
       ))}
     </motion.div>
   );
-}
-function CardItem({ card }: { card: Card }): JSX.Element {
+});
+const CardItem = memo(function CardItem({
+  card,
+}: {
+  card: Card;
+}): React.JSX.Element {
   const { media } = card;
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Calculate responsive image width based on container size
   // Mobile: 120px, Tablet: 200px, Desktop: 360px
   // Use larger width for better quality on retina displays
   // Default to desktop size for SSR, will be optimized on client
   const imageWidth = 720; // lg: 360px * 2 for retina (default)
+
+  // Optimized video play handler with useCallback
+  const handleVideoPlay = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.readyState >= 2) {
+      // Video has loaded enough data
+      video.play().catch(() => {
+        // Ignore autoplay errors - browser policy
+      });
+    } else {
+      const playOnLoad = () => {
+        video.play().catch(() => {
+          // Ignore autoplay errors
+        });
+      };
+      video.addEventListener("loadeddata", playOnLoad, { once: true });
+      video.addEventListener("canplay", playOnLoad, { once: true });
+    }
+  }, []);
+
+  // Video autoplay with Intersection Observer - optimized for Next.js 16
+  useEffect(() => {
+    if (media.type !== "video" || !videoRef.current || !containerRef.current) {
+      return;
+    }
+
+    const video = videoRef.current;
+    const container = containerRef.current;
+
+    // Intersection Observer callback - optimized with useCallback pattern
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Video is visible, try to play
+          handleVideoPlay();
+        } else {
+          // Video is not visible, pause to save resources
+          video.pause();
+        }
+      });
+    };
+
+    // Intersection Observer with optimized options
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.1, // Trigger when 10% of video is visible
+      rootMargin: "50px", // Start loading slightly before it's fully visible
+    });
+
+    observer.observe(container);
+
+    // Fallback: check if already visible using requestAnimationFrame for better performance
+    const checkVisibility = () => {
+      if (typeof window === "undefined") return;
+
+      requestAnimationFrame(() => {
+        const rect = container.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (isVisible) {
+          handleVideoPlay();
+        }
+      });
+    };
+
+    // Use requestIdleCallback if available, otherwise setTimeout
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      (
+        window as Window & { requestIdleCallback: typeof requestIdleCallback }
+      ).requestIdleCallback(checkVisibility, { timeout: 2000 });
+    } else {
+      setTimeout(checkVisibility, 100);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [media.type, media.src, handleVideoPlay]);
 
   return (
     <motion.div
@@ -267,6 +367,7 @@ function CardItem({ card }: { card: Card }): JSX.Element {
     >
       {/* Media Container */}
       <div
+        ref={containerRef}
         className="relative w-[120px] md:w-[200px] lg:w-[360px]"
         style={{
           paddingTop: media.aspect ? `${100 / media.aspect}%` : "100%",
@@ -294,6 +395,7 @@ function CardItem({ card }: { card: Card }): JSX.Element {
             />
           ) : (
             <video
+              ref={videoRef}
               src={r2cdn(media.src, undefined, undefined)}
               poster={
                 media.poster ? cdn(media.poster, imageWidth, 80) : undefined
@@ -301,6 +403,7 @@ function CardItem({ card }: { card: Card }): JSX.Element {
               playsInline
               loop
               muted
+              preload="metadata"
               autoPlay
               style={{
                 width: "100%",
@@ -328,4 +431,4 @@ function CardItem({ card }: { card: Card }): JSX.Element {
       </div>
     </motion.div>
   );
-}
+});

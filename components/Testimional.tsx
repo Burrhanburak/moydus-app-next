@@ -80,12 +80,13 @@ const rightCol: Testimonial[] = [
 
 function Card({ t }: { t: Testimonial }) {
   // Check if avatar is already a full URL (external) or a path (internal)
-  const avatarSrc = t.avatar.startsWith("http://") || t.avatar.startsWith("https://")
-    ? t.avatar // External URL - use directly
-    : cdn(t.avatar, 40, 75); // Internal path - use CDN helper
-  
+  const avatarSrc =
+    t.avatar.startsWith("http://") || t.avatar.startsWith("https://")
+      ? t.avatar // External URL - use directly
+      : cdn(t.avatar, 40, 75); // Internal path - use CDN helper
+
   return (
-    <div className="w-full rounded-[15px] border border-[#262626] bg-[#0a0a0a] hover:bg-[#0f0f0f] transition-colors">
+    <div className="w-full rounded-[15px] border border-white/5 bg-[#0a0a0a] hover:bg-[#0f0f0f] transition-colors">
       <div className="p-4">
         <div className="flex items-center gap-3">
           <div className="size-10 rounded-full overflow-hidden relative flex-shrink-0">

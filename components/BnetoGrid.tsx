@@ -84,7 +84,7 @@ function OneFlowCard() {
   return (
     <motion.div
       variants={cardVariants}
-      className="bg-[#000000] flex flex-col gap-6 overflow-hidden rounded-xl py-6 border border-[#262626]"
+      className="bg-[#000000] flex flex-col gap-6 overflow-hidden rounded-xl py-6 border-white/5"
     >
       <div className="flex h-[246px] items-end justify-center">
         <div className="w-full max-w-[280px] space-y-4">
@@ -203,7 +203,7 @@ function ColorContrastCard() {
   return (
     <motion.div
       variants={cardVariants}
-      className="bg-[#000000] flex flex-col gap-6 overflow-hidden rounded-xl py-6 border border-[#262626] md:max-lg:flex-row flex-1 sm:col-span-2"
+      className="bg-[#000000] flex flex-col gap-6 overflow-hidden rounded-xl py-6 border-white/5 md:max-lg:flex-row flex-1 sm:col-span-2"
     >
       <div className="flex-1">
         <div className="bg-[#000000] flex flex-col rounded-xl py-6 h-full justify-between gap-12 overflow-hidden border-0 pb-0 shadow-none md:gap-8">
@@ -269,7 +269,7 @@ function ColorContrastCard() {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8 }}
                   >
-                    <div className="overflow-hidden rounded-lg border border-[#262626]">
+                    <div className="overflow-hidden rounded-lg border-white/5">
                       <div className="flex items-center justify-between border-b border-[#262626] px-4 py-2">
                         <h3 className="text-sm font-medium text-white">
                           {card.device}
@@ -477,7 +477,7 @@ function TargetedVisibilityCard() {
   return (
     <motion.div
       variants={cardVariants}
-      className="bg-[#000000] flex flex-col rounded-xl border border-[#262626] py-6 h-full gap-0 pt-0 shadow-none"
+      className="bg-[#000000] flex flex-col rounded-xl border-white/5 py-6 h-full gap-0 pt-0 shadow-none"
     >
       <div className="relative flex h-full justify-center">
         {/* Concentric Circles */}
@@ -589,7 +589,7 @@ function SimplifyProductCard() {
   return (
     <motion.div
       variants={cardVariants}
-      className="bg-[#000000] flex flex-col gap-6 overflow-hidden rounded-xl pb-6 border border-[#262626]"
+      className="bg-[#000000] flex flex-col gap-6 overflow-hidden rounded-xl pb-6 border-white/5"
     >
       <div className="relative min-h-[284px] flex-1">
         {/* Video Background */}
@@ -678,7 +678,7 @@ function PickToolCard() {
   return (
     <motion.div
       variants={cardVariants}
-      className="bg-[#000000] group flex flex-col gap-6 overflow-hidden rounded-xl py-6 border border-[#262626] max-lg:order-1"
+      className="bg-[#000000] group flex flex-col gap-6 overflow-hidden rounded-xl py-6 border-white/5 max-lg:order-1"
     >
       <div className="relative h-[246px] overflow-hidden">
         <svg
@@ -794,7 +794,7 @@ export default function BentoGrid() {
         {/* Secure access */}
         <motion.div
           variants={cardVariants}
-          className="bg-black border border-white/10 flex flex-col gap-6 overflow-hidden rounded-xl py-6"
+          className="bg-black border border-white/5 flex flex-col gap-6 overflow-hidden rounded-xl py-6"
         >
           <div className="relative h-61.5">
             <div className="absolute top-1/2 left-1/2 grid size-[168px] -translate-x-1/2 -translate-y-1/2 place-content-center bg-[radial-gradient(rgba(0,0,0,0.4)_40%,transparent_90%)]">
@@ -896,7 +896,7 @@ export default function BentoGrid() {
 
         {/* Build things with simple prompt */}
         <motion.div
-          className="bg-[#000000] flex flex-col overflow-hidden rounded-xl pb-6 border border-[#262626]"
+          className="bg-[#000000] flex flex-col overflow-hidden rounded-xl pb-6 border-white/5"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1, margin: "-50px" }}
@@ -1007,7 +1007,7 @@ export default function BentoGrid() {
         {/* Voice assistant */}
         <motion.div
           variants={cardVariants}
-          className="bg-black border border-white/10 flex flex-col gap-6 overflow-hidden rounded-xl py-6"
+          className="bg-black border border-white/5 flex flex-col gap-6 overflow-hidden rounded-xl py-6"
         >
           <div className="flex h-61.5 flex-1 items-center justify-center">
             <div className="relative flex w-full max-w-50 flex-col items-center gap-3">

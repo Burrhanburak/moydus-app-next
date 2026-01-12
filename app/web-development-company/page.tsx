@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { JsonLd } from "@/seo/json-ld";
 import ScrollNarrator from "@/components/ScrollNarrator";
 import {
@@ -20,6 +21,7 @@ import {
   ArrowRight,
   Globe,
 } from "lucide-react";
+import { cdn } from "@/lib/cdn";
 
 export const metadata: Metadata = {
   title: "Web Development Company – Custom Website Development Services | Moydus",
@@ -225,6 +227,25 @@ export default function WebDevelopmentCompanyPage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
+        </div>
+
+        {/* Featured Image */}
+        <div className="w-full aspect-video rounded-2xl overflow-hidden bg-[#000000] mb-8 md:mb-12">
+          <Image
+            src={cdn("/web-development-company/hero.jpg", 1920, 90) || "/web-development-company/hero.jpg"}
+            alt="Web Development Company – Custom Website Development Services"
+            width={1920}
+            height={1080}
+            className="w-full h-full object-cover"
+            loading="eager"
+            priority
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              if (!target.src.includes("/web-development-company/hero.jpg")) {
+                target.src = "/web-development-company/hero.jpg";
+              }
+            }}
+          />
         </div>
 
         {/* Services Grid */}
